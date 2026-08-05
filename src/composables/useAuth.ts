@@ -97,7 +97,19 @@ function profileRowToUser(row: Record<string, any>, email?: string): User {
   }
 }
 
-export function provideAuth() {
+export function provideAuth(pick: <T>(english: T, chinese: T) => T) {
+  function friendlyAuthError(message: string): string {
+    if (pick(false, true) === false) return message
+    const exact: Record<string, string> = {
+      'Invalid login credentials': '邮箱或密码错误',
+      'Email not confirmed': '邮箱尚未确认，请先检查确认邮件',
+      'User already registered': '该邮箱已注册，请直接登录',
+      'Signup requires a valid password': '请输入有效密码',
+      'Password should be at least 6 characters.': '密码至少需要 6 个字符',
+      'Unable to validate email address: invalid format': '邮箱格式无效',
+    }
+    return exact[message] || message
+  }
   async function fetchMe() {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session) return
@@ -146,12 +158,12 @@ export function provideAuth() {
         emailRedirectTo: import.meta.env.VITE_SITE_URL || window.location.origin,
       },
     })
-    if (signUpError) { error.value = signUpError.message; return false }
-    if (!authData.user) { error.value = 'Registration failed'; return false }
+    if (signUpError) { error.value = friendlyAuthError(signUpError.message); return false }
+    if (!authData.user) { error.value = pick('Registration failed', '注册失败'); return false }
 
     // Supabase 的"安全"行为：邮箱已注册时返回 user 但 identities 为空，不发邮件
     if (Array.isArray(authData.user.identities) && authData.user.identities.length === 0) {
-      error.value = 'This email is already registered. Please login instead, or use Forgot Password if you lost access.'
+      error.value = pick('This email is already registered. Please login instead, or use Forgot Password if you lost access.', '该邮箱已注册。请直接登录；如果忘记密码，请使用“忘记密码”重置。')
       return false
     }
 
@@ -188,7 +200,7 @@ export function provideAuth() {
   async function login(email: string, password: string): Promise<boolean> {
     error.value = ''
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
-    if (signInError) { error.value = signInError.message; return false }
+    if (signInError) { error.value = friendlyAuthError(signInError.message); return false }
     await fetchMe()
     if (user.value && !user.value.passwordChanged) {
       showChangePasswordModal.value = true
@@ -201,14 +213,14 @@ export function provideAuth() {
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: import.meta.env.VITE_SITE_URL || window.location.origin,
     })
-    if (resetError) { error.value = resetError.message; return false }
+    if (resetError) { error.value = friendlyAuthError(resetError.message); return false }
     return true
   }
 
   async function changePassword(newPassword: string): Promise<boolean> {
     error.value = ''
     const { error: updateErr } = await supabase.auth.updateUser({ password: newPassword })
-    if (updateErr) { error.value = updateErr.message; return false }
+    if (updateErr) { error.value = friendlyAuthError(updateErr.message); return false }
     if (user.value) {
       await supabase.from('profiles').update({ password_changed: true }).eq('id', user.value.id)
       user.value.passwordChanged = true
@@ -243,7 +255,7 @@ export function provideAuth() {
       confirmed_attendance: data.confirmedAttendance,
       team_id: data.teamId,
     }).eq('id', user.value.id)
-    if (updateError) { error.value = updateError.message; return false }
+    if (updateError) { error.value = friendlyAuthError(updateError.message); return false }
     await fetchMe()
     return true
   }

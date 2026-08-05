@@ -1,5 +1,5 @@
 export default {
-  nav: { about: '关于', themes: '赛题', schedule: '赛程', awards: '奖项', judging: '评审', teams: '队伍', faq: '常见问题', applyNow: '立即报名' },
+  nav: { vision: '愿景', rules: '规则', about: '关于', themes: '赛题', schedule: '赛程', awards: '奖项', judging: '评审', teams: '队伍', faq: '常见问题', applyNow: '立即报名' },
   hero: {
     eyebrow: 'OAIC 开放智能体产业联盟 主办', organizer: 'OAIC 开放智能体产业联盟 主办', tagline: '需求即源代码',
     system: '软件工厂 × AGENTOS',

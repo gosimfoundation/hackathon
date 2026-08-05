@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { supabase } from '../lib/supabase'
+import { useI18n } from '../composables/useI18n'
 
 const authed = ref(false)
+const { pick } = useI18n()
 const passInput = ref('')
 const rows = ref<any[]>([])
 const loading = ref(false)
@@ -19,7 +21,7 @@ async function checkPass() {
     authed.value = true
     await loadData()
   } else {
-    alert('Wrong password')
+    alert(pick('Wrong password', '密码错误'))
   }
 }
 
@@ -60,19 +62,19 @@ function exportJSON() {
 <template>
   <div class="min-h-screen bg-gray-950 text-white flex flex-col items-center py-20 px-4">
     <div v-if="!authed" class="w-full max-w-sm mt-20">
-      <h1 class="text-2xl font-bold mb-6 text-center">Export — Team Members</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center">{{ pick('Export — Team Members', '导出队伍成员') }}</h1>
       <form @submit.prevent="checkPass" class="space-y-4">
-        <input v-model="passInput" type="password" placeholder="Admin password" autofocus
+        <input v-model="passInput" type="password" :placeholder="pick('Admin password', '管理员密码')" autofocus
           class="w-full px-4 py-3 bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:border-amber-500 focus:outline-none" />
-        <button type="submit" class="w-full py-3 bg-gray-800 text-white font-bold uppercase tracking-widest hover:bg-gray-700 transition-colors">Enter</button>
+        <button type="submit" class="w-full py-3 bg-gray-800 text-white font-bold uppercase tracking-widest hover:bg-gray-700 transition-colors">{{ pick('Enter', '进入') }}</button>
       </form>
     </div>
 
     <div v-else class="w-full max-w-4xl">
       <div class="flex items-center justify-between mb-6">
         <div>
-          <h1 class="text-2xl font-bold">Team Members</h1>
-          <p class="text-sm text-gray-500">{{ rows.length }} people in teams</p>
+          <h1 class="text-2xl font-bold">{{ pick('Team Members', '队伍成员') }}</h1>
+          <p class="text-sm text-gray-500">{{ rows.length }} {{ pick('people in teams', '人已加入队伍') }}</p>
         </div>
         <div class="flex gap-3">
           <button @click="exportCSV" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-sm font-bold uppercase tracking-widest transition-colors">CSV</button>
@@ -80,15 +82,15 @@ function exportJSON() {
         </div>
       </div>
 
-      <div v-if="loading" class="text-gray-500 text-center py-12">Loading...</div>
+      <div v-if="loading" class="text-gray-500 text-center py-12">{{ pick('Loading...', '加载中……') }}</div>
       <table v-else class="w-full text-sm">
         <thead>
           <tr class="text-left text-xs text-gray-500 uppercase border-b border-gray-800">
             <th class="py-3 px-3">#</th>
-            <th class="py-3 px-3">Name</th>
-            <th class="py-3 px-3">Email</th>
-            <th class="py-3 px-3">Team</th>
-            <th class="py-3 px-3">Model</th>
+            <th class="py-3 px-3">{{ pick('Name', '姓名') }}</th>
+            <th class="py-3 px-3">{{ pick('Email', '邮箱') }}</th>
+            <th class="py-3 px-3">{{ pick('Team', '队伍') }}</th>
+            <th class="py-3 px-3">{{ pick('Model', '模型') }}</th>
           </tr>
         </thead>
         <tbody>

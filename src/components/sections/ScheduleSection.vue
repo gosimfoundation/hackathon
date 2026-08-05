@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const rounds = computed(() => t('schedule.rounds') as any[])
 </script>
 
@@ -10,7 +10,7 @@ const rounds = computed(() => t('schedule.rounds') as any[])
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
         <div class="reveal">
-          <span class="section-kicker">08 / Timeline</span>
+          <span class="section-kicker">{{ pick('08 / Timeline', '08 / 时间线') }}</span>
           <h2 class="section-title mt-8">{{ t('schedule.title') }}</h2>
           <p class="mt-8 max-w-lg leading-relaxed text-text-secondary">{{ t('schedule.intro') }}</p>
         </div>

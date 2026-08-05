@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import confetti from 'canvas-confetti'
+import { useI18n } from '../../composables/useI18n'
+
+const { pick } = useI18n()
 
 // ============ 6. Scroll progress bar ============
 const scrollProgress = ref(0)
@@ -155,7 +158,7 @@ onUnmounted(() => {
 
   <!-- Konami flash -->
   <div v-if="konamiActive" class="fx-konami-flash">
-    <div class="fx-konami-text">⚡ DEVELOPER MODE ⚡</div>
+    <div class="fx-konami-text">⚡ {{ pick('DEVELOPER MODE', '开发者模式') }} ⚡</div>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const participants = computed(() => t('who.participants') as any[])
 </script>
 
@@ -10,7 +10,7 @@ const participants = computed(() => t('who.participants') as any[])
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
         <div class="reveal">
-          <span class="section-kicker">05 / Builders</span>
+          <span class="section-kicker">{{ pick('05 / Builders', '05 / 建造者') }}</span>
           <h2 class="section-title mt-8">{{ t('who.title') }} {{ t('who.titleAccent') }}</h2>
           <p class="mt-8 max-w-xl text-base leading-relaxed text-text-secondary">{{ t('who.desc_prefix') }}<strong class="text-text-primary">{{ t('who.desc_bold') }}</strong>{{ t('who.desc_suffix') }}</p>
         </div>

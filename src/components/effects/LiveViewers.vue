@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { supabase } from '../../lib/supabase'
+import { useI18n } from '../../composables/useI18n'
 
 const count = ref(0)
+const { pick } = useI18n()
 let channel: ReturnType<typeof supabase.channel> | null = null
 
 function generateAnonId() {
@@ -41,7 +43,7 @@ onUnmounted(() => {
       <span class="live-viewers__dot-core"></span>
     </span>
     <span class="live-viewers__count tabular-nums">{{ count }}</span>
-    <span class="live-viewers__label">viewing now</span>
+    <span class="live-viewers__label">{{ pick('viewing now', '人正在浏览') }}</span>
   </div>
 </template>
 

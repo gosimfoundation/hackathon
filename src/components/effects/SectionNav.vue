@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import { useRoute } from 'vue-router'
 
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const route = useRoute()
 
 const sections = computed(() => [
@@ -56,7 +56,7 @@ const visible = computed(() => route.path === '/')
 </script>
 
 <template>
-  <nav v-if="visible" class="section-nav" aria-label="Section navigation">
+  <nav v-if="visible" class="section-nav" :aria-label="pick('Section navigation', '页面章节导航')">
     <a
       v-for="s in sections"
       :key="s.id"

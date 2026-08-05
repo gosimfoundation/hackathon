@@ -3,10 +3,12 @@ import { ref, computed, watch } from 'vue'
 import { useAuth } from '../../composables/useAuth'
 import { useTeams } from '../../composables/useTeams'
 import { useRoute } from 'vue-router'
+import { useI18n } from '../../composables/useI18n'
 
 const { user, isLoggedIn } = useAuth()
 const { teams, editTeam } = useTeams()
 const route = useRoute()
+const { pick: localize } = useI18n()
 const isHome = computed(() => route.path === '/')
 
 const dismissed = ref(false)
@@ -50,13 +52,13 @@ watch(() => user.value?.id, () => {
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" />
         <div class="relative w-full max-w-lg bg-bg-primary border border-accent/30 shadow-2xl p-6">
           <button @click="dismiss" class="absolute top-3 right-3 text-text-muted hover:text-text-primary text-xs uppercase tracking-widest">
-            Later
+            {{ localize('Later', '稍后处理') }}
           </button>
           <div class="text-center mb-5">
-            <div class="inline-block px-3 py-1 bg-accent/20 text-accent text-[10px] font-bold tracking-widest uppercase rounded mb-3">Action needed</div>
-            <h2 class="text-xl font-bold text-text-primary mb-2">Pick your open-source model</h2>
+            <div class="inline-block px-3 py-1 bg-accent/20 text-accent text-[10px] font-bold tracking-widest uppercase rounded mb-3">{{ localize('Action needed', '需要处理') }}</div>
+            <h2 class="text-xl font-bold text-text-primary mb-2">{{ localize('Pick your open-source model', '选择开源模型') }}</h2>
             <p class="text-sm text-text-secondary">
-              Your team <strong>{{ myLedTeam?.name }}</strong> has not selected one yet. Organizer-issued tokens are accessed through the unified gateway.
+              {{ localize('Your team', '你的队伍') }} <strong>{{ myLedTeam?.name }}</strong> {{ localize('has not selected one yet. Organizer-issued tokens are accessed through the unified gateway.', '尚未选择模型。组织方提供的 Token 将通过统一网关使用。') }}
             </p>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
@@ -65,8 +67,8 @@ watch(() => user.value?.id, () => {
               <div class="text-base font-bold mb-1" :style="{ color: m.color }">{{ m.id }}</div>
             </button>
           </div>
-          <p v-if="justSaved" class="text-center text-sm text-emerald-400">Saved!</p>
-          <p class="text-[11px] text-text-muted text-center">You can change this anytime from your team page.</p>
+          <p v-if="justSaved" class="text-center text-sm text-emerald-400">{{ localize('Saved!', '已保存！') }}</p>
+          <p class="text-[11px] text-text-muted text-center">{{ localize('You can change this anytime from your team page.', '之后可以随时在队伍页面修改。') }}</p>
         </div>
       </div>
     </Transition>

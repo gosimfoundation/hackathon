@@ -3,8 +3,10 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../composables/useAuth'
 import { useTeams } from '../../composables/useTeams'
+import { useI18n } from '../../composables/useI18n'
 
 const { user, isLoggedIn } = useAuth()
+const { pick } = useI18n()
 const { teams, inviteToTeam, sentInvitations, error: teamsError } = useTeams()
 
 const visible = ref(false)
@@ -39,11 +41,11 @@ async function handleInvite(p: any) {
   const inviteId = await inviteToTeam(myLedTeam.value.id, p.id, inviteMessage.value.trim())
   inviting.value = false
   if (inviteId) {
-    inviteToast.value = `Invited ${p.name || 'builder'} to ${myLedTeam.value.name}`
+    inviteToast.value = pick(`Invited ${p.name || 'builder'} to ${myLedTeam.value.name}`, `已邀请 ${p.name || '该建造者'} 加入 ${myLedTeam.value.name}`)
     inviteMessage.value = ''
     setTimeout(() => (inviteToast.value = ''), 2500)
   } else {
-    inviteToast.value = teamsError.value || 'Invite failed'
+    inviteToast.value = teamsError.value || pick('Invite failed', '邀请发送失败')
     setTimeout(() => (inviteToast.value = ''), 3500)
   }
 }
@@ -77,6 +79,22 @@ const allRoles = computed(() => {
   profiles.value.forEach(p => { if (p.role) roles.add(p.role) })
   return Array.from(roles).sort()
 })
+
+function roleLabel(role?: string): string {
+  const labels: Record<string, string> = {
+    'AI Engineer': 'AI 工程师',
+    'Full-Stack Developer': '全栈开发者',
+    'Frontend Developer': '前端开发者',
+    'Backend Developer': '后端开发者',
+    Researcher: '研究者',
+    Designer: '设计师',
+    'Product Manager': '产品经理',
+    Student: '学生',
+    'Startup Founder': '创业者',
+    Other: '其他',
+  }
+  return role ? pick(role, labels[role] || role) : ''
+}
 
 const filtered = computed(() => {
   let list = profiles.value
@@ -127,10 +145,10 @@ onUnmounted(() => { if (observer) observer.disconnect() })
       v-if="visible"
       @click="open"
       class="builders-fab"
-      title="Browse all builders"
+      :title="pick('Browse all builders', '浏览全部建造者')"
     >
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-      <span class="builders-fab__text">BROWSE ALL BUILDERS</span>
+      <span class="builders-fab__text">{{ pick('BROWSE ALL BUILDERS', '浏览全部建造者') }}</span>
       <span class="builders-fab__count tabular-nums">{{ profiles.length || '·' }}</span>
     </button>
   </Transition>
@@ -144,8 +162,8 @@ onUnmounted(() => { if (observer) observer.disconnect() })
           <!-- Header -->
           <div class="flex items-center justify-between p-6 border-b border-border shrink-0">
             <div>
-              <h2 class="text-xl font-bold text-text-primary">All Builders</h2>
-              <p class="text-xs text-text-muted mt-1">{{ filtered.length }} of {{ profiles.length }} builders</p>
+              <h2 class="text-xl font-bold text-text-primary">{{ pick('All Builders', '全部建造者') }}</h2>
+              <p class="text-xs text-text-muted mt-1">{{ pick(`${filtered.length} of ${profiles.length} builders`, `共 ${profiles.length} 人，当前显示 ${filtered.length} 人`) }}</p>
             </div>
             <button @click="showModal = false" class="text-text-secondary hover:text-text-primary">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -157,28 +175,28 @@ onUnmounted(() => { if (observer) observer.disconnect() })
             <input
               v-model="search"
               type="text"
-              placeholder="Search by name, role, or capability..."
+              :placeholder="pick('Search by name, role, or capability...', '按姓名、角色或能力域搜索……')"
               class="flex-1 px-4 py-2 bg-input-bg border border-input-border text-text-primary placeholder-text-muted text-sm focus:border-accent focus:outline-none"
             />
             <select v-model="filterRole" class="px-4 py-2 bg-input-bg border border-input-border text-text-primary text-sm focus:border-accent focus:outline-none">
-              <option value="">All Roles</option>
-              <option v-for="r in allRoles" :key="r" :value="r">{{ r }}</option>
+              <option value="">{{ pick('All Roles', '全部角色') }}</option>
+              <option v-for="r in allRoles" :key="r" :value="r">{{ roleLabel(r) }}</option>
             </select>
           </div>
 
           <!-- Builders grid -->
           <div class="flex-1 overflow-y-auto p-4">
-            <div v-if="loading" class="text-center text-text-muted py-12">Loading...</div>
-            <div v-else-if="filtered.length === 0" class="text-center text-text-muted py-12">No builders found.</div>
+            <div v-if="loading" class="text-center text-text-muted py-12">{{ pick('Loading...', '加载中……') }}</div>
+            <div v-else-if="filtered.length === 0" class="text-center text-text-muted py-12">{{ pick('No builders found.', '没有找到符合条件的建造者。') }}</div>
             <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               <div v-for="p in filtered" :key="p.id" @click="selected = p" class="bg-bg-secondary border border-border-subtle p-4 hover:border-accent/50 hover:bg-bg-elevated transition-colors flex flex-col cursor-pointer">
                 <div class="flex items-start gap-3 mb-2">
                   <img :src="userAvatar(p)" :alt="p.name" class="w-12 h-12 rounded-full object-cover border border-border shrink-0" />
                   <div class="min-w-0 flex-1">
                     <h3 class="text-sm font-semibold text-text-primary truncate">{{ p.name }}</h3>
-                    <p v-if="p.role" class="text-xs text-text-secondary truncate">{{ p.role }}</p>
-                    <span v-if="p.team_id" class="inline-block mt-1 px-1.5 py-0.5 text-[9px] bg-green-900/40 text-green-400 rounded">In team</span>
-                    <span v-else-if="p.looking_for_team" class="inline-block mt-1 px-1.5 py-0.5 text-[9px] bg-amber-900/40 text-amber-400 rounded">Looking for team</span>
+                    <p v-if="p.role" class="text-xs text-text-secondary truncate">{{ roleLabel(p.role) }}</p>
+                    <span v-if="p.team_id" class="inline-block mt-1 px-1.5 py-0.5 text-[9px] bg-green-900/40 text-green-400 rounded">{{ pick('In team', '已加入队伍') }}</span>
+                    <span v-else-if="p.looking_for_team" class="inline-block mt-1 px-1.5 py-0.5 text-[9px] bg-amber-900/40 text-amber-400 rounded">{{ pick('Looking for team', '正在寻找队伍') }}</span>
                   </div>
                 </div>
                 <p v-if="p.bio" class="text-xs text-text-muted mb-2 line-clamp-2">{{ p.bio }}</p>
@@ -229,34 +247,34 @@ onUnmounted(() => { if (observer) observer.disconnect() })
             <div class="flex flex-col items-center text-center mb-6">
               <img :src="userAvatar(selected)" :alt="selected.name" class="w-24 h-24 rounded-full object-cover border-2 border-border mb-3" />
               <h3 class="text-xl font-bold text-text-primary">{{ selected.name }}</h3>
-              <p v-if="selected.role" class="text-sm text-text-secondary mt-1">{{ selected.role }}</p>
+              <p v-if="selected.role" class="text-sm text-text-secondary mt-1">{{ roleLabel(selected.role) }}</p>
               <div class="flex gap-2 mt-2">
-                <span v-if="selected.team_id" class="px-2 py-0.5 text-[10px] bg-green-900/40 text-green-400 rounded font-semibold">IN TEAM</span>
-                <span v-else-if="selected.looking_for_team" class="px-2 py-0.5 text-[10px] bg-amber-900/40 text-amber-400 rounded font-semibold">LOOKING FOR TEAM</span>
+                <span v-if="selected.team_id" class="px-2 py-0.5 text-[10px] bg-green-900/40 text-green-400 rounded font-semibold">{{ pick('IN TEAM', '已加入队伍') }}</span>
+                <span v-else-if="selected.looking_for_team" class="px-2 py-0.5 text-[10px] bg-amber-900/40 text-amber-400 rounded font-semibold">{{ pick('LOOKING FOR TEAM', '正在寻找队伍') }}</span>
               </div>
             </div>
 
             <!-- Bio -->
             <div v-if="selected.bio" class="mb-5">
-              <p class="text-xs text-text-muted uppercase tracking-wider mb-2">Bio</p>
+              <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Bio', '个人简介') }}</p>
               <p class="text-sm text-text-secondary whitespace-pre-line">{{ selected.bio }}</p>
             </div>
 
             <!-- Invite to my team (leader only) -->
             <div v-if="canInvite && selected.id !== user?.id" class="mb-5 p-4 border border-accent/30 bg-accent/5 rounded">
-              <p class="text-xs text-accent uppercase tracking-wider mb-2 font-semibold">Invite to {{ myLedTeam?.name }}</p>
+              <p class="text-xs text-accent uppercase tracking-wider mb-2 font-semibold">{{ pick('Invite to', '邀请加入') }} {{ myLedTeam?.name }}</p>
               <template v-if="isAlreadyOnMyTeam(selected.id)">
-                <p class="text-xs text-text-muted">Already on your team.</p>
+                <p class="text-xs text-text-muted">{{ pick('Already on your team.', '对方已经在你的队伍中。') }}</p>
               </template>
               <template v-else-if="isAlreadyInvitedByMe(selected.id)">
-                <p class="text-xs text-amber-400">Invitation already pending.</p>
+                <p class="text-xs text-amber-400">{{ pick('Invitation already pending.', '邀请已发送，正在等待对方处理。') }}</p>
               </template>
               <template v-else>
-                <textarea v-model="inviteMessage" rows="2" placeholder="Optional message..."
+                <textarea v-model="inviteMessage" rows="2" :placeholder="pick('Optional message...', '附言（选填）……')"
                   class="w-full px-3 py-2 mb-2 bg-input-bg border border-input-border text-text-primary placeholder-text-muted text-xs focus:border-accent focus:outline-none" />
                 <button @click="handleInvite(selected)" :disabled="inviting"
                   class="w-full py-2 bg-btn-bg text-btn-text text-xs font-bold uppercase tracking-widest hover:bg-btn-hover disabled:opacity-50 transition-colors">
-                  {{ inviting ? 'Sending...' : 'Send Invite' }}
+                  {{ inviting ? pick('Sending...', '正在发送……') : pick('Send Invite', '发送邀请') }}
                 </button>
                 <p v-if="inviteToast" class="text-[11px] text-emerald-400 text-center mt-2">{{ inviteToast }}</p>
               </template>
@@ -264,7 +282,7 @@ onUnmounted(() => { if (observer) observer.disconnect() })
 
             <!-- Capability domains -->
             <div v-if="selected.themes?.length" class="mb-5">
-              <p class="text-xs text-text-muted uppercase tracking-wider mb-2">Capability Domains</p>
+              <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Capability Domains', '能力域') }}</p>
               <div class="flex flex-wrap gap-1.5">
                 <span v-for="t in selected.themes" :key="t" class="px-2 py-1 text-xs bg-accent/10 text-accent rounded">{{ t }}</span>
               </div>
@@ -296,7 +314,7 @@ onUnmounted(() => { if (observer) observer.disconnect() })
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                 <span class="truncate">{{ selected.website }}</span>
               </a>
-              <p v-if="!selected.github_id && !selected.discord && !selected.twitter && !selected.telegram && !selected.linkedin && !selected.website" class="text-xs text-text-muted text-center italic">No public contact info shared.</p>
+              <p v-if="!selected.github_id && !selected.discord && !selected.twitter && !selected.telegram && !selected.linkedin && !selected.website" class="text-xs text-text-muted text-center italic">{{ pick('No public contact info shared.', '对方没有公开联系方式。') }}</p>
             </div>
           </div>
         </div>

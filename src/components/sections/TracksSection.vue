@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import { setTeamFilter } from '../../composables/useTeamFilter'
 
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const themeIds: Record<string, string> = {
   '01': 'auth-session',
   '02': 'repository-lifecycle',
@@ -28,7 +28,7 @@ function toggleTheme(number: string) {
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
         <div class="reveal lg:sticky lg:top-28 lg:self-start">
-          <span class="section-kicker">03 / Challenge Map</span>
+          <span class="section-kicker">{{ pick('03 / Challenge Map', '03 / 赛题图谱') }}</span>
           <h2 class="section-title mt-8">{{ t('tracks.title') }}</h2>
           <p class="mt-8 max-w-xl text-sm leading-relaxed text-text-secondary md:text-base">{{ t('tracks.intro') }}</p>
         </div>

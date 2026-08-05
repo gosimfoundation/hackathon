@@ -3,8 +3,10 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { supabase } from '../lib/supabase'
 import QRCode from 'qrcode'
+import { useI18n } from '../composables/useI18n'
 
 const route = useRoute()
+const { pick } = useI18n()
 const userId = route.params.id as string
 const profile = ref<Record<string, any> | null>(null)
 const loading = ref(true)
@@ -13,6 +15,15 @@ const qrDataUrl = ref('')
 function getGitHubAvatar(githubId?: string): string {
   if (!githubId) return ''
   return `https://avatars.githubusercontent.com/${githubId.replace(/^@/, '')}`
+}
+
+function roleLabel(role?: string): string {
+  const labels: Record<string, string> = {
+    'AI Engineer': 'AI 工程师', 'Full-Stack Developer': '全栈开发者', 'Frontend Developer': '前端开发者',
+    'Backend Developer': '后端开发者', Researcher: '研究者', Designer: '设计师', 'Product Manager': '产品经理',
+    Student: '学生', 'Startup Founder': '创业者', Other: '其他',
+  }
+  return role ? pick(role, labels[role] || role) : ''
 }
 
 onMounted(async () => {
@@ -34,24 +45,24 @@ onMounted(async () => {
 <template>
   <div class="min-h-screen bg-bg-primary pt-24 pb-16">
     <div class="max-w-md mx-auto px-6">
-      <div v-if="loading" class="text-center text-text-secondary py-20">Loading...</div>
-      <div v-else-if="!profile" class="text-center text-text-secondary py-20">User not found.</div>
+      <div v-if="loading" class="text-center text-text-secondary py-20">{{ pick('Loading...', '加载中……') }}</div>
+      <div v-else-if="!profile" class="text-center text-text-secondary py-20">{{ pick('User not found.', '未找到该用户。') }}</div>
       <div v-else class="bg-bg-secondary border border-border p-8">
         <div class="flex flex-col items-center text-center mb-6">
           <img :src="profile.avatar || getGitHubAvatar(profile.github_id)" class="w-24 h-24 rounded-full object-cover mb-3 border-2 border-border" />
           <h1 class="text-2xl font-bold text-text-primary">{{ profile.name }}</h1>
-          <p v-if="profile.role" class="text-sm text-text-secondary mt-1">{{ profile.role }}</p>
-          <span v-if="profile.approved" class="inline-block mt-2 px-4 py-1.5 text-sm bg-green-900/30 text-green-400 border border-green-500/30 font-bold tracking-wider">DEMO DAY INVITATION CONFIRMED</span>
-          <span v-if="profile.approved && profile.checked_in" class="inline-block mt-1 px-3 py-0.5 text-[10px] text-text-muted">Checked in at Demo Day</span>
+          <p v-if="profile.role" class="text-sm text-text-secondary mt-1">{{ roleLabel(profile.role) }}</p>
+          <span v-if="profile.approved" class="inline-block mt-2 px-4 py-1.5 text-sm bg-green-900/30 text-green-400 border border-green-500/30 font-bold tracking-wider">{{ pick('DEMO DAY INVITATION CONFIRMED', 'DEMO DAY 邀请已确认') }}</span>
+          <span v-if="profile.approved && profile.checked_in" class="inline-block mt-1 px-3 py-0.5 text-[10px] text-text-muted">{{ pick('Checked in at Demo Day', '已在 Demo Day 签到') }}</span>
         </div>
 
         <div v-if="profile.bio" class="mb-4">
-          <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Bio</p>
+          <p class="text-xs text-text-muted uppercase tracking-wider mb-1">{{ pick('Bio', '个人简介') }}</p>
           <p class="text-sm text-text-secondary">{{ profile.bio }}</p>
         </div>
 
         <div v-if="profile.themes?.length" class="mb-4">
-          <p class="text-xs text-text-muted uppercase tracking-wider mb-2">Capability Domains</p>
+          <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Capability Domains', '能力域') }}</p>
           <div class="flex flex-wrap gap-1">
             <span v-for="theme in profile.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded-full">{{ theme }}</span>
           </div>
@@ -69,9 +80,9 @@ onMounted(async () => {
         </div>
 
         <div v-if="qrDataUrl" class="flex flex-col items-center pt-4 border-t border-border">
-          <p class="text-xs text-text-muted uppercase tracking-wider mb-3">Registration QR Code</p>
+          <p class="text-xs text-text-muted uppercase tracking-wider mb-3">{{ pick('Registration QR Code', '报名二维码') }}</p>
           <img :src="qrDataUrl" class="w-32 h-32" />
-          <p class="text-[10px] text-text-muted mt-2">Scan to open this registration record</p>
+          <p class="text-[10px] text-text-muted mt-2">{{ pick('Scan to open this registration record', '扫码打开这份报名资料') }}</p>
         </div>
       </div>
     </div>

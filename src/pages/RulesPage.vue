@@ -60,7 +60,7 @@ const fairness = computed(() => t('judging.fairness') as any[])
       <section>
         <h2>{{ isEn ? '7. Awards and completion' : '7. 奖项与完赛' }}</h2>
         <p>{{ t('awards.subtitle') }}</p>
-        <p>{{ t('awards.certificate') }}. {{ t('awards.gosimSeat') }}</p>
+        <p>{{ t('awards.certificate') }}{{ isEn ? '. ' : '。' }}{{ t('awards.gosimSeat') }}</p>
       </section>
     </div>
   </article>

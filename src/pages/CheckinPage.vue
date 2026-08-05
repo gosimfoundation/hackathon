@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { supabase } from '../lib/supabase'
+import { useI18n } from '../composables/useI18n'
 
 const authed = ref(false)
+const { pick } = useI18n()
 const passInput = ref('')
 const search = ref('')
 const profiles = ref<any[]>([])
@@ -21,7 +23,7 @@ async function checkPass() {
     authed.value = true
     await loadProfiles()
   } else {
-    alert('Wrong password')
+    alert(pick('Wrong password', '密码错误'))
   }
 }
 
@@ -46,7 +48,7 @@ async function toggleCheckIn(p: any) {
   const newVal = !p.checked_in
   await supabase.from('profiles').update({ checked_in: newVal }).eq('id', p.id)
   p.checked_in = newVal
-  toast.value = `${p.name} — ${newVal ? 'checked in ✓' : 'unchecked'}`
+  toast.value = `${p.name} — ${newVal ? pick('checked in ✓', '已签到 ✓') : pick('unchecked', '已取消签到')}`
   setTimeout(() => (toast.value = ''), 2000)
 }
 
@@ -61,12 +63,12 @@ function avatarUrl(p: any): string {
   <div class="min-h-screen bg-gray-950 text-white">
     <div v-if="!authed" class="flex items-center justify-center min-h-screen px-4">
       <div class="w-full max-w-sm">
-        <h1 class="text-2xl font-bold mb-2 text-center">Check-in</h1>
-        <p class="text-sm text-gray-500 text-center mb-6">For volunteers and staff</p>
+        <h1 class="text-2xl font-bold mb-2 text-center">{{ pick('Check-in', '现场签到') }}</h1>
+        <p class="text-sm text-gray-500 text-center mb-6">{{ pick('For volunteers and staff', '志愿者及工作人员使用') }}</p>
         <form @submit.prevent="checkPass" class="space-y-4">
-          <input v-model="passInput" type="password" placeholder="Password" autofocus
+          <input v-model="passInput" type="password" :placeholder="pick('Password', '密码')" autofocus
             class="w-full px-4 py-3 bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:border-amber-500 focus:outline-none text-lg text-center tracking-widest" />
-          <button type="submit" class="w-full py-3 bg-gray-800 text-white font-bold uppercase tracking-widest hover:bg-gray-700 transition-colors">Enter</button>
+          <button type="submit" class="w-full py-3 bg-gray-800 text-white font-bold uppercase tracking-widest hover:bg-gray-700 transition-colors">{{ pick('Enter', '进入') }}</button>
         </form>
       </div>
     </div>
@@ -74,20 +76,20 @@ function avatarUrl(p: any): string {
     <div v-else class="max-w-2xl mx-auto px-4 py-8">
       <div class="flex items-center justify-between mb-4">
         <div>
-          <h1 class="text-xl font-bold">Check-in</h1>
-          <p class="text-sm text-gray-500">{{ checkedInCount }} / {{ profiles.length }} checked in</p>
+          <h1 class="text-xl font-bold">{{ pick('Check-in', '现场签到') }}</h1>
+          <p class="text-sm text-gray-500">{{ checkedInCount }} / {{ profiles.length }} {{ pick('checked in', '已签到') }}</p>
         </div>
-        <button @click="loadProfiles" class="text-xs text-gray-500 hover:text-white px-3 py-1 border border-gray-700">Refresh</button>
+        <button @click="loadProfiles" class="text-xs text-gray-500 hover:text-white px-3 py-1 border border-gray-700">{{ pick('Refresh', '刷新') }}</button>
       </div>
 
-      <input v-model="search" type="text" placeholder="Search by name or email..."
+      <input v-model="search" type="text" :placeholder="pick('Search by name or email...', '按姓名或邮箱搜索……')"
         class="w-full px-4 py-3 mb-4 bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:border-amber-500 focus:outline-none text-base" autofocus />
 
       <div v-if="toast" class="mb-4 p-3 bg-emerald-900/30 border border-emerald-500/30 text-emerald-400 text-sm text-center">
         {{ toast }}
       </div>
 
-      <div v-if="loading" class="text-center text-gray-500 py-12">Loading...</div>
+      <div v-if="loading" class="text-center text-gray-500 py-12">{{ pick('Loading...', '加载中……') }}</div>
       <div v-else class="space-y-1">
         <button v-for="p in filtered" :key="p.id" @click="toggleCheckIn(p)"
           class="w-full flex items-center gap-3 px-4 py-3 rounded transition-colors text-left"
@@ -98,10 +100,10 @@ function avatarUrl(p: any): string {
           </div>
           <img :src="avatarUrl(p)" class="w-8 h-8 rounded-full object-cover shrink-0" />
           <div class="min-w-0 flex-1">
-            <p class="font-semibold text-sm truncate">{{ p.name || '(no name)' }}</p>
+            <p class="font-semibold text-sm truncate">{{ p.name || pick('(no name)', '（未填写姓名）') }}</p>
             <p class="text-xs text-gray-500 truncate">{{ p.email }}</p>
           </div>
-          <span v-if="p.checked_in" class="text-xs text-emerald-400 font-bold shrink-0">IN</span>
+          <span v-if="p.checked_in" class="text-xs text-emerald-400 font-bold shrink-0">{{ pick('IN', '已到场') }}</span>
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const prizes = computed(() => t('awards.prizes') as any[])
 </script>
 
@@ -10,7 +10,7 @@ const prizes = computed(() => t('awards.prizes') as any[])
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
         <div class="reveal">
-          <span class="section-kicker !text-white/45">06 / Awards</span>
+          <span class="section-kicker !text-white/45">{{ pick('06 / Awards', '06 / 奖项') }}</span>
           <h2 class="mt-8 text-[clamp(3.5rem,8vw,8rem)] font-semibold leading-[.85] tracking-[-.08em]">{{ t('awards.title') }}</h2>
           <p class="mt-8 max-w-md leading-relaxed text-white/55">{{ t('awards.subtitle') }}</p>
         </div>
@@ -29,7 +29,7 @@ const prizes = computed(() => t('awards.prizes') as any[])
       <p class="reveal mt-12 border-b border-white/25 pb-5 text-xl font-medium md:text-3xl">{{ t('awards.pool') }}</p>
       <div class="reveal grid md:grid-cols-3 md:divide-x md:divide-white/25">
         <div class="py-7 md:px-7 md:first:pl-0"><span class="mono-label text-[#dca6b9]">{{ t('awards.allParticipants') }}</span><p class="mt-3 text-sm leading-relaxed text-white/55">{{ t('awards.certificate') }}</p></div>
-        <div class="py-7 md:px-7"><span class="mono-label text-[#dca6b9]">GOSIM Shenzhen</span><p class="mt-3 text-sm leading-relaxed text-white/55">{{ t('awards.gosimSeat') }}</p></div>
+        <div class="py-7 md:px-7"><span class="mono-label text-[#dca6b9]">{{ pick('GOSIM Shenzhen', 'GOSIM 深圳') }}</span><p class="mt-3 text-sm leading-relaxed text-white/55">{{ t('awards.gosimSeat') }}</p></div>
         <div class="py-7 md:px-7"><span class="mono-label text-[#dca6b9]">{{ t('awards.apiCredits') }}</span><p class="mt-3 text-sm leading-relaxed text-white/55">{{ t('awards.fromSponsors') }}</p></div>
       </div>
     </div>

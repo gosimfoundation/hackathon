@@ -8,6 +8,7 @@ type Locale = 'en' | 'zh'
 const I18N_KEY: InjectionKey<{
   locale: Ref<Locale>
   t: (key: string) => any
+  pick: <T>(english: T, chinese: T) => T
   toggleLocale: () => void
 }> = Symbol('i18n')
 
@@ -18,11 +19,22 @@ function getNestedValue(obj: any, path: string): any {
 }
 
 export function provideI18n() {
-  const locale = ref<Locale>('en')
+  const savedLocale = typeof window !== 'undefined' ? window.localStorage.getItem('oaic-locale') : null
+  const locale = ref<Locale>(savedLocale === 'en' || savedLocale === 'zh' ? savedLocale : 'zh')
 
   if (typeof document !== 'undefined') {
     watch(locale, (value) => {
       document.documentElement.lang = value === 'zh' ? 'zh-CN' : 'en'
+      document.title = value === 'zh'
+        ? '2026 OAIC 国际人工智能软件工程训练营、黑客松和大奖赛系列'
+        : '2026 OAIC Harness Engineering Campathon'
+      const description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+      if (description) {
+        description.content = value === 'zh'
+          ? '2026 OAIC 国际人工智能软件工程训练营、黑客松和大奖赛系列——9月1日至10月17日，线上举行，并在深圳 GOSIM 大会迎来终场。'
+          : '2026 OAIC Harness Engineering Campathon and Grand Challenge Series — Sep 1 to Oct 17, online with a finale at GOSIM Shenzhen.'
+      }
+      window.localStorage.setItem('oaic-locale', value)
     }, { immediate: true })
   }
 
@@ -30,12 +42,16 @@ export function provideI18n() {
     return getNestedValue(messages[locale.value], key)
   }
 
+  function pick<T>(english: T, chinese: T): T {
+    return locale.value === 'zh' ? chinese : english
+  }
+
   function toggleLocale() {
     locale.value = locale.value === 'en' ? 'zh' : 'en'
   }
 
-  provide(I18N_KEY, { locale, t, toggleLocale })
-  return { locale, t, toggleLocale }
+  provide(I18N_KEY, { locale, t, pick, toggleLocale })
+  return { locale, t, pick, toggleLocale }
 }
 
 export function useI18n() {

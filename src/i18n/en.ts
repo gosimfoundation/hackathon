@@ -1,5 +1,7 @@
 export default {
   nav: {
+    vision: 'Vision',
+    rules: 'Rules',
     about: 'About',
     themes: 'Challenges',
     schedule: 'Schedule',

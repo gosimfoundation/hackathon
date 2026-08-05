@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const criteria = computed(() => t('judging.criteria') as any[])
 const fairness = computed(() => t('judging.fairness') as any[])
 </script>
@@ -11,7 +11,7 @@ const fairness = computed(() => t('judging.fairness') as any[])
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
         <div class="reveal">
-          <span class="section-kicker">09 / Evaluation</span>
+          <span class="section-kicker">{{ pick('09 / Evaluation', '09 / 评审') }}</span>
           <h2 class="section-title mt-8">{{ t('judging.title') }} {{ t('judging.titleAccent') }}</h2>
           <p class="mt-8 max-w-lg leading-relaxed text-text-secondary">{{ t('judging.desc') }}</p>
         </div>

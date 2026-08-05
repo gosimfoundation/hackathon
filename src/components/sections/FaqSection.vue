@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const openIndex = ref<number | null>(0)
 const faqs = computed(() => t('faq.items') as any[])
 function toggle(i: number) { openIndex.value = openIndex.value === i ? null : i }
@@ -11,7 +11,7 @@ function toggle(i: number) { openIndex.value = openIndex.value === i ? null : i 
   <section id="faq" class="bg-bg-primary py-24 md:py-36">
     <div class="mx-auto grid max-w-[1440px] gap-10 px-6 md:px-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20 xl:px-14">
       <div class="reveal">
-        <span class="section-kicker">11 / FAQ</span>
+        <span class="section-kicker">{{ pick('11 / FAQ', '11 / 常见问题') }}</span>
         <h2 class="section-title mt-8">{{ t('faq.title') }}</h2>
       </div>
       <div class="reveal reveal-delay-1 border-t border-border">

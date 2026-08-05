@@ -3,8 +3,10 @@ import { ref, computed, onMounted } from 'vue'
 import { useAuth } from '../../composables/useAuth'
 import { useTeams } from '../../composables/useTeams'
 import { supabase } from '../../lib/supabase'
+import { useI18n } from '../../composables/useI18n'
 
 const { isLoggedIn } = useAuth()
+const { pick } = useI18n()
 const { myInvitations, teams, users: allProfiles, respondToInvite, fetchInvitations } = useTeams()
 
 const showModal = ref(false)
@@ -26,7 +28,7 @@ async function handleRespond(inviteId: string, accept: boolean) {
   const ok = await respondToInvite(inviteId, accept)
   busyId.value = null
   if (ok) {
-    toast.value = accept ? 'Joined!' : 'Declined'
+    toast.value = accept ? pick('Joined!', '已加入队伍！') : pick('Declined', '已拒绝')
     setTimeout(() => (toast.value = ''), 2000)
     if (enriched.value.length === 0) showModal.value = false
   }
@@ -49,9 +51,9 @@ onMounted(() => {
   <button v-if="isLoggedIn && count > 0 && !showModal"
     @click="showModal = true"
     class="invitations-fab"
-    :title="`${count} pending invitation${count > 1 ? 's' : ''}`">
+    :title="pick(`${count} pending invitation${count > 1 ? 's' : ''}`, `${count} 条待处理邀请`)">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-    <span class="invitations-fab__text">INVITATIONS</span>
+    <span class="invitations-fab__text">{{ pick('INVITATIONS', '队伍邀请') }}</span>
     <span class="invitations-fab__badge">{{ count }}</span>
   </button>
 
@@ -62,8 +64,8 @@ onMounted(() => {
         <div class="relative w-full max-w-lg max-h-[88vh] bg-bg-primary border border-border shadow-2xl flex flex-col" @click.stop>
           <div class="flex items-center justify-between p-5 border-b border-border shrink-0">
             <div>
-              <h2 class="text-lg font-bold text-text-primary">Team Invitations</h2>
-              <p class="text-xs text-text-muted mt-0.5">{{ count }} pending</p>
+              <h2 class="text-lg font-bold text-text-primary">{{ pick('Team Invitations', '队伍邀请') }}</h2>
+              <p class="text-xs text-text-muted mt-0.5">{{ count }} {{ pick('pending', '条待处理') }}</p>
             </div>
             <button @click="showModal = false" class="text-text-secondary hover:text-text-primary">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -71,32 +73,32 @@ onMounted(() => {
           </div>
 
           <div class="flex-1 overflow-y-auto p-4 space-y-3">
-            <div v-if="enriched.length === 0" class="text-center text-text-muted py-8">No pending invitations.</div>
+            <div v-if="enriched.length === 0" class="text-center text-text-muted py-8">{{ pick('No pending invitations.', '暂无待处理邀请。') }}</div>
             <div v-for="inv in enriched" :key="inv.id" class="p-4 bg-bg-secondary border border-border-subtle rounded">
               <div class="flex items-center gap-3 mb-3">
                 <img :src="avatarOf(inv.inviter)" class="w-10 h-10 rounded-full object-cover border border-border" />
                 <div class="min-w-0">
                   <p class="text-sm text-text-primary">
-                    <span class="font-semibold">{{ inv.inviter?.name || 'Someone' }}</span>
-                    invited you to
+                    <span class="font-semibold">{{ inv.inviter?.name || pick('Someone', '有人') }}</span>
+                    {{ pick('invited you to', '邀请你加入') }}
                   </p>
-                  <p class="text-base font-bold text-accent truncate">{{ inv.team?.name || '(team)' }}</p>
+                  <p class="text-base font-bold text-accent truncate">{{ inv.team?.name || pick('(team)', '（队伍）') }}</p>
                 </div>
               </div>
               <p v-if="inv.message" class="text-sm text-text-secondary italic mb-3 pl-3 border-l-2 border-accent/40">"{{ inv.message }}"</p>
               <div v-if="inv.team" class="flex items-center gap-3 text-xs text-text-muted mb-3">
-                <span>{{ inv.team.members?.length || 0 }} members</span>
+                <span>{{ inv.team.members?.length || 0 }} {{ pick('members', '名成员') }}</span>
                 <span v-if="inv.team.model" class="px-1.5 py-0.5 bg-accent/10 text-accent rounded">{{ inv.team.model }}</span>
-                <span v-if="inv.team.locked" class="text-red-400">LOCKED</span>
+                <span v-if="inv.team.locked" class="text-red-400">{{ pick('LOCKED', '已锁定') }}</span>
               </div>
               <div class="flex gap-2">
                 <button @click="handleRespond(inv.id, true)" :disabled="busyId === inv.id"
                   class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-widest disabled:opacity-50">
-                  {{ busyId === inv.id ? 'Joining...' : 'Accept' }}
+                  {{ busyId === inv.id ? pick('Joining...', '正在加入……') : pick('Accept', '接受') }}
                 </button>
                 <button @click="handleRespond(inv.id, false)" :disabled="busyId === inv.id"
                   class="flex-1 py-2 bg-bg-card hover:bg-bg-elevated border border-border text-text-secondary text-xs font-bold uppercase tracking-widest disabled:opacity-50">
-                  Decline
+                  {{ pick('Decline', '拒绝') }}
                 </button>
               </div>
             </div>

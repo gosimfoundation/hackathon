@@ -6,7 +6,7 @@ import { useAuth, type User } from '../../composables/useAuth'
 import { useI18n } from '../../composables/useI18n'
 import { teamFilter } from '../../composables/useTeamFilter'
 
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const { user, isLoggedIn, promptAuth } = useAuth()
 // GitHub avatar helper
 function getGitHubAvatar(githubId?: string): string {
@@ -62,18 +62,18 @@ function showToast(msg: string, type: 'success' | 'error' = 'success') {
 function timeAgo(date: Date | null) {
   if (!date) return ''
   const secs = Math.floor((Date.now() - date.getTime()) / 1000)
-  if (secs < 5) return 'just now'
-  if (secs < 60) return `${secs}s ago`
-  return `${Math.floor(secs / 60)}m ago`
+  if (secs < 5) return pick('just now', '刚刚')
+  if (secs < 60) return pick(`${secs}s ago`, `${secs} 秒前`)
+  return pick(`${Math.floor(secs / 60)}m ago`, `${Math.floor(secs / 60)} 分钟前`)
 }
 
 function timeAgoFromString(iso: string) {
   const d = new Date(iso)
   const secs = Math.floor((Date.now() - d.getTime()) / 1000)
-  if (secs < 60) return 'just now'
-  if (secs < 3600) return `${Math.floor(secs / 60)}m ago`
-  if (secs < 86400) return `${Math.floor(secs / 3600)}h ago`
-  return `${Math.floor(secs / 86400)}d ago`
+  if (secs < 60) return pick('just now', '刚刚')
+  if (secs < 3600) return pick(`${Math.floor(secs / 60)}m ago`, `${Math.floor(secs / 60)} 分钟前`)
+  if (secs < 86400) return pick(`${Math.floor(secs / 3600)}h ago`, `${Math.floor(secs / 3600)} 小时前`)
+  return pick(`${Math.floor(secs / 86400)}d ago`, `${Math.floor(secs / 86400)} 天前`)
 }
 
 // Recent activity for ticker: newest user + newest team
@@ -83,13 +83,13 @@ const recentActivity = computed(() => {
     new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
   ).slice(0, 3)
   for (const u of recentUsers) {
-    if (u.createdAt) events.push({ text: `${u.name} just joined`, time: timeAgoFromString(u.createdAt) })
+    if (u.createdAt) events.push({ text: pick(`${u.name} just joined`, `${u.name} 刚刚加入`), time: timeAgoFromString(u.createdAt) })
   }
   const recentTeams = [...teams.value].sort((a: any, b: any) =>
     new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
   ).slice(0, 2)
   for (const t of recentTeams as any[]) {
-    if (t.createdAt) events.push({ text: `Team "${t.name}" formed`, time: timeAgoFromString(t.createdAt) })
+    if (t.createdAt) events.push({ text: pick(`Team "${t.name}" formed`, `队伍“${t.name}”已成立`), time: timeAgoFromString(t.createdAt) })
   }
   return events.sort((a, b) => a.time.localeCompare(b.time))
 })
@@ -153,13 +153,13 @@ function getTrackLabel(trackId: string) {
   return tracks.value.find(track => track.id === trackId || track.label === trackId)?.label || trackId
 }
 
-const modelOptions: { id: string; label: string; icon?: string }[] = [
+const modelOptions = computed<{ id: string; label: string; icon?: string }[]>(() => [
   { id: 'MiniMax', label: 'MiniMax' },
   { id: 'Kimi', label: 'Kimi' },
   { id: 'GLM', label: 'GLM' },
   { id: 'DeepSeek', label: 'DeepSeek' },
-  { id: 'Other', label: 'Other' },
-]
+  { id: 'Other', label: pick('Other', '其他') },
+])
 
 const avatarPresets: { id: string; label: string; src: string }[] = []
 
@@ -196,8 +196,8 @@ async function uploadTeamAvatar(event: Event) {
     const res = await fetch(`${API_BASE}/api/upload`, { method: 'POST', body: form })
     const data = await res.json()
     if (data.url) teamAvatar.value = `${API_BASE}${data.url}`
-    else showToast(data.error || 'Upload failed', 'error')
-  } catch { showToast('Upload failed', 'error') }
+    else showToast(data.error || pick('Upload failed', '上传失败'), 'error')
+  } catch { showToast(pick('Upload failed', '上传失败'), 'error') }
 }
 
 function resetForm() {
@@ -258,7 +258,7 @@ async function submitCreate() {
   })
   if (ok) {
     showModal.value = false
-    showToast(`Team "${teamName.value}" created! Good luck!`)
+    showToast(pick(`Team "${teamName.value}" created! Good luck!`, `队伍“${teamName.value}”创建成功，祝你们好运！`))
   }
 }
 
@@ -277,7 +277,7 @@ async function submitEdit() {
   })
   if (ok) {
     showModal.value = false
-    showToast(`Team "${teamName.value}" updated!`)
+    showToast(pick(`Team "${teamName.value}" updated!`, `队伍“${teamName.value}”已更新！`))
   }
 }
 
@@ -287,12 +287,12 @@ async function handleJoinTeam(teamId: string, e?: Event) {
   const team = teams.value.find(t => t.id === teamId)
   const ok = await joinTeam(teamId)
   if (ok) {
-    showToast(`Request sent to "${team?.name || 'the team'}". Waiting for leader approval.`)
+    showToast(pick(`Request sent to "${team?.name || 'the team'}". Waiting for leader approval.`, `加入“${team?.name || '该队伍'}”的申请已发送，等待队长审批。`))
     if (viewingTeam.value?.id === teamId) {
       viewingTeam.value = teams.value.find(t => t.id === teamId) || null
     }
   } else {
-    showToast(error.value || 'Failed to send request', 'error')
+    showToast(error.value || pick('Failed to send request', '申请发送失败'), 'error')
   }
 }
 
@@ -303,7 +303,7 @@ function hasPendingRequest(team: Team) {
 async function handleApprove(teamId: string, userId: string) {
   const ok = await approveJoin(teamId, userId)
   if (ok) {
-    showToast('Member approved!')
+    showToast(pick('Member approved!', '已通过成员申请！'))
     viewingTeam.value = teams.value.find(t => t.id === teamId) || null
   }
 }
@@ -311,19 +311,19 @@ async function handleApprove(teamId: string, userId: string) {
 async function handleCancelJoin(teamId: string) {
   const ok = await cancelJoin(teamId)
   if (ok) {
-    showToast('Application cancelled.')
+    showToast(pick('Application cancelled.', '申请已取消。'))
     if (viewingTeam.value?.id === teamId) {
       viewingTeam.value = teams.value.find(t => t.id === teamId) || null
     }
   } else {
-    showToast(error.value || 'Failed to cancel', 'error')
+    showToast(error.value || pick('Failed to cancel', '取消失败'), 'error')
   }
 }
 
 async function handleReject(teamId: string, userId: string) {
   const ok = await rejectJoin(teamId, userId)
   if (ok) {
-    showToast('Request declined.')
+    showToast(pick('Request declined.', '申请已拒绝。'))
     viewingTeam.value = teams.value.find(t => t.id === teamId) || null
   }
 }
@@ -334,29 +334,29 @@ async function handleLeaveTeam() {
   const ok = await leaveTeam(viewingTeam.value.id)
   if (ok) {
     showModal.value = false
-    showToast(`You've left "${name}".`)
+    showToast(pick(`You've left "${name}".`, `你已退出“${name}”。`))
   }
 }
 
 async function handleKickMember(teamId: string, userId: string, userName: string) {
-  if (!confirm(`Remove ${userName} from the team?`)) return
+  if (!confirm(pick(`Remove ${userName} from the team?`, `确定将 ${userName} 移出队伍吗？`))) return
   const ok = await kickMember(teamId, userId)
-  if (ok) showToast(`${userName} removed from team.`)
-  else showToast(error.value || 'Failed to remove member', 'error')
+  if (ok) showToast(pick(`${userName} removed from team.`, `${userName} 已被移出队伍。`))
+  else showToast(error.value || pick('Failed to remove member', '移除成员失败'), 'error')
 }
 
 async function handleDeleteTeam() {
   if (!viewingTeam.value) return
-  if (!confirm(`Disband team "${viewingTeam.value.name}"? All members will be removed and this cannot be undone.`)) return
+  if (!confirm(pick(`Disband team "${viewingTeam.value.name}"? All members will be removed and this cannot be undone.`, `确定解散队伍“${viewingTeam.value.name}”吗？所有成员都会被移除，且此操作无法撤销。`))) return
   const ok = await leaveTeam(viewingTeam.value.id)
   if (ok) {
     showModal.value = false
-    showToast(`Team disbanded.`)
+    showToast(pick('Team disbanded.', '队伍已解散。'))
   }
 }
 
 function getModelIcon(model: string) {
-  return modelOptions.find((o) => o.id === model)?.icon
+  return modelOptions.value.find((o) => o.id === model)?.icon
 }
 
 function canJoin(team: Team) {
@@ -445,7 +445,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
     <div class="max-w-[1440px] mx-auto px-6 md:px-10 xl:px-14">
       <div class="grid gap-8 mb-14 reveal-blur lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
         <div>
-          <span class="section-kicker">07 / Registry</span>
+          <span class="section-kicker">{{ pick('07 / Registry', '07 / 队伍名册') }}</span>
           <h2 class="section-title mt-8">{{ t('teams.title') }} {{ t('teams.titleAccent') }}</h2>
         </div>
         <div class="lg:pt-12">
@@ -453,7 +453,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
           <p class="text-accent mt-4 text-sm font-semibold">{{ t('teams.registerNote') }}</p>
           <p class="text-text-secondary mt-1 text-xs">{{ t('teams.registerWarn') }}</p>
           <div class="flex items-center gap-3 mt-4">
-          <span class="text-xs text-text-secondary">Updated {{ timeAgo(lastUpdated) }}</span>
+          <span class="text-xs text-text-secondary">{{ pick('Updated', '更新于') }} {{ timeAgo(lastUpdated) }}</span>
           <button @click="fetchTeams" class="text-xs text-accent hover:text-text-primary transition-colors flex items-center gap-1">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
             {{ t('teams.refresh') }}
@@ -463,7 +463,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
         <!-- Activity ticker -->
         <div v-if="recentActivity.length" class="flex items-center gap-2 mt-4 text-xs">
           <span class="h-1.5 w-1.5 bg-accent"></span>
-          <span class="text-accent font-mono tracking-wider uppercase text-[9px]">Live Registry</span>
+          <span class="text-accent font-mono tracking-wider uppercase text-[9px]">{{ pick('Live Registry', '实时报名动态') }}</span>
           <Transition mode="out-in" enter-active-class="transition duration-300" enter-from-class="opacity-0 translate-y-1" leave-active-class="transition duration-200" leave-to-class="opacity-0 -translate-y-1">
             <span :key="tickerIndex" class="text-text-secondary">
               {{ recentActivity[tickerIndex]?.text }} · <span class="text-text-muted">{{ recentActivity[tickerIndex]?.time }}</span>
@@ -479,8 +479,8 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
           <span class="text-text-secondary inline-flex items-center gap-1">
             <img :src="tw.fire" class="w-4 h-4" />
             <span class="text-text-primary font-bold tabular-nums">{{ teamsCount }}</span> {{ t('teams.teams') }} ·
-            <span class="text-text-primary font-bold tabular-nums">{{ membersCount }}</span> in teams ·
-            <span class="text-text-primary font-bold tabular-nums">{{ registeredCount }}</span> registered
+            <span class="text-text-primary font-bold tabular-nums">{{ membersCount }}</span> {{ pick('in teams', '已加入队伍') }} ·
+            <span class="text-text-primary font-bold tabular-nums">{{ registeredCount }}</span> {{ pick('registered', '已注册') }}
           </span>
         </div>
         <div class="flex gap-6 mt-6">
@@ -494,13 +494,13 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
       <div class="flex items-center gap-4 flex-wrap mb-12 reveal">
         <template v-if="isLoggedIn">
           <button v-if="userHasTeam()" @click="openMyTeamFromButton" class="px-8 py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors">
-            MY TEAM
+            {{ pick('MY TEAM', '我的队伍') }}
           </button>
           <button v-else @click="openCreateModal" :disabled="isFull" class="px-8 py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             <img v-if="!isFull" :src="tw.rocket" class="w-4 h-4 inline mr-1" />{{ isFull ? t('teams.closedBtn') : t('teams.registerBtn') }}
           </button>
           <button @click="openMyProfile" class="px-8 py-4 border border-border text-text-secondary text-sm font-semibold tracking-widest uppercase hover:text-text-primary hover:border-accent transition-colors">
-            VIEW MY PROFILE
+            {{ pick('VIEW MY PROFILE', '查看我的资料') }}
           </button>
         </template>
         <template v-else>
@@ -512,7 +512,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
       <!-- Filter chips -->
       <div v-if="teamFilter" class="flex items-center gap-2 mb-6 reveal">
-        <span class="text-sm text-text-secondary">Filtered by:</span>
+        <span class="text-sm text-text-secondary">{{ pick('Filtered by:', '当前筛选：') }}</span>
         <button @click="teamFilter = ''" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
           {{ getTrackLabel(teamFilter) }}
           <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -552,7 +552,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
             <div v-for="member in getTeamMembers(team.id)" :key="member.id" @click.stop="openUserProfile(member)" class="flex items-center gap-2 px-3 py-2.5 bg-bg-elevated/60 border border-border-subtle rounded-lg cursor-pointer hover:border-accent/40 transition-colors">
               <img :src="assetUrl(member.avatar) || getGitHubAvatar(member.githubId)" class="w-7 h-7 rounded-full shrink-0 object-cover" />
               <div class="min-w-0">
-                <span v-if="member.id === team.leaderId" class="text-[9px] text-badge-warning-text font-semibold block leading-tight flex items-center gap-0.5"><img :src="tw.crown" class="w-2.5 h-2.5" /> Lead</span>
+                <span v-if="member.id === team.leaderId" class="text-[9px] text-badge-warning-text font-semibold block leading-tight flex items-center gap-0.5"><img :src="tw.crown" class="w-2.5 h-2.5" /> {{ pick('Lead', '队长') }}</span>
                 <span class="text-xs text-text-secondary truncate block">{{ member.name }}</span>
               </div>
             </div>
@@ -562,10 +562,10 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
           <div class="mt-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
               <a v-if="team.githubRepo" :href="team.githubRepo" target="_blank" @click.stop class="inline-flex items-center gap-1 text-[11px] text-text-secondary hover:text-accent transition-colors">
-                <img :src="tw.link" class="w-3.5 h-3.5" /> Repo
+                <img :src="tw.link" class="w-3.5 h-3.5" /> {{ pick('Repo', '仓库') }}
               </a>
               <span v-if="team.locked" class="text-[10px] text-text-muted inline-flex items-center gap-0.5">
-                <img :src="tw.lock" class="w-3 h-3" /> Locked
+                <img :src="tw.lock" class="w-3 h-3" /> {{ pick('Locked', '已锁定') }}
               </span>
             </div>
             <button
@@ -605,9 +605,9 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
               <!-- Not logged in -->
               <div v-if="!isLoggedIn" class="text-center py-8">
-                <p class="text-text-secondary mb-4">Register to create your team</p>
+                <p class="text-text-secondary mb-4">{{ pick('Register to create your team', '注册后即可创建队伍') }}</p>
                 <button @click="showModal = false; promptAuth('register')" class="px-6 py-3 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors">
-                  Register
+                  {{ pick('Register', '注册') }}
                 </button>
               </div>
 
@@ -618,7 +618,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                 <form @submit.prevent="submitCreate" class="space-y-5">
                   <div>
                     <label class="block text-sm text-text-secondary mb-1">{{ t('teams.teamName') }} <span class="text-accent-red">*</span></label>
-                    <input v-model="teamName" type="text" required placeholder="e.g. AgentX" :class="inputClass" />
+                    <input v-model="teamName" type="text" required :placeholder="pick('e.g. AgentX', '例如：AgentX')" :class="inputClass" />
                   </div>
                   <!-- Team Avatar -->
                   <div>
@@ -645,7 +645,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                   </div>
 
                   <div>
-                    <label class="block text-sm text-text-secondary mb-2">{{ t('teams.track') }} <span class="text-text-secondary text-xs">(multi-select)</span></label>
+                    <label class="block text-sm text-text-secondary mb-2">{{ t('teams.track') }} <span class="text-text-secondary text-xs">{{ pick('(multi-select)', '（可多选）') }}</span></label>
                     <div class="grid grid-cols-2 gap-2">
                       <button
                         v-for="track in tracks"
@@ -663,7 +663,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
                   <div>
                     <label class="block text-sm text-text-secondary mb-1">{{ t('teams.aiModels') }}</label>
-                    <p class="text-xs text-badge-warning-text mb-2">Your team will receive API tokens from the model provider you select.</p>
+                    <p class="text-xs text-badge-warning-text mb-2">{{ pick('Your team will receive API tokens from the model provider you select.', '你的队伍将获得所选模型服务商提供的 API Token。') }}</p>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       <button v-for="model in modelOptions" :key="model.id" type="button" @click="selectModel(model.id)" class="flex-1 flex items-center justify-center gap-2 py-3 border transition-all" :class="selectedModel === model.id ? 'bg-accent/10 border-accent/50 text-text-primary' : 'border-border text-text-secondary hover:border-border-hover'">
                         <img v-if="model.icon" :src="model.icon" class="w-5 h-5 rounded-[10px]" />
@@ -682,13 +682,13 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
                   <div>
                     <label class="block text-sm text-text-secondary mb-1">{{ t('teams.projectIdea') }} <span class="text-text-secondary text-xs">{{ t('teams.optional') }}</span></label>
-                    <textarea v-model="projectIdea" rows="2" placeholder="Briefly describe what you plan to build..." :class="[inputClass, 'resize-none']"></textarea>
+                    <textarea v-model="projectIdea" rows="2" :placeholder="pick('Briefly describe what you plan to build...', '简要描述你计划构建的内容……')" :class="[inputClass, 'resize-none']"></textarea>
                   </div>
 
                   <!-- Advanced options toggle -->
                   <button type="button" @click="showAdvanced = !showAdvanced" class="flex items-center gap-1 text-xs text-text-tertiary hover:text-text-secondary transition-colors">
                     <span>{{ showAdvanced ? '▲' : '▼' }}</span>
-                    <span>{{ showAdvanced ? 'Hide advanced options' : 'More options' }}</span>
+                    <span>{{ showAdvanced ? pick('Hide advanced options', '收起高级选项') : pick('More options', '更多选项') }}</span>
                   </button>
 
                   <div v-if="showAdvanced" class="space-y-5">
@@ -715,13 +715,13 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
             <!-- EDIT MODE -->
             <template v-else-if="modalMode === 'edit' && viewingTeam">
-              <h3 class="text-2xl font-bold text-text-primary mb-6">Edit Team</h3>
+              <h3 class="text-2xl font-bold text-text-primary mb-6">{{ pick('Edit Team', '编辑队伍') }}</h3>
               <div v-if="error" class="mb-4 p-3 bg-badge-danger-bg border border-accent-red/30 text-red-600 text-sm">{{ error }}</div>
 
               <form @submit.prevent="submitEdit" class="space-y-5">
                 <div>
                   <label class="block text-sm text-text-secondary mb-1">{{ t('teams.teamName') }} <span class="text-accent-red">*</span></label>
-                  <input v-model="teamName" type="text" required placeholder="e.g. AgentX" :class="inputClass" />
+                  <input v-model="teamName" type="text" required :placeholder="pick('e.g. AgentX', '例如：AgentX')" :class="inputClass" />
                 </div>
                 <!-- Team Avatar -->
                 <div>
@@ -748,7 +748,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                 </div>
 
                 <div>
-                  <label class="block text-sm text-text-secondary mb-2">{{ t('teams.track') }} <span class="text-text-secondary text-xs">(multi-select)</span></label>
+                  <label class="block text-sm text-text-secondary mb-2">{{ t('teams.track') }} <span class="text-text-secondary text-xs">{{ pick('(multi-select)', '（可多选）') }}</span></label>
                   <div class="grid grid-cols-2 gap-2">
                     <button
                       v-for="track in tracks"
@@ -784,13 +784,13 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
                 <div>
                   <label class="block text-sm text-text-secondary mb-1">{{ t('teams.projectIdea') }} <span class="text-text-secondary text-xs">{{ t('teams.optional') }}</span></label>
-                  <textarea v-model="projectIdea" rows="2" placeholder="Briefly describe what you plan to build..." :class="[inputClass, 'resize-none']"></textarea>
+                  <textarea v-model="projectIdea" rows="2" :placeholder="pick('Briefly describe what you plan to build...', '简要描述你计划构建的内容……')" :class="[inputClass, 'resize-none']"></textarea>
                 </div>
 
                 <!-- Advanced options toggle -->
                 <button type="button" @click="showAdvanced = !showAdvanced" class="flex items-center gap-1 text-xs text-text-tertiary hover:text-text-secondary transition-colors">
                   <span>{{ showAdvanced ? '▲' : '▼' }}</span>
-                  <span>{{ showAdvanced ? 'Hide advanced options' : 'More options' }}</span>
+                  <span>{{ showAdvanced ? pick('Hide advanced options', '收起高级选项') : pick('More options', '更多选项') }}</span>
                 </button>
 
                 <div v-if="showAdvanced" class="space-y-5">
@@ -809,7 +809,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                 </div>
 
                 <button type="submit" :disabled="loading" class="w-full py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors disabled:opacity-50">
-                  {{ loading ? 'Saving...' : 'Save Changes' }}
+                  {{ loading ? pick('Saving...', '正在保存……') : pick('Save Changes', '保存修改') }}
                 </button>
               </form>
             </template>
@@ -821,10 +821,10 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                 <div>
                   <h3 class="text-2xl font-bold text-text-primary">{{ viewingTeam.name }}</h3>
                   <div class="flex items-center gap-2 mt-1">
-                    <span class="text-sm text-text-secondary">{{ getTeamMembers(viewingTeam.id).length }} members</span>
+                    <span class="text-sm text-text-secondary">{{ getTeamMembers(viewingTeam.id).length }} {{ pick('members', '名成员') }}</span>
                     <span v-if="viewingTeam.locked" class="text-[10px] px-1.5 py-0.5 rounded bg-badge-neutral-bg text-text-tertiary inline-flex items-center gap-0.5">
                       <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
-                      Locked
+                      {{ pick('Locked', '已锁定') }}
                     </span>
                   </div>
                 </div>
@@ -871,7 +871,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                       v-if="isTeamLeader(viewingTeam) && member.id !== user?.id"
                       @click.stop="handleKickMember(viewingTeam.id, member.id, member.name)"
                       class="text-xs text-text-tertiary hover:text-accent-red transition-colors ml-2"
-                      title="Remove from team"
+                      :title="pick('Remove from team', '移出队伍')"
                     >✕</button>
                   </div>
                 </div>
@@ -901,24 +901,24 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                   :disabled="loading"
                   class="flex-[2] py-3 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors disabled:opacity-50"
                 >
-                  {{ loading ? 'Sending...' : 'Request to Join' }}
+                  {{ loading ? pick('Sending...', '正在发送……') : pick('Request to Join', '申请加入') }}
                 </button>
                 <!-- Already requested -->
                 <div v-else-if="isLoggedIn && hasPendingRequest(viewingTeam)" class="flex-[2] flex gap-2">
-                  <span class="flex-1 py-3 text-center text-sm text-badge-warning-text border border-border-hover">Pending Approval</span>
-                  <button @click="handleCancelJoin(viewingTeam.id)" :disabled="loading" class="px-4 py-3 text-sm border border-border text-text-secondary hover:text-accent-red hover:border-accent-red/50 transition-colors">Cancel</button>
+                  <span class="flex-1 py-3 text-center text-sm text-badge-warning-text border border-border-hover">{{ pick('Pending Approval', '等待审批') }}</span>
+                  <button @click="handleCancelJoin(viewingTeam.id)" :disabled="loading" class="px-4 py-3 text-sm border border-border text-text-secondary hover:text-accent-red hover:border-accent-red/50 transition-colors">{{ pick('Cancel', '取消') }}</button>
                 </div>
                 <!-- Has team or other pending -->
                 <span
                   v-else-if="isLoggedIn && userHasTeam() && canJoin(viewingTeam)"
                   class="flex-[2] py-3 text-center text-xs text-text-muted border border-border"
                 >
-                  Cancel your current application first
+                  {{ pick('Cancel your current application first', '请先取消当前申请') }}
                 </span>
 
                 <!-- Not logged in: register to join -->
                 <button v-else-if="!isLoggedIn && canJoin(viewingTeam)" @click="showModal = false; promptAuth('register')" class="flex-[2] py-3 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors">
-                  Register to Join
+                  {{ pick('Register to Join', '注册并申请加入') }}
                 </button>
 
                 <!-- Locked -->
@@ -934,13 +934,13 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                   :disabled="loading"
                   class="w-full py-3 border border-accent-red/30 text-red-500 text-sm font-semibold hover:bg-badge-danger-bg transition-colors disabled:opacity-50"
                 >
-                  {{ loading ? 'Leaving...' : 'Leave Team' }}
+                  {{ loading ? pick('Leaving...', '正在退出……') : pick('Leave Team', '退出队伍') }}
                 </button>
               </div>
 
               <!-- Pending join requests (leader only) -->
               <div v-if="isLoggedIn && isTeamLeader(viewingTeam) && viewingTeam.pendingUsers?.length" class="mt-4 p-4 border border-border-hover bg-badge-warning-bg/30">
-                <p class="text-xs text-badge-warning-text uppercase tracking-wider mb-3 font-semibold">Pending Requests ({{ viewingTeam.pendingUsers.length }})</p>
+                <p class="text-xs text-badge-warning-text uppercase tracking-wider mb-3 font-semibold">{{ pick('Pending Requests', '待处理申请') }}（{{ viewingTeam.pendingUsers.length }}）</p>
                 <div class="space-y-2">
                   <div v-for="pu in viewingTeam.pendingUsers" :key="pu.id" class="flex items-center justify-between gap-3">
                     <div class="flex items-center gap-2 min-w-0">
@@ -949,8 +949,8 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                       <span v-if="pu.role" class="text-[10px] text-text-muted truncate">{{ pu.role }}</span>
                     </div>
                     <div class="flex gap-2 shrink-0">
-                      <button @click="handleApprove(viewingTeam.id, pu.id)" class="px-3 py-1 text-xs bg-badge-success-bg text-badge-success-text font-semibold hover:opacity-80 transition-opacity">Approve</button>
-                      <button @click="handleReject(viewingTeam.id, pu.id)" class="px-3 py-1 text-xs bg-badge-danger-bg text-badge-danger-text font-semibold hover:opacity-80 transition-opacity">Decline</button>
+                      <button @click="handleApprove(viewingTeam.id, pu.id)" class="px-3 py-1 text-xs bg-badge-success-bg text-badge-success-text font-semibold hover:opacity-80 transition-opacity">{{ pick('Approve', '通过') }}</button>
+                      <button @click="handleReject(viewingTeam.id, pu.id)" class="px-3 py-1 text-xs bg-badge-danger-bg text-badge-danger-text font-semibold hover:opacity-80 transition-opacity">{{ pick('Decline', '拒绝') }}</button>
                     </div>
                   </div>
                 </div>
@@ -962,20 +962,20 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                   @click="openEditModal"
                   class="flex-1 py-3 border border-border text-text-secondary text-sm font-semibold hover:bg-bg-elevated transition-colors"
                 >
-                  Edit Team
+                  {{ pick('Edit Team', '编辑队伍') }}
                 </button>
                 <button
                   @click="handleDeleteTeam"
                   :disabled="loading"
                   class="flex-1 py-3 border border-accent-red/30 text-red-500 text-sm font-semibold hover:bg-badge-danger-bg transition-colors disabled:opacity-50"
                 >
-                  {{ loading ? 'Deleting...' : 'Delete Team' }}
+                  {{ loading ? pick('Deleting...', '正在删除……') : pick('Delete Team', '删除队伍') }}
                 </button>
               </div>
 
               <!-- Leader leave (dissolve note) -->
               <div v-if="isLoggedIn && isTeamLeader(viewingTeam)" class="mt-2">
-                <p class="text-[11px] text-text-secondary text-center">As team leader, delete the team to leave.</p>
+                <p class="text-[11px] text-text-secondary text-center">{{ pick('As team leader, delete the team to leave.', '队长需要解散队伍后才能退出。') }}</p>
               </div>
             </template>
           </div>
@@ -998,11 +998,11 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
               <p v-if="viewingUser.role" class="text-sm text-text-secondary">{{ viewingUser.role }}</p>
             </div>
             <div v-if="viewingUser.bio" class="mb-4">
-              <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Bio</p>
+              <p class="text-xs text-text-muted uppercase tracking-wider mb-1">{{ pick('Bio', '个人简介') }}</p>
               <p class="text-sm text-text-secondary">{{ viewingUser.bio }}</p>
             </div>
             <div v-if="viewingUser.themes?.length" class="mb-4">
-              <p class="text-xs text-text-muted uppercase tracking-wider mb-2">Capability Domains</p>
+              <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Capability Domains', '能力域') }}</p>
               <div class="flex flex-wrap gap-1">
                 <span v-for="theme in viewingUser.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded-full">{{ theme }}</span>
               </div>

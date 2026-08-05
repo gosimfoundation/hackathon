@@ -1,6 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
 import type { User } from './useAuth'
 import { supabase } from '../lib/supabase'
+import { useI18n } from './useI18n'
 
 export interface Team {
   id: string
@@ -78,6 +79,12 @@ function teamRowToTeam(row: Record<string, any>, allUsers: User[]): Team {
 }
 
 export function useTeams() {
+  const { pick } = useI18n()
+  const notLoggedIn = () => pick('Not logged in', '请先登录')
+  const networkError = () => pick('Network error', '网络错误，请稍后重试')
+  const teamNotFound = () => pick('Team not found', '未找到该队伍')
+  const teamFull = () => pick('Team is full', '该队伍人数已满')
+  const teamLocked = () => pick('Team is locked', '该队伍已锁定')
   const totalMembers = computed(() => users.value.filter(u => u.teamId).length)
   const totalRegistered = computed(() => users.value.length)
   const maxParticipants = ref<number | null>(null)
@@ -118,7 +125,7 @@ export function useTeams() {
     loading.value = true
     error.value = ''
     const { data: { session } } = await supabase.auth.getSession()
-    if (!session) { error.value = 'Not logged in'; loading.value = false; return false }
+    if (!session) { error.value = notLoggedIn(); loading.value = false; return false }
     try {
       const { data: team, error: insertError } = await supabase.from('teams').insert({
         name: payload.name,
@@ -137,7 +144,7 @@ export function useTeams() {
       await supabase.from('profiles').update({ team_id: team.id }).eq('id', session.user.id)
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -160,7 +167,7 @@ export function useTeams() {
       if (updateError) { error.value = updateError.message; return false }
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -168,13 +175,13 @@ export function useTeams() {
     loading.value = true
     error.value = ''
     const { data: { session } } = await supabase.auth.getSession()
-    if (!session) { error.value = 'Not logged in'; loading.value = false; return false }
+    if (!session) { error.value = notLoggedIn(); loading.value = false; return false }
     try {
       const { error: updateError } = await supabase.rpc('cancel_join_request', { p_team_id: teamId })
       if (updateError) { error.value = updateError.message; console.error('[cancelJoin] error:', updateError); return false }
       await fetchTeams()
       return true
-    } catch (e) { error.value = 'Network error'; console.error('[cancelJoin] exception:', e); return false }
+    } catch (e) { error.value = networkError(); console.error('[cancelJoin] exception:', e); return false }
     finally { loading.value = false }
   }
 
@@ -186,7 +193,7 @@ export function useTeams() {
       if (deleteError) { error.value = deleteError.message; return false }
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -194,12 +201,12 @@ export function useTeams() {
     loading.value = true
     error.value = ''
     const { data: { session } } = await supabase.auth.getSession()
-    if (!session) { error.value = 'Not logged in'; loading.value = false; return false }
+    if (!session) { error.value = notLoggedIn(); loading.value = false; return false }
     try {
       const team = teams.value.find(t => t.id === teamId)
-      if (!team) { error.value = 'Team not found'; return false }
-      if (team.maxSize !== null && team.members.length >= team.maxSize) { error.value = 'Team is full'; return false }
-      if (team.locked) { error.value = 'Team is locked'; return false }
+      if (!team) { error.value = teamNotFound(); return false }
+      if (team.maxSize !== null && team.members.length >= team.maxSize) { error.value = teamFull(); return false }
+      if (team.locked) { error.value = teamLocked(); return false }
       const { error: updateError } = await supabase.rpc('request_join_team', { p_team_id: teamId })
       if (updateError) { error.value = updateError.message; console.error('[joinTeam] error:', updateError); return false }
       const { error: mailErr } = await supabase.functions.invoke('send_team_email', {
@@ -208,7 +215,7 @@ export function useTeams() {
       if (mailErr) console.warn('[joinTeam] email failed:', mailErr)
       await fetchTeams()
       return true
-    } catch (e) { error.value = 'Network error'; console.error('[joinTeam] exception:', e); return false }
+    } catch (e) { error.value = networkError(); console.error('[joinTeam] exception:', e); return false }
     finally { loading.value = false }
   }
 
@@ -216,13 +223,13 @@ export function useTeams() {
     loading.value = true
     error.value = ''
     const { data: { session } } = await supabase.auth.getSession()
-    if (!session) { error.value = 'Not logged in'; loading.value = false; return false }
+    if (!session) { error.value = notLoggedIn(); loading.value = false; return false }
     try {
       const { error: fnError } = await supabase.rpc('leave_team', { p_team_id: teamId })
       if (fnError) { error.value = fnError.message; return false }
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -231,8 +238,8 @@ export function useTeams() {
     error.value = ''
     try {
       const team = teams.value.find(t => t.id === teamId)
-      if (!team) { error.value = 'Team not found'; return false }
-      if (team.maxSize !== null && team.members.length >= team.maxSize) { error.value = 'Team is full'; return false }
+      if (!team) { error.value = teamNotFound(); return false }
+      if (team.maxSize !== null && team.members.length >= team.maxSize) { error.value = teamFull(); return false }
       // 用 security definer 函数绕过 RLS（可跨用户写 profiles.team_id）
       const { error: fnError } = await supabase.rpc('approve_team_member', {
         p_team_id: teamId,
@@ -245,7 +252,7 @@ export function useTeams() {
       if (mailErr) console.warn('[approveJoin] email failed:', mailErr)
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -254,7 +261,7 @@ export function useTeams() {
     error.value = ''
     try {
       const team = teams.value.find(t => t.id === teamId)
-      if (!team) { error.value = 'Team not found'; return false }
+      if (!team) { error.value = teamNotFound(); return false }
       const { error: updateError } = await supabase.rpc('reject_join_request', { p_team_id: teamId, p_user_id: userId })
       if (updateError) { error.value = updateError.message; return false }
       const { error: mailErr } = await supabase.functions.invoke('send_team_email', {
@@ -263,7 +270,7 @@ export function useTeams() {
       if (mailErr) console.warn('[rejectJoin] email failed:', mailErr)
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -278,7 +285,7 @@ export function useTeams() {
       if (fnError) { error.value = fnError.message; return false }
       await fetchTeams()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 
@@ -296,7 +303,7 @@ export function useTeams() {
       if (mailErr) console.warn('[inviteToTeam] email failed:', mailErr)
       await fetchInvitations()
       return inviteId
-    } catch (e) { error.value = 'Network error'; console.error('[inviteToTeam]', e); return null }
+    } catch (e) { error.value = networkError(); console.error('[inviteToTeam]', e); return null }
     finally { loading.value = false }
   }
 
@@ -312,7 +319,7 @@ export function useTeams() {
       if (mailErr) console.warn('[respondToInvite] email failed:', mailErr)
       await Promise.all([fetchTeams(), fetchInvitations()])
       return true
-    } catch (e) { error.value = 'Network error'; console.error('[respondToInvite]', e); return false }
+    } catch (e) { error.value = networkError(); console.error('[respondToInvite]', e); return false }
     finally { loading.value = false }
   }
 
@@ -324,7 +331,7 @@ export function useTeams() {
       if (fnError) { error.value = fnError.message; return false }
       await fetchInvitations()
       return true
-    } catch { error.value = 'Network error'; return false }
+    } catch { error.value = networkError(); return false }
     finally { loading.value = false }
   }
 

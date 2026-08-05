@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const confirmed = computed(() => t('sponsors.confirmed') as any[])
 </script>
 
@@ -10,7 +10,7 @@ const confirmed = computed(() => t('sponsors.confirmed') as any[])
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
         <div class="reveal">
-          <span class="section-kicker">10 / Network</span>
+          <span class="section-kicker">{{ pick('10 / Network', '10 / 合作网络') }}</span>
           <h2 class="mt-8 text-4xl font-semibold tracking-[-0.055em] text-text-primary md:text-6xl">{{ t('sponsors.title') }}</h2>
         </div>
         <div class="reveal reveal-delay-1 border-t border-border">

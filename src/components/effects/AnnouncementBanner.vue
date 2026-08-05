@@ -2,8 +2,10 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { supabase } from '../../lib/supabase'
+import { useI18n } from '../../composables/useI18n'
 
 const route = useRoute()
+const { pick } = useI18n()
 const hiddenPages = ['admin', 'export', 'checkin']
 const shouldHide = computed(() => hiddenPages.some(p => route.path.includes(p)))
 const current = ref('')
@@ -30,7 +32,7 @@ onMounted(() => {
 
 <template>
   <div v-if="current && !dismissed && !shouldHide" class="fixed top-16 left-0 right-0 z-40 bg-accent text-white text-sm font-semibold py-2 px-4 flex items-center justify-center gap-3">
-    <button @click="showHistory = !showHistory" class="text-white/55 hover:text-white text-xs" title="History">
+    <button @click="showHistory = !showHistory" class="text-white/55 hover:text-white text-xs" :title="pick('History', '历史公告')">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
     </button>
     <span class="flex-1 text-center">{{ current }}</span>
@@ -46,6 +48,6 @@ onMounted(() => {
       <span>{{ a.content }}</span>
       <span class="text-gray-600 shrink-0 ml-3">{{ new Date(a.created_at).toLocaleTimeString() }}</span>
     </div>
-    <button @click="showHistory = false" class="w-full py-1.5 text-[10px] text-gray-600 hover:text-gray-400 uppercase tracking-widest">Close</button>
+    <button @click="showHistory = false" class="w-full py-1.5 text-[10px] text-gray-600 hover:text-gray-400 uppercase tracking-widest">{{ pick('Close', '关闭') }}</button>
   </div>
 </template>

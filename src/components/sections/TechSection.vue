@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-const { t } = useI18n()
+const { t, pick } = useI18n()
 const models = computed(() => t('tech.models') as string[])
 const frameworks = computed(() => t('tech.frameworkList') as string[])
 </script>
@@ -11,7 +11,7 @@ const frameworks = computed(() => t('tech.frameworkList') as string[])
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
         <div class="reveal">
-          <span class="section-kicker">04 / Stack</span>
+          <span class="section-kicker">{{ pick('04 / Stack', '04 / 技术栈') }}</span>
           <h2 class="section-title mt-8">{{ t('tech.title') }} {{ t('tech.titleAccent') }}</h2>
         </div>
         <p class="reveal reveal-delay-1 max-w-3xl self-end text-base leading-relaxed text-text-secondary md:text-lg">

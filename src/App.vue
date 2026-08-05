@@ -7,8 +7,8 @@ import AppFooter from './components/layout/AppFooter.vue'
 import AnnouncementBanner from './components/effects/AnnouncementBanner.vue'
 import InvitationsModal from './components/effects/InvitationsModal.vue'
 
-provideI18n()
-provideAuth()
+const { pick } = provideI18n()
+provideAuth(pick)
 provideTheme()
 </script>
 
