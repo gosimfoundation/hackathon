@@ -6,7 +6,7 @@ import QRCode from 'qrcode'
 import { useI18n } from '../composables/useI18n'
 
 const route = useRoute()
-const { pick } = useI18n()
+const { pick, roleLabel, trackLabel } = useI18n()
 const userId = route.params.id as string
 const profile = ref<Record<string, any> | null>(null)
 const loading = ref(true)
@@ -15,15 +15,6 @@ const qrDataUrl = ref('')
 function getGitHubAvatar(githubId?: string): string {
   if (!githubId) return ''
   return `https://avatars.githubusercontent.com/${githubId.replace(/^@/, '')}`
-}
-
-function roleLabel(role?: string): string {
-  const labels: Record<string, string> = {
-    'AI Engineer': 'AI 工程师', 'Full-Stack Developer': '全栈开发者', 'Frontend Developer': '前端开发者',
-    'Backend Developer': '后端开发者', Researcher: '研究者', Designer: '设计师', 'Product Manager': '产品经理',
-    Student: '学生', 'Startup Founder': '创业者', Other: '其他',
-  }
-  return role ? pick(role, labels[role] || role) : ''
 }
 
 onMounted(async () => {
@@ -64,7 +55,7 @@ onMounted(async () => {
         <div v-if="profile.themes?.length" class="mb-4">
           <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Capability Domains', '能力域') }}</p>
           <div class="flex flex-wrap gap-1">
-            <span v-for="theme in profile.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded-full">{{ theme }}</span>
+            <span v-for="theme in profile.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded-full">{{ trackLabel(theme) }}</span>
           </div>
         </div>
 

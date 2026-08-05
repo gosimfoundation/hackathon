@@ -9,7 +9,7 @@ import { assetUrl } from '../../composables/api'
 import QRCode from 'qrcode'
 import { supabase } from '../../lib/supabase'
 
-const { t, locale, pick, toggleLocale } = useI18n()
+const { t, locale, pick, roleLabel, trackLabel, toggleLocale } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const isHome = computed(() => route.path === '/')
@@ -791,12 +791,12 @@ async function saveProfile() {
               <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : '/default-avatar.svg')" class="w-16 h-16 rounded-full object-cover border-2 border-border" />
               <div>
                 <p class="text-lg font-bold text-text-primary">{{ user.name || pick('(no name)', '（未填写姓名）') }}</p>
-                <p v-if="user.role" class="text-sm text-text-secondary">{{ user.role }}</p>
+                <p v-if="user.role" class="text-sm text-text-secondary">{{ roleLabel(user.role) }}</p>
               </div>
             </div>
             <p v-if="user.bio" class="text-sm text-text-secondary whitespace-pre-line">{{ user.bio }}</p>
             <div v-if="user.themes?.length" class="flex flex-wrap gap-1.5">
-              <span v-for="t in user.themes" :key="t" class="text-[10px] px-2 py-0.5 bg-accent/10 text-accent rounded">{{ t }}</span>
+              <span v-for="theme in user.themes" :key="theme" class="text-[10px] px-2 py-0.5 bg-accent/10 text-accent rounded">{{ trackLabel(theme) }}</span>
             </div>
             <div v-if="user.preferredModel" class="text-xs text-text-muted">{{ pick('Model', '模型') }}：<span class="text-text-secondary">{{ user.preferredModel }}</span></div>
             <div class="pt-3 border-t border-border-subtle space-y-1.5">
@@ -987,7 +987,7 @@ async function saveProfile() {
                         <img :src="pu.avatar || `https://avatars.githubusercontent.com/${pu.githubId}`" class="w-8 h-8 rounded-full object-cover" />
                         <div>
                           <p class="text-sm text-text-primary">{{ pu.name }}</p>
-                          <p class="text-xs text-text-tertiary">{{ pu.role }}</p>
+                          <p class="text-xs text-text-tertiary">{{ roleLabel(pu.role) }}</p>
                         </div>
                       </div>
                       <div class="flex gap-2">

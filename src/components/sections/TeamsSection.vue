@@ -6,7 +6,7 @@ import { useAuth, type User } from '../../composables/useAuth'
 import { useI18n } from '../../composables/useI18n'
 import { teamFilter } from '../../composables/useTeamFilter'
 
-const { t, pick } = useI18n()
+const { t, pick, roleLabel, trackLabel } = useI18n()
 const { user, isLoggedIn, promptAuth } = useAuth()
 // GitHub avatar helper
 function getGitHubAvatar(githubId?: string): string {
@@ -150,7 +150,7 @@ function getTrackIcon(trackId: string) {
 }
 
 function getTrackLabel(trackId: string) {
-  return tracks.value.find(track => track.id === trackId || track.label === trackId)?.label || trackId
+  return trackLabel(trackId)
 }
 
 const modelOptions = computed<{ id: string; label: string; icon?: string }[]>(() => [
@@ -864,7 +864,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                     <div class="flex-1 min-w-0">
                       <span class="text-sm font-semibold text-text-primary">{{ member.name }}</span>
                       <span v-if="member.id === viewingTeam.leaderId" class="text-[10px] text-badge-warning-text ml-1">{{ t('teams.lead') }}</span>
-                      <span v-if="member.role" class="text-xs text-text-secondary ml-2">{{ member.role }}</span>
+                      <span v-if="member.role" class="text-xs text-text-secondary ml-2">{{ roleLabel(member.role) }}</span>
                     </div>
                     <a v-if="member.githubId" :href="'https://github.com/' + member.githubId.replace(/^@/, '')" target="_blank" @click.stop class="text-xs text-text-secondary hover:text-accent transition-colors">@{{ member.githubId.replace(/^@/, '') }}</a>
                     <button
@@ -946,7 +946,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                     <div class="flex items-center gap-2 min-w-0">
                       <img :src="assetUrl(pu.avatar) || getGitHubAvatar(pu.githubId)" class="w-6 h-6 rounded-full shrink-0 object-cover" />
                       <span class="text-sm text-text-primary truncate">{{ pu.name }}</span>
-                      <span v-if="pu.role" class="text-[10px] text-text-muted truncate">{{ pu.role }}</span>
+                      <span v-if="pu.role" class="text-[10px] text-text-muted truncate">{{ roleLabel(pu.role) }}</span>
                     </div>
                     <div class="flex gap-2 shrink-0">
                       <button @click="handleApprove(viewingTeam.id, pu.id)" class="px-3 py-1 text-xs bg-badge-success-bg text-badge-success-text font-semibold hover:opacity-80 transition-opacity">{{ pick('Approve', '通过') }}</button>
@@ -995,7 +995,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
             <div class="flex flex-col items-center text-center mb-6">
               <img :src="assetUrl(viewingUser.avatar) || getGitHubAvatar(viewingUser.githubId)" class="w-20 h-20 rounded-full object-cover mb-3 border-2 border-border" />
               <h3 class="text-lg font-bold text-text-primary">{{ viewingUser.name }}</h3>
-              <p v-if="viewingUser.role" class="text-sm text-text-secondary">{{ viewingUser.role }}</p>
+              <p v-if="viewingUser.role" class="text-sm text-text-secondary">{{ roleLabel(viewingUser.role) }}</p>
             </div>
             <div v-if="viewingUser.bio" class="mb-4">
               <p class="text-xs text-text-muted uppercase tracking-wider mb-1">{{ pick('Bio', '个人简介') }}</p>
@@ -1004,7 +1004,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
             <div v-if="viewingUser.themes?.length" class="mb-4">
               <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Capability Domains', '能力域') }}</p>
               <div class="flex flex-wrap gap-1">
-                <span v-for="theme in viewingUser.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded-full">{{ theme }}</span>
+                <span v-for="theme in viewingUser.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded-full">{{ trackLabel(theme) }}</span>
               </div>
             </div>
             <div class="space-y-2">

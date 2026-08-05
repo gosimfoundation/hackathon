@@ -6,7 +6,7 @@ import { useTeams } from '../../composables/useTeams'
 import { useI18n } from '../../composables/useI18n'
 
 const { user, isLoggedIn } = useAuth()
-const { pick } = useI18n()
+const { pick, roleLabel, trackLabel } = useI18n()
 const { teams, inviteToTeam, sentInvitations, error: teamsError } = useTeams()
 
 const visible = ref(false)
@@ -79,22 +79,6 @@ const allRoles = computed(() => {
   profiles.value.forEach(p => { if (p.role) roles.add(p.role) })
   return Array.from(roles).sort()
 })
-
-function roleLabel(role?: string): string {
-  const labels: Record<string, string> = {
-    'AI Engineer': 'AI 工程师',
-    'Full-Stack Developer': '全栈开发者',
-    'Frontend Developer': '前端开发者',
-    'Backend Developer': '后端开发者',
-    Researcher: '研究者',
-    Designer: '设计师',
-    'Product Manager': '产品经理',
-    Student: '学生',
-    'Startup Founder': '创业者',
-    Other: '其他',
-  }
-  return role ? pick(role, labels[role] || role) : ''
-}
 
 const filtered = computed(() => {
   let list = profiles.value
@@ -201,7 +185,7 @@ onUnmounted(() => { if (observer) observer.disconnect() })
                 </div>
                 <p v-if="p.bio" class="text-xs text-text-muted mb-2 line-clamp-2">{{ p.bio }}</p>
                 <div v-if="p.themes?.length" class="flex flex-wrap gap-1 mb-2">
-                  <span v-for="t in p.themes.slice(0, 3)" :key="t" class="text-[9px] px-1.5 py-0.5 bg-accent/10 text-accent rounded">{{ t.split(':')[0] }}</span>
+                  <span v-for="theme in p.themes.slice(0, 3)" :key="theme" class="text-[9px] px-1.5 py-0.5 bg-accent/10 text-accent rounded">{{ trackLabel(theme) }}</span>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2 pt-2 border-t border-border-subtle">
                   <a v-if="p.github_id" :href="ghLink(p.github_id)" target="_blank" rel="noopener" @click.stop class="text-text-tertiary hover:text-text-primary transition-colors" title="GitHub">
@@ -284,7 +268,7 @@ onUnmounted(() => { if (observer) observer.disconnect() })
             <div v-if="selected.themes?.length" class="mb-5">
               <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Capability Domains', '能力域') }}</p>
               <div class="flex flex-wrap gap-1.5">
-                <span v-for="t in selected.themes" :key="t" class="px-2 py-1 text-xs bg-accent/10 text-accent rounded">{{ t }}</span>
+                <span v-for="theme in selected.themes" :key="theme" class="px-2 py-1 text-xs bg-accent/10 text-accent rounded">{{ trackLabel(theme) }}</span>
               </div>
             </div>
 

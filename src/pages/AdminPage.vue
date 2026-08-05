@@ -6,7 +6,7 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { useI18n } from '../composables/useI18n'
 
-const { pick } = useI18n()
+const { pick, roleLabel, trackLabel } = useI18n()
 
 function userAvatar(p: any): string {
   if (p.avatar) return p.avatar
@@ -107,15 +107,6 @@ const passwords = {
   admin: pick('(see admin_config table)', '（请查看 admin_config 表）'),
   export: pick('(see admin_config table)', '（请查看 admin_config 表）'),
   checkin: pick('(see admin_config table)', '（请查看 admin_config 表）'),
-}
-
-function roleLabel(role?: string): string {
-  const labels: Record<string, string> = {
-    'AI Engineer': 'AI 工程师', 'Full-Stack Developer': '全栈开发者', 'Frontend Developer': '前端开发者',
-    'Backend Developer': '后端开发者', Researcher: '研究者', Designer: '设计师', 'Product Manager': '产品经理',
-    Student: '学生', 'Startup Founder': '创业者', Other: '其他', Unset: '未设置',
-  }
-  return role ? pick(role, labels[role] || role) : ''
 }
 
 function codeStatusLabel(status: string): string {
@@ -791,7 +782,7 @@ onMounted(() => { if (authed.value) { loadData(); loadAnnouncement(); loadSubmis
                 <td class="py-3 px-3 text-gray-400">{{ t.model || '—' }}</td>
                 <td class="py-3 px-3">
                   <div class="flex flex-wrap gap-1">
-                    <span v-for="theme in (t.themes || [])" :key="theme" class="px-1.5 py-0.5 text-[10px] bg-gray-800 text-gray-400 rounded">{{ theme.split(':')[0] }}</span>
+                    <span v-for="theme in (t.themes || [])" :key="theme" class="px-1.5 py-0.5 text-[10px] bg-gray-800 text-gray-400 rounded">{{ trackLabel(theme) }}</span>
                   </div>
                 </td>
                 <td class="py-3 px-3">
@@ -882,7 +873,7 @@ onMounted(() => { if (authed.value) { loadData(); loadAnnouncement(); loadSubmis
                   <img :src="userAvatar(m)" class="w-8 h-8 rounded-full object-cover" />
                   <div>
                     <p class="text-sm text-white">{{ m.name }} <span v-if="m.id === viewingTeam.leader_id" class="text-amber-400 text-xs">{{ pick('Lead', '队长') }}</span></p>
-                    <p class="text-xs text-gray-500">{{ m.role || '' }} {{ m.email ? `· ${m.email}` : '' }}</p>
+                    <p class="text-xs text-gray-500">{{ roleLabel(m.role) }} {{ m.email ? `· ${m.email}` : '' }}</p>
                   </div>
                   <span :class="m.checked_in ? 'text-green-400' : 'text-gray-600'" class="ml-auto text-xs">{{ m.checked_in ? pick('Checked in', '已签到') : pick('Not here', '未到场') }}</span>
                 </div>

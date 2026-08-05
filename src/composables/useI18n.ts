@@ -9,6 +9,8 @@ const I18N_KEY: InjectionKey<{
   locale: Ref<Locale>
   t: (key: string) => any
   pick: <T>(english: T, chinese: T) => T
+  roleLabel: (role?: string) => string
+  trackLabel: (track?: string) => string
   toggleLocale: () => void
 }> = Symbol('i18n')
 
@@ -46,12 +48,43 @@ export function provideI18n() {
     return locale.value === 'zh' ? chinese : english
   }
 
+  function roleLabel(role?: string): string {
+    if (!role) return ''
+    const labels: Record<string, string> = {
+      'AI Engineer': 'AI 工程师',
+      'Full-Stack Developer': '全栈开发者',
+      'Frontend Developer': '前端开发者',
+      'Backend Developer': '后端开发者',
+      Researcher: '研究者',
+      Designer: '设计师',
+      'Product Manager': '产品经理',
+      Student: '学生',
+      'Startup Founder': '创业者',
+      Other: '其他',
+      Unset: '未设置',
+    }
+    return pick(role, labels[role] || role)
+  }
+
+  function trackLabel(track?: string): string {
+    if (!track) return ''
+    const ids = ['auth-session', 'repository-lifecycle', 'issues-forms', 'pull-request-review', 'actions-workflow', 'org-permissions-audit', 'compute-engine']
+    const englishThemes = en.tracks.themes as Array<{ title: string }>
+    const chineseThemes = zh.tracks.themes as Array<{ title: string }>
+    const storedLabelIndex = englishThemes.findIndex((theme, index) =>
+      theme.title === track || chineseThemes[index]?.title === track
+    )
+    const index = ids.indexOf(track) >= 0 ? ids.indexOf(track) : storedLabelIndex
+    if (index >= 0) return (t('tracks.themes') as Array<{ title: string }>)[index]?.title || track
+    return track
+  }
+
   function toggleLocale() {
     locale.value = locale.value === 'en' ? 'zh' : 'en'
   }
 
-  provide(I18N_KEY, { locale, t, pick, toggleLocale })
-  return { locale, t, pick, toggleLocale }
+  provide(I18N_KEY, { locale, t, pick, roleLabel, trackLabel, toggleLocale })
+  return { locale, t, pick, roleLabel, trackLabel, toggleLocale }
 }
 
 export function useI18n() {
