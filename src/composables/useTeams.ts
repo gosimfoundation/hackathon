@@ -170,12 +170,8 @@ export function useTeams() {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session) { error.value = 'Not logged in'; loading.value = false; return false }
     try {
-      const team = teams.value.find(t => t.id === teamId)
-      if (!team) { error.value = 'Team not found'; return false }
-      const pendingJoins = (team.pendingJoins ?? []).filter(id => id !== session.user.id)
-      const { data: updated, error: updateError } = await supabase.from('teams').update({ pending_joins: pendingJoins }).eq('id', teamId).select('id')
+      const { error: updateError } = await supabase.rpc('cancel_join_request', { p_team_id: teamId })
       if (updateError) { error.value = updateError.message; console.error('[cancelJoin] error:', updateError); return false }
-      if (!updated || updated.length === 0) { error.value = 'Permission denied (RLS)'; console.error('[cancelJoin] 0 rows updated — RLS blocked?', { teamId, userId: session.user.id }); return false }
       await fetchTeams()
       return true
     } catch (e) { error.value = 'Network error'; console.error('[cancelJoin] exception:', e); return false }
@@ -204,10 +200,8 @@ export function useTeams() {
       if (!team) { error.value = 'Team not found'; return false }
       if (team.maxSize !== null && team.members.length >= team.maxSize) { error.value = 'Team is full'; return false }
       if (team.locked) { error.value = 'Team is locked'; return false }
-      const pendingJoins = [...(team.pendingJoins ?? []), session.user.id]
-      const { data: updated, error: updateError } = await supabase.from('teams').update({ pending_joins: pendingJoins }).eq('id', teamId).select('id')
+      const { error: updateError } = await supabase.rpc('request_join_team', { p_team_id: teamId })
       if (updateError) { error.value = updateError.message; console.error('[joinTeam] error:', updateError); return false }
-      if (!updated || updated.length === 0) { error.value = 'Permission denied (RLS)'; console.error('[joinTeam] 0 rows updated — RLS blocked?', { teamId, userId: session.user.id }); return false }
       const { error: mailErr } = await supabase.functions.invoke('send_team_email', {
         body: { kind: 'join_request', team_id: teamId, user_id: session.user.id },
       })
@@ -261,10 +255,8 @@ export function useTeams() {
     try {
       const team = teams.value.find(t => t.id === teamId)
       if (!team) { error.value = 'Team not found'; return false }
-      const pendingJoins = (team.pendingJoins ?? []).filter(id => id !== userId)
-      const { data: updated, error: updateError } = await supabase.from('teams').update({ pending_joins: pendingJoins }).eq('id', teamId).select('id')
+      const { error: updateError } = await supabase.rpc('reject_join_request', { p_team_id: teamId, p_user_id: userId })
       if (updateError) { error.value = updateError.message; return false }
-      if (!updated || updated.length === 0) { error.value = 'Permission denied (RLS)'; return false }
       const { error: mailErr } = await supabase.functions.invoke('send_team_email', {
         body: { kind: 'join_rejected', team_id: teamId, user_id: userId },
       })
@@ -354,9 +346,9 @@ export function useTeams() {
   async function likeTeam(teamId: string) {
     const team = teams.value.find(t => t.id === teamId)
     if (!team) return false
-    const { error: updateError } = await supabase.from('teams').update({ likes: team.likes + 1 }).eq('id', teamId)
+    const { data: likes, error: updateError } = await supabase.rpc('like_team', { p_team_id: teamId })
     if (updateError) return false
-    team.likes++
+    team.likes = likes ?? team.likes + 1
     return true
   }
 
