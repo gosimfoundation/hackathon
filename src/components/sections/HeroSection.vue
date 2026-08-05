@@ -46,9 +46,6 @@ const pipeline = computed(() => t('hero.pipeline') as string[])
             </div>
 
             <div class="flex flex-wrap items-center gap-3 md:justify-end">
-              <span class="inline-flex items-center gap-2 border border-white/35 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-white/80">
-                <span class="h-1.5 w-1.5 bg-[#c788a1]"></span>{{ t('hero.status') }}
-              </span>
               <a href="#teams" class="bg-[#c788a1] px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#111310] transition-colors hover:bg-white">
                 {{ t('nav.applyNow') }} <span class="ml-3">↗</span>
               </a>

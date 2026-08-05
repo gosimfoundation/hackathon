@@ -9,7 +9,7 @@ export default {
     judging: 'Judging',
     teams: 'Teams',
     faq: 'FAQ',
-    applyNow: 'Register Now',
+    applyNow: 'Registration Opens Soon',
   },
   hero: {
     eyebrow: 'Organized by OAIC',

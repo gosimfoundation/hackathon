@@ -9,7 +9,7 @@ export default {
     judging: "评审",
     teams: "队伍",
     faq: "常见问题",
-    applyNow: "立即报名",
+    applyNow: "报名即将开始",
   },
   hero: {
     eyebrow: "开放智能体产业联盟 （OAIC）和 上海交通大学计算机学院 主办",
