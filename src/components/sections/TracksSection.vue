@@ -3,7 +3,7 @@ import { useI18n } from '../../composables/useI18n'
 import { useLeaderboard } from '../../composables/useLeaderboard'
 
 const { t, pick } = useI18n()
-const { entries: board, loading: boardLoading, isMock, leaderboardUrl } = useLeaderboard(10)
+const { entries: board, loading: boardLoading, isMock, leaderboardUrl } = useLeaderboard(11)
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const { entries: board, loading: boardLoading, isMock, leaderboardUrl } = useLea
           </p>
         </div>
 
-        <!-- 实时排行榜 · Top 10（全量榜单由 ARC-Bench 维护） -->
+        <!-- 实时排行榜 · Top 11：与晋级现场的名额一致（全量榜单由 ARC-Bench 维护） -->
         <div class="reveal reveal-delay-1">
           <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-border pb-4">
             <h3 class="text-xl font-semibold tracking-[-0.03em] text-text-primary md:text-2xl">

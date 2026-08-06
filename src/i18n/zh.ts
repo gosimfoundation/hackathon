@@ -58,12 +58,12 @@ export default {
     desc: "初赛在线上进行，统一沙箱环境 + 模型网关，全球同时起跑。大赛将邀请专家通过线上研习营（可选参加），通过与参赛者选择工具模拟比赛完成（Workshop）和答疑（Office Hour）等形式与参赛者互动并提供录像。",
     finaleTitle: "荣耀日 · 深圳 GOSIM 大会",
     finaleDesc:
-      "决赛 Top 7 队伍受邀到深圳 GOSIM 大会现场。10 月 17 日现场比拼、决出最终名次，随后颁奖典礼，并与组织者、伙伴共进晚宴。",
+      "决赛 Top 11 队伍受邀到深圳 GOSIM 大会现场。10 月 17 日现场比拼、决出最终名次，随后颁奖典礼，并与组织者、伙伴共进晚宴。",
     stats: [
       { value: "3", label: "站" },
       { value: "47", label: "天" },
       { value: "5", label: "评审指标" },
-      { value: "$22,000", label: "奖金池" },
+      { value: "$51,500", label: "奖金池 · 约 ¥35 万" },
     ],
   },
   tracks: {
@@ -72,7 +72,7 @@ export default {
       "ARC-Bench 是本次比赛的运行与评测平台。它提供统一的容器运行时、workspace 生命周期管理、事件流与可视化——把你的 Agent 打包上传，就能看着它一步步跑，而不是事后从日志里往回读。赛题、提交、计分与排行榜都在平台上统一维护，所有队伍面对同一套环境和同一批开源模型（MiniMax、Kimi、GLM、DeepSeek）。",
     detailsNote: "完整赛题说明、样例与评测细节，请参赛者前往",
     leaderboardNote: "实时排行榜：",
-    boardTitle: "实时排行榜 · TOP 10",
+    boardTitle: "实时排行榜 · TOP 11",
     boardFull: "完整榜单",
     boardLoading: "读取中……",
     boardEmpty: "排行榜将在 9 月 1 日开赛后实时更新，数据由 ARC-Bench 维护。",
@@ -200,17 +200,17 @@ export default {
   awards: {
     title: "奖项",
     subtitle:
-      "七个奖项，奖金池 $22,000。表彰在 Harness Engineering 上走得最远的队伍。",
+      "十一个获奖席位，奖金池约 35 万人民币（$51,500 美金）。表彰在 Harness Engineering 上走得最远的队伍。",
     prizes: [
-      { name: "OAIC 卓越奖", amount: "$10,000", slots: "1 名" },
-      { name: "一等奖", amount: "$5,000", slots: "1 名" },
-      { name: "二等奖", amount: "$2,000", slots: "2 名" },
-      { name: "三等奖", amount: "$1,000", slots: "3 名" },
+      { name: "OAIC 特等奖", amount: "$20,000", slots: "1 名" },
+      { name: "一等奖", amount: "$10,000", slots: "2 名" },
+      { name: "二等奖", amount: "$3,000", slots: "3 名" },
+      { name: "三等奖", amount: "$500", slots: "5 名" },
     ],
-    pool: "奖金池合计 $22,000，共 7 个获奖席位",
+    pool: "奖金池合计约 35 万人民币（$51,500 美金），共 11 个获奖席位",
     allParticipants: "所有完赛队伍获得",
     certificate: "完赛证书，并在官网留档",
-    gosimSeat: "决赛 Top 7 队伍受邀出席深圳 GOSIM 大会。",
+    gosimSeat: "决赛 Top 11 队伍受邀出席深圳 GOSIM 大会。",
     apiCredits: "开源模型 Token 额度",
     fromSponsors: "由模型厂商赞助提供。",
   },
@@ -237,7 +237,7 @@ export default {
         dates: "10/1–10/16",
         format: "线上",
         challenge: "基于真实复杂企业需求的命题。",
-        participants: "初赛排行榜 Top 10 队伍。",
+        participants: "初赛排行榜 Top 11 队伍。",
       },
       {
         number: "03",
@@ -245,7 +245,7 @@ export default {
         dates: "10/17",
         format: "深圳 GOSIM 大会现场",
         challenge: "现场决赛与 Demo Day，最终名次在现场决出，随后颁奖。",
-        participants: "决赛 Top 7 队伍。",
+        participants: "决赛 Top 11 队伍。",
       },
     ],
     activitiesTitle: "研习营活动",
@@ -353,7 +353,7 @@ export default {
       },
       {
         q: "怎么参赛？要先经过初赛吗？",
-        a: "初赛是唯一入口。所有队伍先参加研习营和初赛（9/1–9/30），初赛排行榜前 10 名的队伍进入决赛（10/1–10/17）。",
+        a: "初赛是唯一入口。所有队伍先参加研习营和初赛（9/1–9/30），初赛排行榜前 11 名的队伍进入决赛（10/1–10/17）。",
       },
       {
         q: "赛题是什么？",
@@ -373,7 +373,7 @@ export default {
       },
       {
         q: "有什么奖？",
-        a: "共 7 个获奖席位，奖金池 $22,000：OAIC 卓越奖 $10,000（1 名）、一等奖 $5,000（1 名）、二等奖 $2,000（2 名）、三等奖 $1,000（3 名）。所有完赛队伍获完赛证书并在官网留档；决赛 Top 7 队伍受邀出席深圳 GOSIM 大会。",
+        a: "共 11 个获奖席位，奖金池约 35 万人民币（$51,500 美金）：OAIC 特等奖 $20,000（1 名）、一等奖 $10,000（2 名）、二等奖 $3,000（3 名）、三等奖 $500（5 名）。所有完赛队伍获完赛证书并在官网留档；决赛 Top 11 队伍受邀出席深圳 GOSIM 大会。",
       },
       {
         q: "需要提交什么？",

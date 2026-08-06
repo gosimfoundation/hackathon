@@ -51,21 +51,21 @@ capability_domains:
     stage: "Grand Challenge"
 
 awards:
-  total_pool: "$22,000"
-  count: 7
+  total_pool: "$51,500"
+  count: 11
   tiers:
     - name: "OAIC Grand Prize"
-      prize: "$10,000"
+      prize: "$20,000"
       count: 1
     - name: "First Prize"
-      prize: "$5,000"
-      count: 1
-    - name: "Second Prize"
-      prize: "$2,000"
+      prize: "$10,000"
       count: 2
-    - name: "Third Prize"
-      prize: "$1,000"
+    - name: "Second Prize"
+      prize: "$3,000"
       count: 3
+    - name: "Third Prize"
+      prize: "$500"
+      count: 5
 
 judging:
   weights: null

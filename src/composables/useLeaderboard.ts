@@ -26,6 +26,7 @@ const MOCK: LeaderboardEntry[] = [
   { rank: 8, team: 'Bitwise Owls', country: 'Australia', score: 79.7 },
   { rank: 9, team: 'Le Compilateur', country: 'France', score: 77.4 },
   { rank: 10, team: 'Redwood Six', country: 'United States', score: 75.2 },
+  { rank: 11, team: 'Tokyo Toolsmiths', country: 'Japan', score: 73.9 },
 ]
 
 function normalize(raw: any, i: number): LeaderboardEntry {
@@ -37,7 +38,7 @@ function normalize(raw: any, i: number): LeaderboardEntry {
   }
 }
 
-export function useLeaderboard(limit = 10) {
+export function useLeaderboard(limit = 11) {
   const entries = ref<LeaderboardEntry[]>([])
   const loading = ref(true)
   /** 展示的是占位数据而非 ARC-Bench 实时数据 */

@@ -3,7 +3,9 @@ import { computed } from 'vue'
 import { useCountdown } from '../../composables/useCountdown'
 import { useI18n } from '../../composables/useI18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+// 汉字几乎占满 em 框，0.82 的行高会让两行叠在一起；西文字形自带上下留白，收紧才好看。
+const titleLeading = computed(() => (locale.value === 'zh' ? 'leading-[0.95]' : 'leading-[0.82]'))
 const locationLines = computed(() => t('hero.location') as string[])
 const { days, hours, minutes, seconds, isLive, isOver } = useCountdown(
   '2026-09-01T00:00:00+08:00',
@@ -36,7 +38,7 @@ const pipeline = computed(() => t('hero.pipeline') as string[])
             <span>{{ t('hero.eyebrow') }}</span>
           </div>
 
-          <h1 class="max-w-[11ch] text-[clamp(3.65rem,10vw,9.5rem)] font-semibold leading-[0.82] tracking-[-0.085em] text-white">
+          <h1 class="max-w-[11ch] text-[clamp(3.65rem,10vw,9.5rem)] font-semibold tracking-[-0.085em] text-white" :class="titleLeading">
             {{ t('hero.system') }}
           </h1>
 
