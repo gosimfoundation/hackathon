@@ -1,26 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
-import { setTeamFilter } from '../../composables/useTeamFilter'
+import { useLeaderboard } from '../../composables/useLeaderboard'
 
 const { t, pick } = useI18n()
-const themeIds: Record<string, string> = {
-  '01': 'auth-session',
-  '02': 'repository-lifecycle',
-  '03': 'issues-forms',
-  '04': 'pull-request-review',
-  '05': 'actions-workflow',
-  '06': 'org-permissions-audit',
-  '07': 'compute-engine',
-}
-
-const themes = computed(() => t('tracks.themes') as any[])
-const injects = computed(() => t('tracks.injects') as string[])
-const expandedTheme = ref<string | null>('01')
-
-function toggleTheme(number: string) {
-  expandedTheme.value = expandedTheme.value === number ? null : number
-}
+const { entries: board, loading: boardLoading, isMock, leaderboardUrl } = useLeaderboard(10)
 </script>
 
 <template>
@@ -28,51 +11,53 @@ function toggleTheme(number: string) {
     <div class="mx-auto max-w-[1440px] px-6 md:px-10 xl:px-14">
       <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
         <div class="reveal lg:sticky lg:top-28 lg:self-start">
-          <span class="section-kicker">{{ pick('03 / Challenge Map', '03 / 赛题图谱') }}</span>
+          <span class="section-kicker">{{ pick('03 / Platform', '03 / 比赛平台') }}</span>
           <h2 class="section-title mt-8">{{ t('tracks.title') }}</h2>
           <p class="mt-8 max-w-xl text-sm leading-relaxed text-text-secondary md:text-base">{{ t('tracks.intro') }}</p>
+          <p class="mt-6 max-w-xl text-sm leading-relaxed text-text-secondary">
+            {{ t('tracks.detailsNote') }}
+            <a href="http://arc-bench.com" target="_blank" rel="noopener" class="border-b border-accent font-semibold text-text-primary transition-colors hover:text-accent">arc-bench.com ↗</a>
+          </p>
         </div>
 
-        <div class="border-t border-border reveal reveal-delay-1">
-          <article v-for="theme in themes" :key="theme.number" class="border-b border-border">
-            <button class="group grid w-full grid-cols-[3rem_1fr_auto] items-start gap-3 py-6 text-left md:grid-cols-[4rem_1fr_9rem_auto] md:gap-5 md:py-8" @click="toggleTheme(theme.number)">
-              <span class="font-mono text-xs text-accent">{{ theme.number }}</span>
-              <span>
-                <span class="block text-xl font-semibold leading-tight tracking-[-0.035em] text-text-primary md:text-2xl">{{ theme.title }}</span>
-                <span class="mt-2 block text-sm text-text-secondary md:hidden">{{ theme.subtitle }}</span>
-              </span>
-              <span class="hidden font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted md:block">{{ theme.stage }}</span>
-              <span class="text-lg text-text-muted transition-transform duration-200" :class="expandedTheme === theme.number ? 'rotate-45 text-accent' : ''">＋</span>
-            </button>
+        <!-- 实时排行榜 · Top 10（全量榜单由 ARC-Bench 维护） -->
+        <div class="reveal reveal-delay-1">
+          <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-border pb-4">
+            <h3 class="text-xl font-semibold tracking-[-0.03em] text-text-primary md:text-2xl">
+              {{ t('tracks.boardTitle') }}
+              <span v-if="isMock" class="ml-3 border border-border px-2 py-0.5 align-middle font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted">{{ t('tracks.boardMock') }}</span>
+            </h3>
+            <a :href="leaderboardUrl" target="_blank" rel="noopener" class="border-b border-text-muted pb-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-text-muted transition-colors hover:border-accent hover:text-accent">
+              {{ t('tracks.boardFull') }} ↗
+            </a>
+          </div>
 
-            <div class="grid overflow-hidden transition-[grid-template-rows] duration-300" :class="expandedTheme === theme.number ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'">
-              <div class="overflow-hidden">
-                <div class="grid gap-8 pb-8 pl-[3.75rem] md:grid-cols-[1fr_1fr] md:pl-[5rem]">
-                  <div>
-                    <p class="text-sm leading-relaxed text-text-primary">{{ theme.description }}</p>
-                    <p class="mt-4 text-sm leading-relaxed text-text-secondary">{{ theme.detail }}</p>
-                  </div>
-                  <div>
-                    <div class="mono-label text-text-muted">{{ t('tracks.directionsLabel') }}</div>
-                    <ul class="mt-4 border-t border-border-subtle">
-                      <li v-for="dir in theme.directions" :key="dir" class="border-b border-border-subtle py-2.5 text-xs leading-relaxed text-text-secondary">{{ dir }}</li>
-                    </ul>
-                    <button @click.stop="setTeamFilter(themeIds[theme.number] || theme.title)" class="mt-5 border-b border-text-primary pb-1 text-xs font-semibold uppercase tracking-[0.12em] text-text-primary transition-colors hover:border-accent hover:text-accent">
-                      {{ t('tracks.viewTeams') }} ↘
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+          <p v-if="boardLoading" class="mono-label mt-6 text-text-muted">{{ t('tracks.boardLoading') }}</p>
+
+          <table v-else class="w-full border-collapse text-left">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="mono-label w-12 py-3 text-text-muted">#</th>
+                <th class="mono-label py-3 text-text-muted">{{ t('tracks.boardTeam') }}</th>
+                <th class="mono-label py-3 text-text-muted">{{ t('tracks.boardCountry') }}</th>
+                <th class="mono-label py-3 text-right text-text-muted">{{ t('tracks.boardScore') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in board" :key="row.rank" class="border-b border-border-subtle">
+                <td class="py-3.5 font-mono text-xs" :class="row.rank <= 3 ? 'text-accent' : 'text-text-muted'">{{ String(row.rank).padStart(2, '0') }}</td>
+                <td class="py-3.5 pr-4 text-sm font-medium text-text-primary md:text-base">{{ row.team }}</td>
+                <td class="py-3.5 text-xs text-text-secondary md:text-sm">{{ row.country || '—' }}</td>
+                <td class="py-3.5 text-right font-mono text-sm text-text-primary">{{ row.score != null ? row.score.toFixed(1) : '—' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="mt-5 text-sm leading-relaxed text-text-secondary">
+            {{ t('tracks.leaderboardNote') }}
+            <a :href="leaderboardUrl" target="_blank" rel="noopener" class="border-b border-accent font-semibold text-text-primary transition-colors hover:text-accent">arc-bench.com/competition ↗</a>
+          </p>
         </div>
-      </div>
-
-      <div class="reveal mt-20 grid border-y border-border py-8 md:grid-cols-[.4fr_1fr] md:gap-10">
-        <h3 class="text-xl font-semibold tracking-[-0.03em] text-text-primary">{{ t('tracks.injectsTitle') }}</h3>
-        <ul class="mt-6 grid gap-6 md:mt-0 md:grid-cols-2">
-          <li v-for="(item, i) in injects" :key="item" class="text-sm leading-relaxed text-text-secondary"><span class="mr-3 font-mono text-accent">0{{ i + 1 }}</span>{{ item }}</li>
-        </ul>
       </div>
     </div>
   </section>

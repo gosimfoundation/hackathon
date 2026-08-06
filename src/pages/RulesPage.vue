@@ -4,6 +4,7 @@ import { useI18n } from '../composables/useI18n'
 
 const { locale, t } = useI18n()
 const isEn = computed(() => locale.value === 'en')
+const locationLines = computed(() => t('hero.location') as string[])
 const rounds = computed(() => t('schedule.rounds') as any[])
 const criteria = computed(() => t('judging.criteria') as any[])
 const fairness = computed(() => t('judging.fairness') as any[])
@@ -16,11 +17,11 @@ const fairness = computed(() => t('judging.fairness') as any[])
 
       <h1 class="heading-serif text-4xl md:text-5xl text-text-primary mb-4">{{ isEn ? 'Event Rules & Format' : '赛制与规则' }}</h1>
       <p class="text-text-tertiary mb-2">{{ t('hero.eventTitle') }}</p>
-      <p class="text-text-muted text-sm mb-12">{{ t('hero.location') }}</p>
+      <p v-for="line in locationLines" :key="line" class="text-text-muted text-sm last:mb-12">{{ line }}</p>
 
       <section>
         <h2>{{ isEn ? '1. Participation' : '1. 参赛' }}</h2>
-        <p>{{ isEn ? 'The qualifier and Grand Challenge are open worldwide and run online. Prior Harness Engineering experience is not required; the bootcamp is designed to get teams ready.' : '资格赛与大奖赛面向全球、全部线上进行。参赛者不必已经掌握 Harness Engineering；训练营就是为队伍就位而设。' }}</p>
+        <p>{{ isEn ? 'The qualifier and Grand Challenge are open worldwide and run online. Prior Harness Engineering experience is not required; the bootcamp is designed to get teams ready.' : '初赛与大奖赛面向全球、全部线上进行。参赛者不必已经掌握 Harness Engineering；研习营就是为队伍就位而设。' }}</p>
         <p>{{ t('teams.registerNote') }}</p>
       </section>
 
@@ -34,7 +35,7 @@ const fairness = computed(() => t('judging.fairness') as any[])
       <section>
         <h2>{{ isEn ? '3. Models and harnesses' : '3. 模型与 Harness' }}</h2>
         <p>{{ isEn ? 'Organizer-issued tokens cover Kimi, GLM, MiniMax, and DeepSeek. Calls go through one gateway for quota enforcement and metering.' : '组织方发放 Kimi、GLM、MiniMax、DeepSeek 的开源模型 Token。所有调用经统一网关限额和计量。' }}</p>
-        <p>{{ isEn ? 'The arena is open to Octos, HAgency, ARC, Claude Code, custom harnesses, and others. Teams may change their harness, but cannot change the tests, gateway metering, or scoring.' : '擂台对 Octos、HAgency、ARC、Claude Code、自研及其它 Harness 开放。队伍能改自己的 Harness，但改不到测试、网关计量与评分。' }}</p>
+        <p>{{ isEn ? 'The competition is open to Octos, HAgency, ARC, Claude Code, custom agents, and others. Teams may change their harness, but cannot change the tests, gateway metering, or scoring.' : '大赛对 Octos、HAgency、ARC、Claude Code、自研及其它 Agents 开放。队伍能改自己的 Harness，但改不到测试、网关计量与评分。' }}</p>
       </section>
 
       <section>

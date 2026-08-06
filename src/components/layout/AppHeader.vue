@@ -360,7 +360,7 @@ async function saveProfile() {
       <a href="/" class="flex items-center gap-3 group">
         <span class="text-lg font-semibold tracking-[-0.05em] text-text-primary">OAIC</span>
         <span class="h-5 w-px bg-border"></span>
-        <span class="font-mono text-[8px] leading-[1.35] text-text-tertiary tracking-[0.14em] uppercase">Software Factory<br>AgentOS</span>
+        <span class="font-mono text-[8px] leading-[1.35] text-text-tertiary tracking-[0.14em] uppercase max-w-[9rem]">{{ t('hero.system') }}</span>
       </a>
 
       <!-- Desktop Nav -->
@@ -375,16 +375,16 @@ async function saveProfile() {
           {{ item.label }}
         </a>
         <router-link
-          to="/vision"
-          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
-        >
-          {{ t('nav.vision') }}
-        </router-link>
-        <router-link
           to="/rules"
           class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
         >
           {{ t('nav.rules') }}
+        </router-link>
+        <router-link
+          to="/resources"
+          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
+        >
+          {{ t('nav.resources') }}
         </router-link>
 
         <!-- Theme toggle -->
@@ -489,18 +489,18 @@ async function saveProfile() {
           {{ item.label }}
         </a>
         <router-link
-          to="/vision"
-          @click="mobileOpen = false"
-          class="block py-3 text-text-tertiary hover:text-text-primary transition-colors"
-        >
-          {{ t('nav.vision') }}
-        </router-link>
-        <router-link
           to="/rules"
           @click="mobileOpen = false"
           class="block py-3 text-text-tertiary hover:text-text-primary transition-colors"
         >
           {{ t('nav.rules') }}
+        </router-link>
+        <router-link
+          to="/resources"
+          @click="mobileOpen = false"
+          class="block py-3 text-text-tertiary hover:text-text-primary transition-colors"
+        >
+          {{ t('nav.resources') }}
         </router-link>
         <button
           @click="toggleLocale"

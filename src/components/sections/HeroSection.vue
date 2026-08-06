@@ -4,6 +4,7 @@ import { useCountdown } from '../../composables/useCountdown'
 import { useI18n } from '../../composables/useI18n'
 
 const { t } = useI18n()
+const locationLines = computed(() => t('hero.location') as string[])
 const { days, hours, minutes, seconds, isLive, isOver } = useCountdown(
   '2026-09-01T00:00:00+08:00',
   '2026-10-18T00:00:00+08:00',
@@ -42,7 +43,9 @@ const pipeline = computed(() => t('hero.pipeline') as string[])
           <div class="mt-8 grid max-w-5xl gap-8 border-t border-white/35 pt-6 md:grid-cols-[1.15fr_.85fr] md:items-end">
             <div>
               <p class="max-w-2xl text-base font-medium leading-relaxed text-white/88 md:text-xl">{{ t('hero.eventTitle') }}</p>
-              <p class="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/62 md:text-xs">{{ t('hero.location') }}</p>
+              <div class="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/62 md:text-xs">
+                <p v-for="line in locationLines" :key="line" class="mt-1 first:mt-0">{{ line }}</p>
+              </div>
             </div>
 
             <div class="flex flex-wrap items-center gap-3 md:justify-end">

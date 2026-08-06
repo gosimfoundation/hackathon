@@ -5,8 +5,8 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', component: HomePage },
-    { path: '/vision', component: () => import('./pages/VisionPage.vue') },
     { path: '/rules', component: () => import('./pages/RulesPage.vue') },
+    { path: '/resources', component: () => import('./pages/ResourcesPage.vue') },
     { path: '/profile/:id', component: () => import('./pages/ProfilePage.vue') },
     { path: '/admin', component: () => import('./pages/AdminPage.vue') },
     { path: '/export', component: () => import('./pages/ExportPage.vue') },

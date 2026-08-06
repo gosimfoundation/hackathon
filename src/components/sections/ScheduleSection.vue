@@ -25,10 +25,7 @@ const rounds = computed(() => t('schedule.rounds') as any[])
             </div>
             <dl class="grid gap-5 text-sm">
               <div><dt class="mono-label text-text-muted">{{ t('schedule.challengeLabel') }}</dt><dd class="mt-2 leading-relaxed text-text-primary">{{ round.challenge }}</dd></div>
-              <div class="grid gap-5 sm:grid-cols-2">
-                <div><dt class="mono-label text-text-muted">{{ t('schedule.milestoneLabel') }}</dt><dd class="mt-2 leading-relaxed text-text-secondary">{{ round.milestone }}</dd></div>
-                <div><dt class="mono-label text-text-muted">{{ t('schedule.participantsLabel') }}</dt><dd class="mt-2 leading-relaxed text-text-secondary">{{ round.participants }}</dd></div>
-              </div>
+              <div><dt class="mono-label text-text-muted">{{ t('schedule.participantsLabel') }}</dt><dd class="mt-2 leading-relaxed text-text-secondary">{{ round.participants }}</dd></div>
             </dl>
           </article>
         </div>
