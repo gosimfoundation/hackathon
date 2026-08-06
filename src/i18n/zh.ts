@@ -309,7 +309,7 @@ export default {
     confirmed: [
       { name: "OAIC 开放智能体产业联盟", role: "主办" },
       { name: "上海交通大学计算机学院 CoPhi Group", role: "主办 · ARC / ARC-Bench" },
-      { name: "启悟社", role: "社区伙伴" },
+      { name: "启悟学习社区", role: "社区伙伴" },
     ],
     pending: "更多赞助方将在露出授权确认后公布。",
   },
@@ -377,13 +377,13 @@ export default {
       },
       {
         q: "需要提交什么？",
-        a: "可运行的复刻（代码 + 启动方式）、完整的生产过程轨迹（prompts、工具调用、agent 迭代、人工干预点），以及 3–5 分钟 Demo。",
+        a: "可运行的Agent复刻（代码 + 启动方式）、完整的生产过程轨迹（prompts、工具调用、agent 迭代、人工干预点），以及 3–5 分钟 Demo。",
       },
     ],
   },
   cta: {
-    title: "从手搓到生产，从碰碰运气到稳稳驾驭",
-    tagline: "软件开发没有在 AI 的浪潮里消亡，反而比以往任何时候都更重要。",
+    title: "从手搓到生产，从运气到驾驭",
+    tagline: "软件工程没有在 AI 的浪潮里消亡，反而比以往任何时候都更重要。",
     location: "2026年9月1日 – 10月17日 · 线上 + 深圳 GOSIM",
   },
   construction: {

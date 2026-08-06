@@ -24,7 +24,7 @@ const links = [
     zhName: 'ARC-Bench 平台',
     enName: 'ARC-Bench platform',
     url: 'http://arc-bench.com',
-    zhNote: '运行和可视化的地方。Quick Start 里有上传自定义 agent 的完整步骤。',
+    zhNote: '运行和可视化的地方。Quick Start 里有上传自定义 agent 的完整步骤。Research 页上有更多的论文和科研资料',
     enNote: 'Where things actually run. The Quick Start walks through uploading a custom agent bundle.',
   },
   {
@@ -52,7 +52,7 @@ const links = [
       <h1 class="heading-serif text-4xl md:text-5xl text-text-primary mb-4">{{ isEn ? 'Start Here' : '资料都在这儿' }}</h1>
       <p class="text-text-tertiary mb-12">{{ isEn ? 'ARC, ARC-Bench, and requirement compilation — explained in one place.' : 'ARC、ARC-Bench 与需求编译，一次讲清。' }}</p>
 
-      <p class="lede">{{ isEn ? 'Several participants have told us the material is scattered: the article lives on one platform, the code on GitHub, the runtime on a separate site, and the paper is a PDF somewhere else. This page collects everything in one place and puts it in the order we suggest reading it. No prior background is assumed.' : '不少同学反馈，相关资料散在好几个地方——文章在公众号，代码在 GitHub，平台是另一个网址，论文又是一份 PDF。这篇文章把它们收在一起，并按建议的阅读顺序排好。不需要任何前置知识。' }}</p>
+      <p class="lede">{{ isEn ? 'This series uses ARC-Bench, built at Shanghai Jiao Tong University, as its main competition system. Material on ARC and ARC-Bench is scattered across several places — the article on WeChat, the code on GitHub, the platform at its own address, and the paper as a PDF. This page gathers it all in one place, in the order we suggest reading it. No prior background is assumed.' : '这次大赛采用上海交通大学ARC-Bench系统作为主要的比赛系统。有关ARC和ARC-Bench的相关资料散在好几个地方——文章在公众号，代码在 GitHub，平台是另一个网址，论文又是一份 PDF。这篇文章把它们收在一起，并按建议的阅读顺序排好。不需要任何前置知识。' }}</p>
 
       <section>
         <h2>{{ isEn ? '1. Three names, often confused' : '1. 三个名字，先分清' }}</h2>
