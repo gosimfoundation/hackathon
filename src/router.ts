@@ -6,6 +6,7 @@ const router = createRouter({
   routes: [
     { path: '/', component: HomePage },
     { path: '/rules', component: () => import('./pages/RulesPage.vue') },
+    { path: '/bootcamp', component: () => import('./pages/BootcampPage.vue') },
     { path: '/resources', component: () => import('./pages/ResourcesPage.vue') },
     { path: '/profile/:id', component: () => import('./pages/ProfilePage.vue') },
     { path: '/admin', component: () => import('./pages/AdminPage.vue') },

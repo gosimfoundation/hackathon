@@ -2,6 +2,7 @@ export default {
   nav: {
     rules: 'Rules',
     resources: 'Resources',
+    bootcamp: 'Bootcamp',
     about: 'Vision',
     themes: 'Challenges',
     schedule: 'Schedule',
@@ -182,7 +183,8 @@ export default {
       },
     ],
     activitiesTitle: 'Bootcamp activities',
-    activities: 'Workshops and Office Hours on Harness Engineering, ARC, ARC-Bench, HAgency, and Octos.',
+    activities: 'Six teaching sessions and three office hours (Sep 1–15): the competition system first, then reference implementations for five routes — your own agent, Octos, HAgency, Claude Code, and Codex — with office hours on the platform and rules, on harnesses and agents, and on submission and scoring. Each runs under an hour, all are recorded, and none are required.',
+    activitiesLink: 'See the bootcamp sessions',
   },
   judging: {
     title: 'Qualifier',

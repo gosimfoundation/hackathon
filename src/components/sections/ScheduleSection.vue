@@ -32,7 +32,10 @@ const rounds = computed(() => t('schedule.rounds') as any[])
       </div>
       <div class="reveal mt-10 grid border-y border-border py-6 md:grid-cols-[.35fr_1fr] md:gap-8">
         <span class="mono-label text-accent">{{ t('schedule.activitiesTitle') }}</span>
-        <p class="mt-3 text-sm text-text-secondary md:mt-0">{{ t('schedule.activities') }}</p>
+        <div class="mt-3 md:mt-0">
+          <p class="text-sm text-text-secondary">{{ t('schedule.activities') }}</p>
+          <router-link to="/bootcamp" class="mono-label mt-3 inline-block text-accent hover:underline">{{ t('schedule.activitiesLink') }} ↗</router-link>
+        </div>
       </div>
     </div>
   </section>

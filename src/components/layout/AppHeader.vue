@@ -375,6 +375,12 @@ async function saveProfile() {
           {{ item.label }}
         </a>
         <router-link
+          to="/bootcamp"
+          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
+        >
+          {{ t('nav.bootcamp') }}
+        </router-link>
+        <router-link
           to="/rules"
           class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
         >
@@ -488,6 +494,13 @@ async function saveProfile() {
         >
           {{ item.label }}
         </a>
+        <router-link
+          to="/bootcamp"
+          @click="mobileOpen = false"
+          class="block py-3 text-text-tertiary hover:text-text-primary transition-colors"
+        >
+          {{ t('nav.bootcamp') }}
+        </router-link>
         <router-link
           to="/rules"
           @click="mobileOpen = false"

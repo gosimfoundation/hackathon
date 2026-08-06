@@ -2,6 +2,7 @@ export default {
   nav: {
     rules: "规则",
     resources: "资料",
+    bootcamp: "研习营",
     about: "愿景",
     themes: "赛题",
     schedule: "赛程",
@@ -250,7 +251,8 @@ export default {
     ],
     activitiesTitle: "研习营活动",
     activities:
-      "Workshops、Office Hours，主题包括 Harness Engineering、ARC、ARC-Bench、HAgency、Octos。",
+      "六讲课程 + 三场答疑（9/1–9/15）：先讲比赛系统，再讲自研 Agent、Octos、HAgency、Claude Code、Codex 五条参赛路径的参考实现；答疑按平台与规则、Harness 与 Agent、提交与评分分三场。每场一小时以内，提供录像，鼓励参加但不作要求。",
+    activitiesLink: "查看研习营课程",
   },
   judging: {
     title: "初赛",

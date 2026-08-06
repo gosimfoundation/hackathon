@@ -63,6 +63,12 @@ const fairness = computed(() => t('judging.fairness') as any[])
         <p>{{ t('awards.subtitle') }}</p>
         <p>{{ t('awards.certificate') }}{{ isEn ? '. ' : '。' }}{{ t('awards.gosimSeat') }}</p>
       </section>
+
+      <section>
+        <h2>{{ isEn ? '8. Organizer authority' : '8. 组织方权利' }}</h2>
+        <p>{{ isEn ? 'The organizers reserve the right to interpret these rules, to adjust the format and schedule of the series, and to make the final ruling on results and disputes.' : '大赛规则的解释权、赛程与赛制的调整权，以及评审结果与争议的最终裁定权，均归组织方所有。' }}</p>
+        <p>{{ isEn ? 'Where the rules change, the version published on this site governs, and the change is posted on this page. Where a situation arises that the rules do not cover, the organizers decide it. Appeals concerning scores, penalties, or eligibility are settled by the organizers, and that decision is final.' : '规则如有调整，以官网公布的版本为准，改动会在本页更新。比赛过程中出现规则未覆盖的情形，由组织方裁定；对成绩、判罚与参赛资格的申诉，经组织方裁定后为最终结果。' }}</p>
+      </section>
     </div>
   </article>
 </template>
