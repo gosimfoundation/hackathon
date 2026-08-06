@@ -386,6 +386,11 @@ export default {
     tagline: "软件开发没有在 AI 的浪潮里消亡，反而比以往任何时候都更重要。",
     location: "2026年9月1日 – 10月17日 · 线上 + 深圳 GOSIM",
   },
+  construction: {
+    title: "网站建设中",
+    desc: "本站内容仍在完善，部分信息可能随时调整，请以最终公布为准。",
+    dismiss: "知道了",
+  },
   footer: {
     copyright: "2026 OAIC 国际人工智能软件工程研习营、黑客松和大奖赛系列",
     mainSite: "hackathon.gosim.org",

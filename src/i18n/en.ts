@@ -234,5 +234,10 @@ export default {
     ],
   },
   cta: { title: 'From Hand-Rolled to Produced, From Chance to Control', tagline: 'Software development did not die in the AI wave — it matters more than ever.', location: 'Sep 1 – Oct 17, 2026 · Online + GOSIM Shenzhen' },
+  construction: {
+    title: 'Site Under Construction',
+    desc: 'This site is still being built. Details may change without notice — treat nothing here as final until announced.',
+    dismiss: 'Got it',
+  },
   footer: { copyright: '2026 OAIC Harness Engineering Campathon and Grand Challenge Series', mainSite: 'ARC-Bench', register: 'Register' },
 }
