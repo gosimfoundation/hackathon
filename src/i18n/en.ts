@@ -233,7 +233,7 @@ export default {
       { q: 'What must we submit?', a: 'A runnable rebuild with code and startup instructions, the complete production trace (prompts, tool calls, agent iterations, and human intervention points), and a 3–5 minute demo.' },
     ],
   },
-  cta: { title: 'From vibing to harnessing, from luck to trust', tagline: 'Software development did not die in the AI wave — it matters more than ever.', location: 'Sep 1 – Oct 17, 2026 · Online + GOSIM Shenzhen' },
+  cta: { title: 'From vibe to harness, from luck to mastery', tagline: 'Software development did not die in the AI wave — it matters more than ever.', location: 'Sep 1 – Oct 17, 2026 · Online + GOSIM Shenzhen' },
   construction: {
     title: 'Site Under Construction',
     desc: 'This site is still being built. Details may change without notice — treat nothing here as final until announced.',
