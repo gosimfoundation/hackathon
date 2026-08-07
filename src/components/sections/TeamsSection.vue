@@ -5,12 +5,13 @@ import { useTeams, type Team } from '../../composables/useTeams'
 import { useAuth, type User } from '../../composables/useAuth'
 import { useI18n } from '../../composables/useI18n'
 import { teamFilter } from '../../composables/useTeamFilter'
+import { API_BASE, assetUrl } from '../../composables/api'
 
 const { t, pick, roleLabel, trackLabel } = useI18n()
 const { user, isLoggedIn, promptAuth } = useAuth()
 // GitHub avatar helper
 function getGitHubAvatar(githubId?: string): string {
-  if (!githubId) return '/default-avatar.svg'
+  if (!githubId) return assetUrl('/default-avatar.svg')
   return `https://avatars.githubusercontent.com/${githubId.replace(/^@/, '')}`
 }
 
@@ -184,8 +185,6 @@ function selectModel(id: string) {
 function defaultAvatar(): string {
   return assetUrl('/default-team-avatar.svg')
 }
-
-import { API_BASE, assetUrl } from '../../composables/api'
 
 async function uploadTeamAvatar(event: Event) {
   const file = (event.target as HTMLInputElement).files?.[0]

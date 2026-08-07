@@ -40,6 +40,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          VITE_BASE_PATH: ${{ secrets.VITE_BASE_PATH }}
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -56,6 +57,7 @@ Set secrets in your GitHub repo settings.
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
    - `VITE_SITE_URL`
+   - `VITE_BASE_PATH` (`/` at the domain root, or for example `/oaic-harness-2026/` behind the shared hackathon gateway)
 
 ## Netlify
 

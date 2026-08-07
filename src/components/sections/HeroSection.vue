@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useCountdown } from '../../composables/useCountdown'
 import { useI18n } from '../../composables/useI18n'
+import { assetUrl } from '../../composables/api'
 
 const { t } = useI18n()
 const locationLines = computed(() => t('hero.location') as string[])
@@ -23,8 +24,8 @@ const pipeline = computed(() => t('hero.pipeline') as PipelineStep[])
 
 <template>
   <section class="hero-section relative min-h-[760px] h-[100svh] overflow-hidden bg-[#0b0d0c] text-white">
-    <video autoplay loop muted playsinline preload="metadata" poster="/videos/shenzhen-hero-sz1-poster.jpg" class="absolute inset-0 h-full w-full object-cover">
-      <source src="/videos/shenzhen-hero-sz1.mp4" type="video/mp4" />
+    <video autoplay loop muted playsinline preload="metadata" :poster="assetUrl('/videos/shenzhen-hero-sz1-poster.jpg')" class="absolute inset-0 h-full w-full object-cover">
+      <source :src="assetUrl('/videos/shenzhen-hero-sz1.mp4')" type="video/mp4" />
     </video>
     <div class="hero-color-wash absolute inset-0"></div>
     <div class="absolute inset-0 bg-black/50"></div>

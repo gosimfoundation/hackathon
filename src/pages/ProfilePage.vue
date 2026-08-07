@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { supabase } from '../lib/supabase'
 import QRCode from 'qrcode'
 import { useI18n } from '../composables/useI18n'
+import { publicSiteUrl } from '../composables/api'
 
 const route = useRoute()
 const { pick, roleLabel, trackLabel } = useI18n()
@@ -23,8 +24,7 @@ onMounted(async () => {
   loading.value = false
 
   if (data) {
-    const siteUrl = import.meta.env.VITE_SITE_URL || window.location.origin
-    qrDataUrl.value = await QRCode.toDataURL(`${siteUrl}/profile/${userId}`, {
+    qrDataUrl.value = await QRCode.toDataURL(publicSiteUrl(`/profile/${userId}`), {
       width: 200,
       margin: 1,
       color: { dark: '#000000', light: '#ffffff' },
