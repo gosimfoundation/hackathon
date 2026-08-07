@@ -8,9 +8,15 @@ Copy `.env.example` to `.env` and set:
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 VITE_SITE_URL=https://your-public-site.example
+VITE_BASE_PATH=/
 ```
 
-`VITE_SITE_URL` is used for authentication redirects, invitation links, and QR codes. Add `GHPAGES=1` only when deploying below a GitHub Pages repository path.
+`VITE_SITE_URL` is used for authentication redirects, invitation links, and QR codes. `VITE_BASE_PATH` controls the URL prefix where the app is mounted and must start and end with `/`. For the shared GOSIM hackathon domain, use:
+
+```dotenv
+VITE_SITE_URL=https://hackathon.gosim.org/oaic-harness-2026
+VITE_BASE_PATH=/oaic-harness-2026/
+```
 
 ## Public event content
 

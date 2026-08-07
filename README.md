@@ -20,6 +20,7 @@ Set these values in `.env`:
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 VITE_SITE_URL=http://localhost:5173
+VITE_BASE_PATH=/
 ```
 
 ## Supabase

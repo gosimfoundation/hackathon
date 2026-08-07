@@ -5,6 +5,7 @@ import QRCode from 'qrcode'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { useI18n } from '../composables/useI18n'
+import { assetUrl, publicSiteUrl } from '../composables/api'
 
 const { pick, roleLabel, trackLabel } = useI18n()
 
@@ -56,8 +57,7 @@ const qrDataUrl = ref('')
 
 async function showQr(user: any) {
   qrUser.value = user
-  const siteUrl = import.meta.env.VITE_SITE_URL || window.location.origin
-  qrDataUrl.value = await QRCode.toDataURL(`${siteUrl}/profile/${user.id}`, {
+  qrDataUrl.value = await QRCode.toDataURL(publicSiteUrl(`/profile/${user.id}`), {
     width: 280, margin: 1, color: { dark: '#000000', light: '#ffffff' },
   })
 }
@@ -428,10 +428,10 @@ onMounted(() => { if (authed.value) { loadData(); loadAnnouncement(); loadSubmis
     <div v-else class="max-w-7xl mx-auto px-6">
       <div class="flex flex-wrap items-center gap-2 mb-6 p-3 bg-gray-900 border border-gray-800">
         <span class="text-xs text-gray-500">{{ pick('Links:', '链接：') }}</span>
-        <a href="/admin" class="text-xs px-2 py-1 bg-gray-800 text-amber-400 border border-gray-700">{{ pick('Admin', '管理后台') }}</a>
-        <a href="/export" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">{{ pick('Export', '导出') }}</a>
-        <a href="/checkin" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">{{ pick('Check-in', '签到') }}</a>
-        <a href="/projects" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">{{ pick('Projects', '项目') }}</a>
+        <router-link to="/admin" class="text-xs px-2 py-1 bg-gray-800 text-amber-400 border border-gray-700">{{ pick('Admin', '管理后台') }}</router-link>
+        <router-link to="/export" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">{{ pick('Export', '导出') }}</router-link>
+        <router-link to="/checkin" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">{{ pick('Check-in', '签到') }}</router-link>
+        <router-link to="/projects" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">{{ pick('Projects', '项目') }}</router-link>
         <span class="text-gray-700 mx-1">|</span>
         <span class="text-[10px] text-gray-600">admin: <span class="text-gray-400 font-mono select-all">{{ passwords.admin }}</span></span>
         <span class="text-[10px] text-gray-600">export: <span class="text-gray-400 font-mono select-all">{{ passwords.export }}</span></span>
@@ -773,7 +773,7 @@ onMounted(() => { if (authed.value) { loadData(); loadAnnouncement(); loadSubmis
               <tr v-for="t in teams" :key="t.id" class="border-b border-gray-800/50 hover:bg-gray-900/50">
                 <td class="py-3 px-3">
                   <div class="flex items-center gap-2">
-                    <img :src="t.avatar || '/default-team-avatar.svg'" class="w-7 h-7 rounded object-cover" />
+                    <img :src="assetUrl(t.avatar) || assetUrl('/default-team-avatar.svg')" class="w-7 h-7 rounded object-cover" />
                     <span class="text-white">{{ t.name }}</span>
                   </div>
                 </td>

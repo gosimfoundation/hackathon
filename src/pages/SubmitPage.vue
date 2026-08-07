@@ -77,7 +77,7 @@ async function submit() {
       <div v-else-if="teamsLoading" class="panel">{{ isEn ? 'Loading…' : '加载中……' }}</div>
       <div v-else-if="!myTeam" class="panel text-center">
         <p>{{ isEn ? 'Join or create a team before submitting.' : '提交前请先加入或创建队伍。' }}</p>
-        <a href="/#teams" class="inline-block mt-4 text-accent">{{ isEn ? 'Go to Teams' : '前往队伍' }}</a>
+        <router-link :to="{ path: '/', hash: '#teams' }" class="inline-block mt-4 text-accent">{{ isEn ? 'Go to Teams' : '前往队伍' }}</router-link>
       </div>
       <div v-else-if="!isLeader" class="panel">{{ isEn ? 'Only the team lead can submit or update this package.' : '只有队长可以提交或更新作品。' }}</div>
       <form v-else @submit.prevent="submit" class="panel space-y-5">

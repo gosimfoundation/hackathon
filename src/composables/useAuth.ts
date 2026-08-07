@@ -1,5 +1,6 @@
 import { ref, provide, inject, type InjectionKey, type Ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabase'
+import { publicSiteUrl } from './api'
 
 export interface User {
   id: string
@@ -155,7 +156,7 @@ export function provideAuth(pick: <T>(english: T, chinese: T) => T) {
           website: data.website,
           looking_for_team: data.lookingForTeam,
         },
-        emailRedirectTo: import.meta.env.VITE_SITE_URL || window.location.origin,
+        emailRedirectTo: publicSiteUrl(),
       },
     })
     if (signUpError) { error.value = friendlyAuthError(signUpError.message); return false }
@@ -211,7 +212,7 @@ export function provideAuth(pick: <T>(english: T, chinese: T) => T) {
   async function sendPasswordReset(email: string): Promise<boolean> {
     error.value = ''
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: import.meta.env.VITE_SITE_URL || window.location.origin,
+      redirectTo: publicSiteUrl(),
     })
     if (resetError) { error.value = friendlyAuthError(resetError.message); return false }
     return true
