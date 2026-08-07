@@ -25,9 +25,9 @@ const { entries: board, loading: boardLoading, isMock, leaderboardUrl } = useLea
           <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-border pb-4">
             <h3 class="text-xl font-semibold tracking-[-0.03em] text-text-primary md:text-2xl">
               {{ t('tracks.boardTitle') }}
-              <span v-if="isMock" class="ml-3 border border-border px-2 py-0.5 align-middle font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted">{{ t('tracks.boardMock') }}</span>
+              <span v-if="isMock" class="ml-3 border border-border px-2 py-0.5 align-middle font-mono text-xs uppercase tracking-[0.1em] text-text-muted">{{ t('tracks.boardMock') }}</span>
             </h3>
-            <a :href="leaderboardUrl" target="_blank" rel="noopener" class="border-b border-text-muted pb-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-text-muted transition-colors hover:border-accent hover:text-accent">
+            <a :href="leaderboardUrl" target="_blank" rel="noopener" class="border-b border-text-muted pb-0.5 font-mono text-xs uppercase tracking-[0.1em] text-text-muted transition-colors hover:border-accent hover:text-accent">
               {{ t('tracks.boardFull') }} ↗
             </a>
           </div>

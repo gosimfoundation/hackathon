@@ -13,10 +13,10 @@ const { t } = useI18n()
           <div class="mt-3 max-w-xl text-white/45 text-xs">{{ t('footer.copyright') }}</div>
         </div>
         <div class="flex items-center gap-6">
-          <a href="http://arc-bench.com" target="_blank" rel="noopener" class="font-mono text-[10px] uppercase tracking-[.12em] text-white/50 hover:text-white transition-colors">
+          <a href="http://arc-bench.com" target="_blank" rel="noopener" class="font-mono text-xs uppercase tracking-[.12em] text-white/60 hover:text-white transition-colors">
             {{ t('footer.mainSite') }}
           </a>
-          <router-link :to="{ path: '/', hash: '#teams' }" class="font-mono text-[10px] uppercase tracking-[.12em] text-[#dca6b9] hover:text-white transition-colors">
+          <router-link :to="{ path: '/', hash: '#teams' }" class="font-mono text-xs uppercase tracking-[.12em] text-[#dca6b9] hover:text-white transition-colors">
             {{ t('footer.register') }} ↗
           </router-link>
         </div>

@@ -11,12 +11,12 @@ const prizes = computed(() => t('awards.prizes') as any[])
       <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
         <div class="reveal">
           <span class="section-kicker !text-white/45">{{ pick('06 / Awards', '06 / 奖项') }}</span>
-          <h2 class="mt-8 text-[clamp(3.5rem,8vw,8rem)] font-semibold leading-[.85] tracking-[-.08em]">{{ t('awards.title') }}</h2>
+          <h2 class="mt-8 text-[clamp(2.75rem,6vw,6rem)] font-semibold leading-none tracking-[-.06em]">{{ t('awards.title') }}</h2>
           <p class="mt-8 max-w-md leading-relaxed text-white/55">{{ t('awards.subtitle') }}</p>
         </div>
         <div class="reveal reveal-delay-1 border-t border-white/25">
           <article v-for="(prize, i) in prizes" :key="prize.name" class="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-white/25 py-6 md:grid-cols-[3rem_1fr_auto] md:items-end md:py-8">
-            <span class="font-mono text-[10px] text-[#dca6b9]">0{{ i + 1 }}</span>
+            <span class="font-mono text-xs text-[#dca6b9]">0{{ i + 1 }}</span>
             <div>
               <h3 class="text-lg font-medium tracking-[-0.025em] md:text-2xl">{{ prize.name }}</h3>
               <p class="mono-label mt-2 text-white/40">{{ prize.slots }}</p>

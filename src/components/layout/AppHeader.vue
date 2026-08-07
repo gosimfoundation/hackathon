@@ -73,11 +73,8 @@ const mobileOpen = ref(false)
 const navItems = computed(() => [
   { label: t('nav.about'), href: '#about' },
   { label: t('nav.themes'), href: '#themes' },
-  { label: t('nav.awards'), href: '#awards' },
-  { label: t('nav.teams'), href: '#teams' },
   { label: t('nav.schedule'), href: '#schedule' },
-  { label: t('nav.judging'), href: '#judging' },
-  { label: t('nav.faq'), href: '#faq' },
+  { label: t('nav.awards'), href: '#awards' },
 ])
 
 function onScroll() {
@@ -360,7 +357,7 @@ async function saveProfile() {
       <a href="/" class="flex items-center gap-3 group">
         <span class="text-lg font-semibold tracking-[-0.05em] text-text-primary">OAIC</span>
         <span class="h-5 w-px bg-border"></span>
-        <span class="font-mono text-[8px] leading-[1.35] text-text-tertiary tracking-[0.14em] uppercase max-w-[9rem]">{{ t('hero.system') }}</span>
+        <span class="max-w-[9rem] font-mono text-xs uppercase leading-[1.35] tracking-[0.1em] text-text-tertiary">{{ t('hero.system') }}</span>
       </a>
 
       <!-- Desktop Nav -->
@@ -370,33 +367,26 @@ async function saveProfile() {
           :key="item.href"
           :href="`/${item.href}`"
           @click.prevent="scrollTo(item.href)"
-          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
+          class="inline-flex h-10 items-center font-mono text-xs uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-accent cursor-pointer"
         >
           {{ item.label }}
         </a>
         <router-link
           to="/bootcamp"
-          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
+          class="inline-flex h-10 items-center font-mono text-xs uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-accent cursor-pointer"
         >
           {{ t('nav.bootcamp') }}
         </router-link>
         <router-link
           to="/rules"
-          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
+          class="inline-flex h-10 items-center font-mono text-xs uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-accent cursor-pointer"
         >
           {{ t('nav.rules') }}
         </router-link>
-        <router-link
-          to="/resources"
-          class="font-mono text-[9px] xl:text-[10px] uppercase tracking-[0.08em] text-text-tertiary hover:text-accent transition-colors cursor-pointer"
-        >
-          {{ t('nav.resources') }}
-        </router-link>
-
         <!-- Theme toggle -->
         <button
           @click="toggleTheme"
-          class="text-text-tertiary hover:text-text-primary transition-colors p-1 border border-border"
+          class="inline-flex h-10 w-10 items-center justify-center border border-border p-0 text-text-tertiary transition-colors hover:text-text-primary"
           :title="isDark ? pick('Switch to light mode', '切换为浅色模式') : pick('Switch to dark mode', '切换为深色模式')"
         >
           <svg v-if="isDark" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -406,7 +396,7 @@ async function saveProfile() {
         <!-- Language toggle -->
         <button
           @click="toggleLocale"
-          class="text-[10px] text-text-tertiary hover:text-text-primary transition-colors font-mono border border-border px-1.5 py-0.5"
+          class="inline-flex h-10 min-w-10 items-center justify-center border border-border px-2 py-0 font-mono text-xs text-text-tertiary transition-colors hover:text-text-primary"
         >
           {{ locale === 'en' ? '中文' : 'EN' }}
         </button>
@@ -414,12 +404,12 @@ async function saveProfile() {
         <!-- User area -->
         <template v-if="isLoggedIn && user">
           <div class="relative">
-            <button @click="showUserDropdown = !showUserDropdown" class="relative flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors">
+            <button @click="showUserDropdown = !showUserDropdown" class="relative flex h-10 items-center gap-2 text-sm text-text-secondary transition-colors hover:text-text-primary">
               <span class="relative">
                 <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : '/default-avatar.svg')" class="w-7 h-7 rounded-full object-cover border border-border" />
-                <span v-if="pendingCount > 0" class="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-accent-red text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none border-2 border-bg-primary">{{ pendingCount }}</span>
+                <span v-if="pendingCount > 0" class="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-bg-primary bg-accent-red px-1 text-xs font-bold leading-none text-white">{{ pendingCount }}</span>
               </span>
-              <span class="max-w-[60px] xl:max-w-[80px] truncate text-[11px]">{{ user.name }}</span>
+              <span class="max-w-[60px] xl:max-w-[80px] truncate text-xs">{{ user.name }}</span>
             </button>
             <Transition
               enter-active-class="transition-all duration-150"
@@ -447,7 +437,7 @@ async function saveProfile() {
         <router-link
           v-if="isLoggedIn && user?.teamId"
           to="/submit"
-          class="px-4 py-1.5 bg-emerald-600 text-white text-[11px] font-semibold tracking-widest uppercase hover:bg-emerald-500 transition-colors whitespace-nowrap"
+          class="inline-flex h-10 items-center bg-emerald-600 px-4 py-0 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:bg-emerald-500 whitespace-nowrap"
         >
           {{ pick('SUBMIT PROJECT', '提交项目') }}
         </router-link>
@@ -455,7 +445,7 @@ async function saveProfile() {
           v-if="!isLoggedIn || !user?.teamId"
           href="/#teams"
           @click.prevent="scrollTo('#teams')"
-          class="px-4 py-1.5 bg-btn-bg text-btn-text text-[11px] font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors whitespace-nowrap"
+          class="inline-flex h-10 items-center bg-btn-bg px-4 py-0 text-xs font-semibold uppercase tracking-widest text-btn-text transition-colors hover:bg-btn-hover whitespace-nowrap"
         >
           {{ t('nav.applyNow') }}
         </a>
@@ -464,7 +454,7 @@ async function saveProfile() {
       <!-- Mobile Toggle -->
       <button
         @click="mobileOpen = !mobileOpen"
-        class="lg:hidden text-text-secondary"
+        class="inline-flex h-10 w-10 items-center justify-center text-text-secondary lg:hidden"
         :aria-label="mobileOpen ? pick('Close navigation menu', '关闭导航菜单') : pick('Open navigation menu', '打开导航菜单')"
         :aria-expanded="mobileOpen"
       >
@@ -507,13 +497,6 @@ async function saveProfile() {
           class="block py-3 text-text-tertiary hover:text-text-primary transition-colors"
         >
           {{ t('nav.rules') }}
-        </router-link>
-        <router-link
-          to="/resources"
-          @click="mobileOpen = false"
-          class="block py-3 text-text-tertiary hover:text-text-primary transition-colors"
-        >
-          {{ t('nav.resources') }}
         </router-link>
         <button
           @click="toggleLocale"
@@ -809,7 +792,7 @@ async function saveProfile() {
             </div>
             <p v-if="user.bio" class="text-sm text-text-secondary whitespace-pre-line">{{ user.bio }}</p>
             <div v-if="user.themes?.length" class="flex flex-wrap gap-1.5">
-              <span v-for="theme in user.themes" :key="theme" class="text-[10px] px-2 py-0.5 bg-accent/10 text-accent rounded">{{ trackLabel(theme) }}</span>
+              <span v-for="theme in user.themes" :key="theme" class="px-2 py-0.5 text-xs bg-accent/10 text-accent rounded">{{ trackLabel(theme) }}</span>
             </div>
             <div v-if="user.preferredModel" class="text-xs text-text-muted">{{ pick('Model', '模型') }}：<span class="text-text-secondary">{{ user.preferredModel }}</span></div>
             <div class="pt-3 border-t border-border-subtle space-y-1.5">
@@ -834,8 +817,8 @@ async function saveProfile() {
               <template v-else-if="myTeam && ['GLM','DeepSeek'].includes(myTeam.model || '')">
                 <p class="text-sm text-text-secondary mb-2">{{ pick('Register on RouteTokens to get your API credits:', '在 RouteTokens 注册以领取 API 额度：') }}</p>
                 <a href="https://portal.routetokens.com/" target="_blank" class="block px-3 py-2 bg-bg-secondary border border-accent/30 text-accent text-sm hover:bg-accent/5 transition-colors mb-1">→ portal.routetokens.com</a>
-                <p class="text-[11px] text-badge-warning-text mb-1">用你在我们网站注册的邮箱注册，否则可能在获取 token 的时候遇到问题</p>
-                <a href="https://docs.routetokens.com/" target="_blank" class="text-[10px] text-text-muted hover:text-text-secondary">{{ pick('Documentation', '使用文档') }} →</a>
+                <p class="mb-1 text-xs text-badge-warning-text">用你在我们网站注册的邮箱注册，否则可能在获取 token 的时候遇到问题</p>
+                <a href="https://docs.routetokens.com/" target="_blank" class="text-xs text-text-muted hover:text-text-secondary">{{ pick('Documentation', '使用文档') }} →</a>
               </template>
               <template v-else>
                 <p class="text-xs text-text-muted">{{ pick('Model credits are distributed by the organizers for the competition environment.', '比赛环境所需的模型额度将由组织方统一发放。') }}</p>
@@ -845,7 +828,7 @@ async function saveProfile() {
             <div v-if="user && profileQr" class="flex flex-col items-center pt-4 mt-2 border-t border-border">
               <p class="text-xs text-text-muted uppercase tracking-wider mb-2">{{ pick('Your Registration QR Code', '你的报名二维码') }}</p>
               <img :src="profileQr" class="w-28 h-28" />
-              <p class="text-[10px] text-text-muted mt-1">{{ pick('Opens your registration record', '扫码打开你的报名资料') }}</p>
+              <p class="mt-1 text-xs text-text-muted">{{ pick('Opens your registration record', '扫码打开你的报名资料') }}</p>
             </div>
           </div>
 

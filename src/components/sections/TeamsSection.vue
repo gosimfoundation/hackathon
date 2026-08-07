@@ -463,7 +463,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
         <!-- Activity ticker -->
         <div v-if="recentActivity.length" class="flex items-center gap-2 mt-4 text-xs">
           <span class="h-1.5 w-1.5 bg-accent"></span>
-          <span class="text-accent font-mono tracking-wider uppercase text-[9px]">{{ pick('Live Registry', '实时报名动态') }}</span>
+          <span class="text-xs font-mono uppercase tracking-wider text-accent">{{ pick('Live Registry', '实时报名动态') }}</span>
           <Transition mode="out-in" enter-active-class="transition duration-300" enter-from-class="opacity-0 translate-y-1" leave-active-class="transition duration-200" leave-to-class="opacity-0 -translate-y-1">
             <span :key="tickerIndex" class="text-text-secondary">
               {{ recentActivity[tickerIndex]?.text }} · <span class="text-text-muted">{{ recentActivity[tickerIndex]?.time }}</span>
@@ -552,7 +552,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
             <div v-for="member in getTeamMembers(team.id)" :key="member.id" @click.stop="openUserProfile(member)" class="flex items-center gap-2 px-3 py-2.5 bg-bg-elevated/60 border border-border-subtle rounded-lg cursor-pointer hover:border-accent/40 transition-colors">
               <img :src="assetUrl(member.avatar) || getGitHubAvatar(member.githubId)" class="w-7 h-7 rounded-full shrink-0 object-cover" />
               <div class="min-w-0">
-                <span v-if="member.id === team.leaderId" class="text-[9px] text-badge-warning-text font-semibold block leading-tight flex items-center gap-0.5"><img :src="tw.crown" class="w-2.5 h-2.5" /> {{ pick('Lead', '队长') }}</span>
+                <span v-if="member.id === team.leaderId" class="flex items-center gap-0.5 text-xs font-semibold leading-tight text-badge-warning-text"><img :src="tw.crown" class="w-3 h-3" /> {{ pick('Lead', '队长') }}</span>
                 <span class="text-xs text-text-secondary truncate block">{{ member.name }}</span>
               </div>
             </div>
@@ -561,10 +561,10 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
           <!-- Bottom -->
           <div class="mt-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <a v-if="team.githubRepo" :href="team.githubRepo" target="_blank" @click.stop class="inline-flex items-center gap-1 text-[11px] text-text-secondary hover:text-accent transition-colors">
+              <a v-if="team.githubRepo" :href="team.githubRepo" target="_blank" @click.stop class="inline-flex items-center gap-1 text-xs text-text-secondary hover:text-accent transition-colors">
                 <img :src="tw.link" class="w-3.5 h-3.5" /> {{ pick('Repo', '仓库') }}
               </a>
-              <span v-if="team.locked" class="text-[10px] text-text-muted inline-flex items-center gap-0.5">
+              <span v-if="team.locked" class="inline-flex items-center gap-0.5 text-xs text-text-muted">
                 <img :src="tw.lock" class="w-3 h-3" /> {{ pick('Locked', '已锁定') }}
               </span>
             </div>
@@ -822,7 +822,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                   <h3 class="text-2xl font-bold text-text-primary">{{ viewingTeam.name }}</h3>
                   <div class="flex items-center gap-2 mt-1">
                     <span class="text-sm text-text-secondary">{{ getTeamMembers(viewingTeam.id).length }} {{ pick('members', '名成员') }}</span>
-                    <span v-if="viewingTeam.locked" class="text-[10px] px-1.5 py-0.5 rounded bg-badge-neutral-bg text-text-tertiary inline-flex items-center gap-0.5">
+                    <span v-if="viewingTeam.locked" class="inline-flex items-center gap-0.5 rounded bg-badge-neutral-bg px-1.5 py-0.5 text-xs text-text-tertiary">
                       <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
                       {{ pick('Locked', '已锁定') }}
                     </span>
@@ -863,7 +863,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                     <img :src="assetUrl(member.avatar) || getGitHubAvatar(member.githubId)" class="w-8 h-8 rounded-full shrink-0 object-cover border border-border" />
                     <div class="flex-1 min-w-0">
                       <span class="text-sm font-semibold text-text-primary">{{ member.name }}</span>
-                      <span v-if="member.id === viewingTeam.leaderId" class="text-[10px] text-badge-warning-text ml-1">{{ t('teams.lead') }}</span>
+                      <span v-if="member.id === viewingTeam.leaderId" class="ml-1 text-xs text-badge-warning-text">{{ t('teams.lead') }}</span>
                       <span v-if="member.role" class="text-xs text-text-secondary ml-2">{{ roleLabel(member.role) }}</span>
                     </div>
                     <a v-if="member.githubId" :href="'https://github.com/' + member.githubId.replace(/^@/, '')" target="_blank" @click.stop class="text-xs text-text-secondary hover:text-accent transition-colors">@{{ member.githubId.replace(/^@/, '') }}</a>
@@ -946,7 +946,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
                     <div class="flex items-center gap-2 min-w-0">
                       <img :src="assetUrl(pu.avatar) || getGitHubAvatar(pu.githubId)" class="w-6 h-6 rounded-full shrink-0 object-cover" />
                       <span class="text-sm text-text-primary truncate">{{ pu.name }}</span>
-                      <span v-if="pu.role" class="text-[10px] text-text-muted truncate">{{ roleLabel(pu.role) }}</span>
+                      <span v-if="pu.role" class="truncate text-xs text-text-muted">{{ roleLabel(pu.role) }}</span>
                     </div>
                     <div class="flex gap-2 shrink-0">
                       <button @click="handleApprove(viewingTeam.id, pu.id)" class="px-3 py-1 text-xs bg-badge-success-bg text-badge-success-text font-semibold hover:opacity-80 transition-opacity">{{ pick('Approve', '通过') }}</button>
@@ -975,7 +975,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
 
               <!-- Leader leave (dissolve note) -->
               <div v-if="isLoggedIn && isTeamLeader(viewingTeam)" class="mt-2">
-                <p class="text-[11px] text-text-secondary text-center">{{ pick('As team leader, delete the team to leave.', '队长需要解散队伍后才能退出。') }}</p>
+                <p class="text-center text-xs text-text-secondary">{{ pick('As team leader, delete the team to leave.', '队长需要解散队伍后才能退出。') }}</p>
               </div>
             </template>
           </div>

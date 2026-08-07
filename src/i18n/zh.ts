@@ -15,12 +15,18 @@ export default {
   hero: {
     eyebrow: "开放智能体产业联盟 （OAIC），上海交通大学计算机学院，启悟社主办",
     system: "AI 软件工程国际智客松",
-    pipeline: ["研习营（9.1 - 9.15）", "初赛（9.1 - 9.30）", "决赛（10.1 - 10.17）", "颁奖（10.17）"],
+    pipeline: [
+      { label: "研习营", date: "9.1 – 9.15" },
+      { label: "初赛", date: "9.1 – 9.30" },
+      { label: "决赛", date: "10.1 – 10.17" },
+      { label: "颁奖", date: "10.17" },
+    ],
     eventTitle: "From Vibe Coding to Harness Engineering",
     location: [
       "2026.9.1 – 9.30 · 研习营 / 初赛 · 线上",
       "2026.10.1 – 10.17 · 决赛 · 线上 + 深圳 GOSIM 大会",
     ],
+    sponsorNotice: "更多赞助方将在露出授权确认后公布。",
     countdownLabel: "9月1日研习营和初赛开赛",
     days: "天",
     hours: "时",

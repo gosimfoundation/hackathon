@@ -15,12 +15,18 @@ export default {
   hero: {
     eyebrow: 'Organized by OAIC, the SJTU School of Computer Science, and Qiwoo',
     system: 'AI Software Engineering Campathon',
-    pipeline: ['Camp (Sep 1–15)', 'Qualifier (Sep 1–30)', 'Finals (Oct 1–17)', 'Awards (Oct 17)'],
+    pipeline: [
+      { label: 'Camp', date: 'Sep 1–15' },
+      { label: 'Qualifier', date: 'Sep 1–30' },
+      { label: 'Finals', date: 'Oct 1–17' },
+      { label: 'Awards', date: 'Oct 17' },
+    ],
     eventTitle: '2026 OAIC Harness Engineering Campathon and Grand Challenge Series',
     location: [
       'Sep 1 – Sep 30, 2026 · Bootcamp / Qualifier · Online',
       'Oct 1 – Oct 17, 2026 · Finals · Online + GOSIM Shenzhen',
     ],
+    sponsorNotice: 'More sponsors will be announced once visibility authorization is confirmed.',
     countdownLabel: 'Bootcamp & Qualifier begins September 1',
     days: 'Days',
     hours: 'Hours',

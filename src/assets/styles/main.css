@@ -46,6 +46,9 @@
   --font-sans: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
   --font-serif: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
 
+  --text-xs: .875rem;
+  --text-xs--line-height: 1.5rem;
+
   --animate-marquee: marquee 45s linear infinite;
   --animate-marquee-reverse: marquee-reverse 45s linear infinite;
 }
@@ -285,8 +288,9 @@ select:focus,
   gap: .75rem;
   color: var(--color-text-tertiary);
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: .68rem;
+  font-size: .875rem;
   font-weight: 500;
+  line-height: 1.6;
   letter-spacing: .16em;
   text-transform: uppercase;
 }
@@ -301,15 +305,16 @@ select:focus,
 .section-title {
   max-width: 16ch;
   color: var(--color-text-primary);
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(2.25rem, 4.6vw, 4.75rem);
   font-weight: 600;
-  letter-spacing: -.065em;
-  line-height: .93;
+  letter-spacing: -.05em;
+  line-height: 1.04;
 }
 
 .mono-label {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: .68rem;
+  font-size: .875rem;
+  line-height: 1.6;
   letter-spacing: .12em;
   text-transform: uppercase;
 }

@@ -18,7 +18,7 @@ const fairness = computed(() => t('judging.fairness') as any[])
 
         <div class="reveal reveal-delay-1 border-t border-border">
           <article v-for="(criterion, i) in criteria" :key="criterion.name" class="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-border py-6 md:grid-cols-[3rem_.7fr_.35fr_1fr] md:gap-6">
-            <span class="font-mono text-[10px] text-accent">0{{ i + 1 }}</span>
+            <span class="font-mono text-xs text-accent">0{{ i + 1 }}</span>
             <h3 class="font-semibold tracking-[-0.025em] text-text-primary">{{ criterion.name }}</h3>
             <span class="mono-label text-text-muted">{{ criterion.method }}</span>
             <p class="col-start-2 text-sm leading-relaxed text-text-secondary md:col-start-4">{{ criterion.desc }}</p>
@@ -28,7 +28,7 @@ const fairness = computed(() => t('judging.fairness') as any[])
 
       <div class="mt-16 grid border-y border-border md:grid-cols-4 md:divide-x md:divide-border">
         <article v-for="(item, i) in fairness" :key="item.title" class="reveal p-6 md:p-7" :class="`reveal-delay-${i + 1}`">
-          <span class="font-mono text-[10px] text-accent">F0{{ i + 1 }}</span>
+          <span class="font-mono text-xs text-accent">F0{{ i + 1 }}</span>
           <h3 class="mt-7 font-semibold text-text-primary">{{ item.title }}</h3>
           <p class="mt-3 text-xs leading-relaxed text-text-secondary">{{ item.desc }}</p>
         </article>

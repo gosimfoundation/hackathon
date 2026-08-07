@@ -17,7 +17,7 @@ function toggle(i: number) { openIndex.value = openIndex.value === i ? null : i 
       <div class="reveal reveal-delay-1 border-t border-border">
         <article v-for="(faq, i) in faqs" :key="i" class="border-b border-border">
           <button @click="toggle(i)" class="grid w-full grid-cols-[2.5rem_1fr_auto] gap-4 py-6 text-left md:grid-cols-[3rem_1fr_auto]">
-            <span class="font-mono text-[10px] text-accent">{{ String(i + 1).padStart(2, '0') }}</span>
+            <span class="font-mono text-xs text-accent">{{ String(i + 1).padStart(2, '0') }}</span>
             <span class="font-semibold leading-snug tracking-[-0.02em] text-text-primary">{{ faq.q }}</span>
             <span class="text-lg text-text-muted transition-transform duration-200" :class="openIndex === i ? 'rotate-45 text-accent' : ''">＋</span>
           </button>

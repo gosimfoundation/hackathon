@@ -15,7 +15,7 @@ const confirmed = computed(() => t('sponsors.confirmed') as any[])
         </div>
         <div class="reveal reveal-delay-1 border-t border-border">
           <article v-for="(item, i) in confirmed" :key="item.name" class="grid grid-cols-[2.5rem_1fr] border-b border-border py-6 md:grid-cols-[3rem_1fr_auto] md:items-center">
-            <span class="font-mono text-[10px] text-accent">0{{ i + 1 }}</span>
+            <span class="font-mono text-xs text-accent">0{{ i + 1 }}</span>
             <h3 class="text-xl font-semibold text-text-primary md:text-2xl">{{ item.name }}</h3>
             <p class="mono-label col-start-2 mt-2 text-text-muted md:col-start-3 md:mt-0">{{ item.role }}</p>
           </article>
