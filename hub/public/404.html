@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opening GOSIM Hackathons…</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var eventSlugs = ['oaic-harness-2026']
+        var legacyRoutes = [
+          '/vision',
+          '/rules',
+          '/bootcamp',
+          '/resources',
+          '/admin',
+          '/export',
+          '/submit',
+          '/checkin',
+          '/projects',
+        ]
+        var path = window.location.pathname
+        var firstSegment = path.split('/').filter(Boolean)[0]
+        var target = null
+
+        if (eventSlugs.indexOf(firstSegment) !== -1) {
+          target = path === '/' + firstSegment ? path + '/' : path
+        } else if (legacyRoutes.indexOf(path) !== -1 || path.indexOf('/profile/') === 0) {
+          firstSegment = 'oaic-harness-2026'
+          target = '/' + firstSegment + path
+        }
+
+        if (target) {
+          try {
+            window.sessionStorage.setItem(
+              'gosim-pages-redirect',
+              target + window.location.search + window.location.hash,
+            )
+          } catch (_) {}
+          window.location.replace('/' + firstSegment + '/')
+          return
+        }
+
+        window.location.replace('/?not-found=' + encodeURIComponent(path))
+      })()
+    </script>
+  </body>
+</html>

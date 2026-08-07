@@ -1,58 +1,53 @@
-# 2026 OAIC Harness Engineering Campathon
+# GOSIM Hackathons
 
-Official website for the **2026 OAIC Harness Engineering Campathon and Grand Challenge Series**, running September 1–October 17, 2026 online and concluding at GOSIM Shenzhen.
+Single GitHub Pages repository for `hackathon.gosim.org`.
 
-The application is a Vue 3 + TypeScript + Vite site with bilingual public content, Supabase authentication, team registration, project submissions, invitations, announcements, and administrative tools. It was migrated from the earlier Paris hackathon sites and the reusable hackathon kit, then rewritten for the 2026 event.
+## Repository layout
+
+```text
+hub/                              # hackathon.gosim.org/
+events/oaic-harness-2026/         # /oaic-harness-2026/
+scripts/build-site.mjs            # assembles the Pages artifact
+```
+
+Each event is an independent application with its own `package.json`, lockfile,
+source code, and maintainers. Event teams should limit pull requests to their
+event directory unless a shared deployment change is required.
 
 ## Local development
 
-Requirements: Node.js 20+ and a Supabase project.
+Install dependencies once per application:
 
 ```bash
-npm ci
-cp .env.example .env
-npm run dev
+npm ci --prefix hub
+npm ci --prefix events/oaic-harness-2026
 ```
 
-Set these values in `.env`:
+Run one application:
 
-```dotenv
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key
-VITE_SITE_URL=http://localhost:5173
-VITE_BASE_PATH=/
+```bash
+npm run dev:hub
+npm run dev:oaic-harness-2026
 ```
 
-## Supabase
-
-Apply the SQL in [`docs/supabase-setup.md`](docs/supabase-setup.md), including all migrations under `supabase/migrations/`. The 2026 migration adds team harness selection and one submission per team per competition round.
-
-Registration is complete only after a participant creates or joins a team. Team-size limits are intentionally not enforced until organizers confirm the policy.
-
-## Content source
-
-Public event copy lives in:
-
-- `src/i18n/en.ts`
-- `src/i18n/zh.ts`
-
-Confirmed event data is also summarized in `config/event.example.yaml`. Unknown items—team size, registration deadline, participation fee, judging weights, public contact details, and unconfirmed sponsors—are intentionally not published.
-
-## Build
+Build the complete Pages artifact:
 
 ```bash
 npm run build
 ```
 
-The deployable static output is written to `dist/`. See [`docs/deployment.md`](docs/deployment.md) for hosting options.
+The result is written to `_site/`. GitHub Actions deploys that directory as one
+Pages site.
 
-## Stack
+## Add another event
 
-- Vue 3 and TypeScript
-- Vite 8 and Tailwind CSS 4
-- Supabase Auth, Database, Realtime, Storage, and Edge Functions
-- Playwright browser-testing dependency
+1. Create `events/<event-slug>/` with its own application and lockfile.
+2. Configure the application to build with `/<event-slug>/` as its base path.
+3. Add the event to `hub/src/events.ts`.
+4. Add the event build to `scripts/build-site.mjs` and the dependency install to
+   `.github/workflows/deploy.yml`.
+5. Add the slug to `hub/public/404.html` so deep links can be restored.
+6. Add directory ownership rules once the event's GitHub team is known.
 
-## License
-
-MIT
+The event slug is the public URL segment. Renaming an event directory therefore
+requires an explicit redirect from the former URL.
