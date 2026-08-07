@@ -30,6 +30,7 @@ jobs:
           cache-dependency-path: |
             hub/package-lock.json
             events/oaic-harness-2026/package-lock.json
+            events/agentic-hackathon-paris-2026/package-lock.json
 
       - name: Install Hub dependencies
         run: npm ci --prefix hub
@@ -37,12 +38,18 @@ jobs:
       - name: Install OAIC Harness dependencies
         run: npm ci --prefix events/oaic-harness-2026
 
+      - name: Install Paris Agentic Hackathon dependencies
+        run: npm ci --prefix events/agentic-hackathon-paris-2026
+
       - name: Build complete site
         run: npm run build
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          PARIS_VITE_SUPABASE_URL: ${{ secrets.PARIS_VITE_SUPABASE_URL }}
+          PARIS_VITE_SUPABASE_ANON_KEY: ${{ secrets.PARIS_VITE_SUPABASE_ANON_KEY }}
+          PARIS_VITE_SITE_URL: ${{ secrets.PARIS_VITE_SITE_URL }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

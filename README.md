@@ -7,6 +7,8 @@ Single GitHub Pages repository for `hackathon.gosim.org`.
 ```text
 hub/                              # hackathon.gosim.org/
 events/oaic-harness-2026/         # /oaic-harness-2026/
+events/agentic-hackathon-paris-2026/
+                                  # /agentic-hackathon-paris-2026/
 scripts/build-site.mjs            # assembles the Pages artifact
 ```
 
@@ -21,6 +23,7 @@ Install dependencies once per application:
 ```bash
 npm ci --prefix hub
 npm ci --prefix events/oaic-harness-2026
+npm ci --prefix events/agentic-hackathon-paris-2026
 ```
 
 Run one application:
@@ -28,6 +31,7 @@ Run one application:
 ```bash
 npm run dev:hub
 npm run dev:oaic-harness-2026
+npm run dev:agentic-hackathon-paris-2026
 ```
 
 Build the complete Pages artifact:
