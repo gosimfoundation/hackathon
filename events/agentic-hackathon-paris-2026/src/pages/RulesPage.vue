@@ -65,7 +65,7 @@ const isEn = computed(() => locale.value === 'en')
         <h2 class="heading-serif text-2xl text-text-primary mb-6">5. What You May Build On</h2>
         <p>Participants may use existing open-source frameworks, models, APIs, SDKs, datasets, and previously developed personal or team code, provided that:</p>
         <ul>
-          <li>The team should choose and build within a published hackathon theme available on <strong>create.gosim.org</strong></li>
+          <li>The team should choose and build within a published hackathon theme available on <strong>hackathon.gosim.org/agentic-hackathon-paris-2026</strong></li>
           <li>The team has the legal right to use them</li>
           <li>The final submission clearly identifies major pre-existing components</li>
           <li>The project's core hackathon value comes from work substantially advanced during the hackathon period</li>
@@ -125,7 +125,7 @@ const isEn = computed(() => locale.value === 'en')
         <hr class="border-border my-12" />
 
         <h2 class="heading-serif text-2xl text-text-primary mb-6">9. Judging Criteria</h2>
-        <p>Projects will be reviewed using the published judging criteria on <strong>create.gosim.org</strong>.</p>
+        <p>Projects will be reviewed using the published judging criteria on <strong>hackathon.gosim.org/agentic-hackathon-paris-2026</strong>.</p>
         <p>Each dimension counts for <strong>20%</strong> of the total score.</p>
 
         <h3 class="text-xl text-text-primary mt-8 mb-4">9.1 Innovation</h3>
@@ -278,7 +278,7 @@ const isEn = computed(() => locale.value === 'en')
         <h2 class="heading-serif text-2xl text-text-primary mb-6">5. 可使用的构建基础</h2>
         <p>参赛者可以使用现有的开源框架、模型、API、SDK、数据集和此前开发的个人或团队代码，但须满足以下条件：</p>
         <ul>
-          <li>团队应在 <strong>create.gosim.org</strong> 上公布的黑客松主题范围内选择和构建</li>
+          <li>团队应在 <strong>hackathon.gosim.org/agentic-hackathon-paris-2026</strong> 上公布的黑客松主题范围内选择和构建</li>
           <li>团队拥有使用这些资源的合法权利</li>
           <li>最终提交清楚标注了主要的预先存在的组件</li>
           <li>项目的核心黑客松价值来自于在比赛期间实质性推进的工作</li>
@@ -338,7 +338,7 @@ const isEn = computed(() => locale.value === 'en')
         <hr class="border-border my-12" />
 
         <h2 class="heading-serif text-2xl text-text-primary mb-6">9. 评审标准</h2>
-        <p>项目将根据 <strong>create.gosim.org</strong> 上公布的评审标准进行评审。</p>
+        <p>项目将根据 <strong>hackathon.gosim.org/agentic-hackathon-paris-2026</strong> 上公布的评审标准进行评审。</p>
         <p>每个维度占总分的 <strong>20%</strong>。</p>
 
         <h3 class="text-xl text-text-primary mt-8 mb-4">9.1 创新性</h3>

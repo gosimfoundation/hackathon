@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "dev:hub": "npm run dev --prefix hub",
-    "dev:oaic-harness-2026": "npm run dev --prefix events/oaic-harness-2026"
+    "dev:oaic-harness-2026": "npm run dev --prefix events/oaic-harness-2026",
+    "dev:agentic-hackathon-paris-2026": "npm run dev --prefix events/agentic-hackathon-paris-2026"
   }
 }

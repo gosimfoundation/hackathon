@@ -1,5 +1,16 @@
-# Vue 3 + TypeScript + Vite
+# GOSIM Agentic Hackathon 2026 — Paris
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Event application published at:
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+`https://hackathon.gosim.org/agentic-hackathon-paris-2026/`
+
+Run development commands from the monorepo root:
+
+```bash
+npm ci --prefix events/agentic-hackathon-paris-2026
+npm run dev:agentic-hackathon-paris-2026
+```
+
+The root build script supplies the production base path and the Paris-specific
+Supabase environment variables. Do not add a `CNAME` file or deploy this
+directory separately.

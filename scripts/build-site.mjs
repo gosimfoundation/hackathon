@@ -12,6 +12,15 @@ const events = [
     slug: 'oaic-harness-2026',
     directory: join(root, 'events', 'oaic-harness-2026'),
   },
+  {
+    slug: 'agentic-hackathon-paris-2026',
+    directory: join(root, 'events', 'agentic-hackathon-paris-2026'),
+    environment: {
+      VITE_SUPABASE_URL: process.env.PARIS_VITE_SUPABASE_URL || '',
+      VITE_SUPABASE_ANON_KEY: process.env.PARIS_VITE_SUPABASE_ANON_KEY || '',
+      VITE_SITE_URL: process.env.PARIS_VITE_SITE_URL || '',
+    },
+  },
 ]
 
 function runBuild(directory, env = {}) {
@@ -35,8 +44,11 @@ for (const event of events) {
   const basePath = `/${event.slug}/`
 
   runBuild(event.directory, {
+    ...event.environment,
     VITE_BASE_PATH: basePath,
-    VITE_SITE_URL: process.env.VITE_SITE_URL || `${publicOrigin}/${event.slug}`,
+    VITE_SITE_URL: event.environment
+      ? event.environment.VITE_SITE_URL || `${publicOrigin}/${event.slug}`
+      : process.env.VITE_SITE_URL || `${publicOrigin}/${event.slug}`,
   })
 
   const destination = join(output, event.slug)

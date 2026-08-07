@@ -10,7 +10,7 @@ const { t } = useI18n()
 const { user, isLoggedIn, promptAuth } = useAuth()
 // GitHub avatar helper
 function getGitHubAvatar(githubId?: string): string {
-  if (!githubId) return '/default-avatar.svg'
+  if (!githubId) return assetUrl('/default-avatar.svg')
   return `https://avatars.githubusercontent.com/${githubId.replace(/^@/, '')}`
 }
 

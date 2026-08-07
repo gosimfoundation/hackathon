@@ -4,7 +4,7 @@ import { useI18n } from '../../composables/useI18n'
 import { useAuth } from '../../composables/useAuth'
 import { useTheme } from '../../composables/useTheme'
 import { useTeams } from '../../composables/useTeams'
-import { assetUrl } from '../../composables/api'
+import { assetUrl, publicSiteUrl } from '../../composables/api'
 import QRCode from 'qrcode'
 import { supabase } from '../../lib/supabase'
 
@@ -303,7 +303,7 @@ async function openProfileModal() {
     profileWebsite.value = user.value.website || ''
     profileLookingForTeam.value = user.value.lookingForTeam
     profileRSVP.value = user.value.confirmedAttendance
-    profileQr.value = await QRCode.toDataURL(`https://create.gosim.org/profile/${user.value.id}`, {
+    profileQr.value = await QRCode.toDataURL(publicSiteUrl(`/profile/${user.value.id}`), {
       width: 200, margin: 1, color: { dark: '#000000', light: '#ffffff' },
     })
   }
@@ -346,10 +346,10 @@ async function saveProfile() {
     :class="scrolled ? 'bg-bg-primary/95 backdrop-blur-xl border-b border-border shadow-sm' : 'bg-transparent'"
   >
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3 group">
+      <router-link to="/" class="flex items-center gap-3 group">
         <img :src="isDark ? assetUrl('/gosim-logo-white.svg') : assetUrl('/gosim-logo.svg')" alt="GOSIM" class="h-7 w-auto" />
         <span class="text-xs text-text-tertiary font-light tracking-widest uppercase">Hackathon</span>
-      </a>
+      </router-link>
 
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-1.5 xl:gap-3">
@@ -397,7 +397,7 @@ async function saveProfile() {
           <div class="relative">
             <button @click="showUserDropdown = !showUserDropdown" class="relative flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors">
               <span class="relative">
-                <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : '/default-avatar.svg')" class="w-7 h-7 rounded-full object-cover border border-border" />
+                <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : assetUrl('/default-avatar.svg'))" class="w-7 h-7 rounded-full object-cover border border-border" />
                 <span v-if="pendingCount > 0" class="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-accent-red text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none border-2 border-bg-primary">{{ pendingCount }}</span>
               </span>
               <span class="max-w-[60px] xl:max-w-[80px] truncate text-[11px]">{{ user.name }}</span>
@@ -495,7 +495,7 @@ async function saveProfile() {
         <!-- Mobile user area -->
         <template v-if="isLoggedIn && user">
           <div class="flex items-center gap-2 py-3 border-t border-border-subtle mt-2">
-            <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : '/default-avatar.svg')" class="w-7 h-7 rounded-full object-cover border border-border" />
+            <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : assetUrl('/default-avatar.svg'))" class="w-7 h-7 rounded-full object-cover border border-border" />
             <span class="text-sm text-text-secondary truncate">{{ user.name }}</span>
           </div>
           <button @click="openProfileModal(); mobileOpen = false" class="block py-3 text-text-tertiary hover:text-text-primary transition-colors text-sm">
@@ -773,7 +773,7 @@ async function saveProfile() {
           <!-- View Mode -->
           <div v-if="!profileEditing && user" class="space-y-4">
             <div class="flex items-center gap-4 mb-4">
-              <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : '/default-avatar.svg')" class="w-16 h-16 rounded-full object-cover border-2 border-border" />
+              <img :src="assetUrl(user.avatar) || (user.githubId ? `https://avatars.githubusercontent.com/${user.githubId.replace('@', '')}` : assetUrl('/default-avatar.svg'))" class="w-16 h-16 rounded-full object-cover border-2 border-border" />
               <div>
                 <p class="text-lg font-bold text-text-primary">{{ user.name || '(no name)' }}</p>
                 <p v-if="user.role" class="text-sm text-text-secondary">{{ user.role }}</p>
@@ -1017,7 +1017,7 @@ async function saveProfile() {
                 <!-- 已加入的团队 -->
                 <div v-if="user?.teamId && myTeam" class="mb-6">
                   <div class="flex items-center gap-4 mb-3">
-                    <img :src="myTeam.avatar || '/default-team-avatar.svg'" class="w-12 h-12 rounded-[10px] object-cover dark:invert" />
+                    <img :src="assetUrl(myTeam.avatar) || assetUrl('/default-team-avatar.svg')" class="w-12 h-12 rounded-[10px] object-cover dark:invert" />
                     <div>
                       <p class="font-bold text-text-primary">{{ myTeam.name }}</p>
                       <p class="text-xs text-emerald-500 mt-0.5">Member</p>
@@ -1038,7 +1038,7 @@ async function saveProfile() {
                   <div class="space-y-3">
                     <div v-for="t in myPendingTeams" :key="t.id" class="flex items-center justify-between gap-3 p-3 bg-bg-elevated border border-amber-600/20">
                       <div class="flex items-center gap-3">
-                        <img :src="t.avatar || '/default-team-avatar.svg'" class="w-10 h-10 rounded-[8px] object-cover dark:invert" />
+                        <img :src="assetUrl(t.avatar) || assetUrl('/default-team-avatar.svg')" class="w-10 h-10 rounded-[8px] object-cover dark:invert" />
                         <div>
                           <p class="text-sm font-semibold text-text-primary">{{ t.name }}</p>
                           <p class="text-xs text-amber-500">Pending Approval</p>

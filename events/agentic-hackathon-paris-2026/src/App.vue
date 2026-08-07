@@ -19,6 +19,7 @@ import RulesPage from './pages/RulesPage.vue'
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import QRCode from 'qrcode'
+import { publicSiteUrl } from './composables/api'
 
 provideI18n()
 const { user, isLoggedIn } = provideAuth()
@@ -33,7 +34,7 @@ const qrDataUrl = ref('')
 
 watch(isLoggedIn, async (v) => {
   if (v && user.value) {
-    qrDataUrl.value = await QRCode.toDataURL(`https://create.gosim.org/profile/${user.value.id}`, {
+    qrDataUrl.value = await QRCode.toDataURL(publicSiteUrl(`/profile/${user.value.id}`), {
       width: 280, margin: 1, color: { dark: '#000000', light: '#ffffff' },
     })
     // 登录后弹出气泡提示

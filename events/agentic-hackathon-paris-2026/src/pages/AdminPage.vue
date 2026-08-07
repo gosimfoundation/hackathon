@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 import QRCode from 'qrcode'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import { assetUrl, publicSiteUrl } from '../composables/api'
 
 function userAvatar(p: any): string {
   if (p.avatar) return p.avatar
@@ -53,7 +54,7 @@ const qrDataUrl = ref('')
 
 async function showQr(user: any) {
   qrUser.value = user
-  qrDataUrl.value = await QRCode.toDataURL(`https://create.gosim.org/profile/${user.id}`, {
+  qrDataUrl.value = await QRCode.toDataURL(publicSiteUrl(`/profile/${user.id}`), {
     width: 280, margin: 1, color: { dark: '#000000', light: '#ffffff' },
   })
 }
@@ -418,10 +419,10 @@ onMounted(() => { if (authed.value) { loadData(); loadAnnouncement(); loadSubmis
     <div v-else class="max-w-7xl mx-auto px-6">
       <div class="flex flex-wrap items-center gap-2 mb-6 p-3 bg-gray-900 border border-gray-800">
         <span class="text-xs text-gray-500">Links:</span>
-        <a href="/admin" class="text-xs px-2 py-1 bg-gray-800 text-amber-400 border border-gray-700">Admin</a>
-        <a href="/export" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">Export</a>
-        <a href="/checkin" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">Check-in</a>
-        <a href="/projects" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">Projects</a>
+        <router-link to="/admin" class="text-xs px-2 py-1 bg-gray-800 text-amber-400 border border-gray-700">Admin</router-link>
+        <router-link to="/export" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">Export</router-link>
+        <router-link to="/checkin" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">Check-in</router-link>
+        <router-link to="/projects" class="text-xs px-2 py-1 bg-gray-800 text-gray-400 border border-gray-700 hover:text-white transition-colors">Projects</router-link>
         <span class="text-gray-700 mx-1">|</span>
         <span class="text-[10px] text-gray-600">admin: <span class="text-gray-400 font-mono select-all">{{ passwords.admin }}</span></span>
         <span class="text-[10px] text-gray-600">export: <span class="text-gray-400 font-mono select-all">{{ passwords.export }}</span></span>
@@ -763,7 +764,7 @@ onMounted(() => { if (authed.value) { loadData(); loadAnnouncement(); loadSubmis
               <tr v-for="t in teams" :key="t.id" class="border-b border-gray-800/50 hover:bg-gray-900/50">
                 <td class="py-3 px-3">
                   <div class="flex items-center gap-2">
-                    <img :src="t.avatar || '/default-team-avatar.svg'" class="w-7 h-7 rounded object-cover" />
+                    <img :src="assetUrl(t.avatar) || assetUrl('/default-team-avatar.svg')" class="w-7 h-7 rounded object-cover" />
                     <span class="text-white">{{ t.name }}</span>
                   </div>
                 </td>

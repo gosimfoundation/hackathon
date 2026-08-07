@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useCountdown } from '../../composables/useCountdown'
 import { useI18n } from '../../composables/useI18n'
+import { assetUrl } from '../../composables/api'
 
 const { t } = useI18n()
 const { days, hours, minutes, seconds, isLive, isOver } = useCountdown('2026-05-05T08:30:00+02:00', '2026-05-06T20:00:00+02:00')
@@ -94,10 +95,10 @@ onMounted(() => {
       <video
         autoplay loop muted playsinline webkit-playsinline
         preload="auto"
-        poster="/photos/hero-bg-poster.jpg"
+        :poster="assetUrl('/photos/hero-bg-poster.jpg')"
         class="w-full h-full object-cover opacity-30"
         style="will-change: transform; transform: translateZ(0);"
-      ><source src="/photos/hero-bg.mp4" type="video/mp4" /></video>
+      ><source :src="assetUrl('/photos/hero-bg.mp4')" type="video/mp4" /></video>
     </div>
 
     <!-- Red-blue gradient overlay -->
@@ -142,9 +143,9 @@ onMounted(() => {
           Powered by the best <span class="glitch-hover">open-source</span> models on the planet
         </p>
         <div class="flex items-center justify-center gap-6 md:gap-12 mt-4 max-w-sm md:max-w-none mx-auto bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 inline-flex">
-          <a href="https://www.minimaxi.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo--minimax"><img src="/sponsors/minimax-new-wide.png" alt="MiniMax" class="h-14 md:h-20 w-auto object-contain rounded-lg" /></a>
-          <a href="https://www.kimi.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo--kimi"><img src="/sponsors/kimi-new-wide.svg" alt="Moonshot AI (Kimi)" class="h-14 md:h-20 w-auto object-contain" /></a>
-          <a href="https://z.ai/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo--zhipu"><img src="/sponsors/zhipu-new.svg" alt="Zhipu AI (GLM)" class="h-14 md:h-20 w-auto object-contain" /></a>
+          <a href="https://www.minimaxi.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo--minimax"><img :src="assetUrl('/sponsors/minimax-new-wide.png')" alt="MiniMax" class="h-14 md:h-20 w-auto object-contain rounded-lg" /></a>
+          <a href="https://www.kimi.com" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo--kimi"><img :src="assetUrl('/sponsors/kimi-new-wide.svg')" alt="Moonshot AI (Kimi)" class="h-14 md:h-20 w-auto object-contain" /></a>
+          <a href="https://z.ai/" target="_blank" rel="noopener" class="sponsor-logo sponsor-logo--zhipu"><img :src="assetUrl('/sponsors/zhipu-new.svg')" alt="Zhipu AI (GLM)" class="h-14 md:h-20 w-auto object-contain" /></a>
         </div>
       </div>
 

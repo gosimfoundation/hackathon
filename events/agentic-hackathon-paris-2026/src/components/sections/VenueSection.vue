@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '../../composables/useI18n'
+import { assetUrl } from '../../composables/api'
 
 const { t } = useI18n()
 </script>
@@ -9,7 +10,7 @@ const { t } = useI18n()
     <!-- Background: STATION F faded -->
     <div
       class="absolute inset-0 bg-cover bg-center opacity-10 parallax-bg"
-      style="background-image: url('/photos/gosim-stationf.jpg');"
+      :style="{ backgroundImage: `url(${assetUrl('/photos/gosim-stationf.jpg')})` }"
     ></div>
     <div class="relative max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-16 items-center">
@@ -43,7 +44,7 @@ const { t } = useI18n()
         <!-- Right: photo -->
         <div class="reveal reveal-delay-2">
           <img
-            src="/photos/gosim-stationf.jpg"
+            :src="assetUrl('/photos/gosim-stationf.jpg')"
             alt="STATION F Paris"
             class="w-full h-80 object-cover"
           />
@@ -63,9 +64,9 @@ const { t } = useI18n()
           <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-bg-primary to-transparent z-10"></div>
           <div class="flex gap-4 animate-marquee" style="animation-duration: 65s;">
             <template v-for="n in 2" :key="n">
-              <img src="/photos/gosim-event-4.jpg" alt="GOSIM" class="w-64 h-44 object-cover rounded-lg shrink-0" />
-              <img src="/photos/gosim-event-2.jpg" alt="GOSIM" class="w-72 h-44 object-cover rounded-lg shrink-0" />
-              <img src="/photos/gosim-event-3.jpg" alt="GOSIM" class="w-80 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-4.jpg')" alt="GOSIM" class="w-64 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-2.jpg')" alt="GOSIM" class="w-72 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-3.jpg')" alt="GOSIM" class="w-80 h-44 object-cover rounded-lg shrink-0" />
             </template>
           </div>
         </div>
@@ -76,11 +77,11 @@ const { t } = useI18n()
           <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-bg-primary to-transparent z-10"></div>
           <div class="flex gap-4 animate-marquee-reverse" style="animation-duration: 70s;">
             <template v-for="n in 2" :key="n">
-              <img src="/photos/gosim-event-9.jpg" alt="GOSIM" class="w-72 h-44 object-cover rounded-lg shrink-0" />
-              <img src="/photos/gosim-event-5.jpg" alt="GOSIM" class="w-80 h-44 object-cover rounded-lg shrink-0" />
-              <img src="/photos/gosim-event-6.jpg" alt="GOSIM" class="w-64 h-44 object-cover rounded-lg shrink-0" />
-              <img src="/photos/gosim-stationf.jpg" alt="GOSIM" class="w-72 h-44 object-cover rounded-lg shrink-0" />
-              <img src="/photos/gosim-event-4.jpg" alt="GOSIM" class="w-80 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-9.jpg')" alt="GOSIM" class="w-72 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-5.jpg')" alt="GOSIM" class="w-80 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-6.jpg')" alt="GOSIM" class="w-64 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-stationf.jpg')" alt="GOSIM" class="w-72 h-44 object-cover rounded-lg shrink-0" />
+              <img :src="assetUrl('/photos/gosim-event-4.jpg')" alt="GOSIM" class="w-80 h-44 object-cover rounded-lg shrink-0" />
             </template>
           </div>
         </div>

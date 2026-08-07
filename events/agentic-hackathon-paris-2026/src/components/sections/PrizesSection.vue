@@ -4,7 +4,7 @@ import { assetUrl } from '../../composables/api'
 
 const { t } = useI18n()
 
-const upstreamLogo = '/sponsors/gosim.png'
+const upstreamLogo = assetUrl('/sponsors/gosim.png')
 
 const gold = '#D4A017'
 

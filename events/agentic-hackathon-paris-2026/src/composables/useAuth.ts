@@ -1,5 +1,6 @@
 import { ref, provide, inject, type InjectionKey, type Ref, onMounted } from 'vue'
 import { supabase } from '../lib/supabase'
+import { publicSiteUrl } from './api'
 
 export interface User {
   id: string
@@ -143,7 +144,7 @@ export function provideAuth() {
           website: data.website,
           looking_for_team: data.lookingForTeam,
         },
-        emailRedirectTo: 'https://create.gosim.org',
+        emailRedirectTo: publicSiteUrl(),
       },
     })
     if (signUpError) { error.value = signUpError.message; return false }
@@ -199,7 +200,7 @@ export function provideAuth() {
   async function sendPasswordReset(email: string): Promise<boolean> {
     error.value = ''
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://create.gosim.org',
+      redirectTo: publicSiteUrl(),
     })
     if (resetError) { error.value = resetError.message; return false }
     return true

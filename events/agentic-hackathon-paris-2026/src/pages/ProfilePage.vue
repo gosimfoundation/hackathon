@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { supabase } from '../lib/supabase'
 import QRCode from 'qrcode'
+import { publicSiteUrl } from '../composables/api'
 
 const route = useRoute()
 const userId = route.params.id as string
@@ -21,7 +22,7 @@ onMounted(async () => {
   loading.value = false
 
   if (data) {
-    qrDataUrl.value = await QRCode.toDataURL(`https://create.gosim.org/profile/${userId}`, {
+    qrDataUrl.value = await QRCode.toDataURL(publicSiteUrl(`/profile/${userId}`), {
       width: 200,
       margin: 1,
       color: { dark: '#000000', light: '#ffffff' },

@@ -79,7 +79,7 @@ async function submit() {
       <template v-else-if="!myTeam">
         <div class="p-6 bg-bg-secondary border border-border text-center">
           <p class="text-text-secondary">You need to join or create a team before submitting.</p>
-          <a href="/#teams" class="inline-block mt-4 px-6 py-2 bg-btn-bg text-btn-text text-sm font-bold uppercase tracking-widest hover:bg-btn-hover transition-colors">Go to Teams</a>
+          <router-link to="/#teams" class="inline-block mt-4 px-6 py-2 bg-btn-bg text-btn-text text-sm font-bold uppercase tracking-widest hover:bg-btn-hover transition-colors">Go to Teams</router-link>
         </div>
       </template>
 

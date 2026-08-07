@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://create.gosim.org';
+const BASE = 'https://hackathon.gosim.org/agentic-hackathon-paris-2026';
 
 test.describe('GOSIM Hackathon Site', () => {
   test('homepage loads and hero section renders', async ({ page }) => {
