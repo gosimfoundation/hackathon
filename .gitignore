@@ -1,0 +1,14 @@
+node_modules
+dist
+.env*
+.vercel
+*.log
+test-results/
+*.vue.js
+src/**/*.js
+!src/**/*.config.js
+.DS_Store
+黑客松logo.zip
+黑客松logo/
+supabase/.temp/
+supabase/.branches/
