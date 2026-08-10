@@ -9,7 +9,7 @@ const SMTP_HOST = "smtp.larksuite.com"
 const SMTP_PORT = 465
 const SMTP_USER = Deno.env.get("LARK_SMTP_USER") ?? "hackathon@gosim.org"
 const SMTP_PASS = Deno.env.get("LARK_SMTP_PASS")!
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://hackathon.gosim.org/agentic-hackathon-paris-2026"
+const SITE_URL = Deno.env.get("SITE_URL") ?? "https://create.gosim.org/agentic-hackathon-paris-2026"
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

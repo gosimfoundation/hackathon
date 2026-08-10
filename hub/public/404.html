@@ -8,7 +8,10 @@
   <body>
     <script>
       (function () {
-        var eventSlugs = ['oaic-harness-2026', 'agentic-hackathon-paris-2026']
+        var eventSlugs = ['factory26', 'agentic-hackathon-paris-2026']
+        var legacyEventSlugs = {
+          'oaic-harness-2026': 'factory26',
+        }
         var legacyRoutes = [
           '/vision',
           '/rules',
@@ -24,10 +27,14 @@
         var firstSegment = path.split('/').filter(Boolean)[0]
         var target = null
 
-        if (eventSlugs.indexOf(firstSegment) !== -1) {
+        if (legacyEventSlugs[firstSegment]) {
+          var legacyBase = '/' + firstSegment
+          firstSegment = legacyEventSlugs[firstSegment]
+          target = '/' + firstSegment + (path.slice(legacyBase.length) || '/')
+        } else if (eventSlugs.indexOf(firstSegment) !== -1) {
           target = path === '/' + firstSegment ? path + '/' : path
         } else if (legacyRoutes.indexOf(path) !== -1 || path.indexOf('/profile/') === 0) {
-          firstSegment = 'oaic-harness-2026'
+          firstSegment = 'factory26'
           target = '/' + firstSegment + path
         }
 

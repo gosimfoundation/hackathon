@@ -16,10 +16,10 @@ const legacyRoutes = new Set([
 
 const isLegacyProfile = window.location.pathname.startsWith('/profile/')
 const legacyPathTarget = legacyRoutes.has(window.location.pathname) || isLegacyProfile
-  ? `/oaic-harness-2026${window.location.pathname}${window.location.search}${window.location.hash}`
+  ? `/factory26${window.location.pathname}${window.location.search}${window.location.hash}`
   : null
 const legacyHashTarget = window.location.pathname === '/' && window.location.hash === '#teams'
-  ? '/oaic-harness-2026/#teams'
+  ? '/factory26/#teams'
   : null
 const legacyTarget = legacyPathTarget || legacyHashTarget
 

@@ -2,7 +2,7 @@
 
 Event application published at:
 
-`https://hackathon.gosim.org/agentic-hackathon-paris-2026/`
+`https://create.gosim.org/agentic-hackathon-paris-2026/`
 
 Run development commands from the monorepo root:
 

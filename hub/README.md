@@ -1,6 +1,6 @@
 # Hub application
 
-Directory for all events published at `hackathon.gosim.org`.
+Directory for all events published at `create.gosim.org`.
 
 ## Responsibilities
 

@@ -1,12 +1,12 @@
 # GOSIM Hackathons
 
-Single GitHub Pages repository for `hackathon.gosim.org`.
+Single GitHub Pages repository for `create.gosim.org`.
 
 ## Repository layout
 
 ```text
-hub/                              # hackathon.gosim.org/
-events/oaic-harness-2026/         # /oaic-harness-2026/
+hub/                              # create.gosim.org/
+events/oaic-harness-2026/         # /factory26/
 events/agentic-hackathon-paris-2026/
                                   # /agentic-hackathon-paris-2026/
 scripts/build-site.mjs            # assembles the Pages artifact
@@ -53,5 +53,6 @@ Pages site.
 5. Add the slug to `hub/public/404.html` so deep links can be restored.
 6. Add directory ownership rules once the event's GitHub team is known.
 
-The event slug is the public URL segment. Renaming an event directory therefore
-requires an explicit redirect from the former URL.
+The event slug configured by the root build is the public URL segment; it does
+not need to match the source directory. Renaming a public slug requires an
+explicit redirect from the former URL.

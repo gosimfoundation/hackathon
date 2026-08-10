@@ -5,11 +5,11 @@ import { dirname, join } from 'node:path'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const output = join(root, '_site')
-const publicOrigin = 'https://hackathon.gosim.org'
+const publicOrigin = 'https://create.gosim.org'
 
 const events = [
   {
-    slug: 'oaic-harness-2026',
+    slug: 'factory26',
     directory: join(root, 'events', 'oaic-harness-2026'),
   },
   {
