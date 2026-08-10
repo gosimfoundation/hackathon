@@ -13,7 +13,7 @@ const events = [
     directory: join(root, 'events', 'oaic-harness-2026'),
   },
   {
-    slug: 'agentic-hackathon-paris-2026',
+    slug: 'agenticparis26',
     directory: join(root, 'events', 'agentic-hackathon-paris-2026'),
     environment: {
       VITE_SUPABASE_URL: process.env.PARIS_VITE_SUPABASE_URL || '',

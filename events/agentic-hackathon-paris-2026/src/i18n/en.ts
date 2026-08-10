@@ -7,7 +7,7 @@ export default {
     judging: 'Judging',
     teams: 'Teams',
     faq: 'FAQ',
-    applyNow: 'Claim Your Spot',
+    applyNow: 'View Event Archive',
   },
   hero: {
     eyebrow: 'Organized by Upstream Labs',
@@ -18,6 +18,7 @@ export default {
     hours: 'Hours',
     mins: 'Mins',
     secs: 'Secs',
+    concluded: 'Event Concluded',
   },
   about: {
     quote: '"There is only one heroism in the world: to see the world as it is, and to love it."',
@@ -196,16 +197,16 @@ export default {
   teams: {
     title: 'Registered',
     titleAccent: 'Teams',
-    subtitle: 'Click on a team to join, or create your own.',
-    registerNote: 'You must join or create a team to complete your registration.',
-    registerWarn: 'Please register only once — duplicate accounts may affect your eligibility.',
+    subtitle: 'Browse the teams that took part in GOSIM Paris 2026.',
+    registerNote: 'This event concluded on May 6, 2026. Registration is closed.',
+    registerWarn: 'Team records are preserved here as part of the event archive.',
     refresh: 'Refresh',
     teams: 'teams',
     participants: 'participants',
-    spotsLeft: 'spots left',
+    spotsLeft: 'event concluded',
     registerBtn: 'Register Your Team',
     closedBtn: 'Registration Closed',
-    noTeams: 'No teams registered yet. Be the first!',
+    noTeams: 'No team records are available in the archive.',
     createTitle: 'Register Your Team',
     teamName: 'Team Name',
     teamAvatar: 'Team Avatar',
@@ -266,6 +267,6 @@ export default {
   footer: {
     copyright: 'GOSIM Paris 2026 — Agentic Hackathon',
     mainSite: 'GOSIM Main Site',
-    register: 'Register',
+    register: 'Event Archive',
   },
 }

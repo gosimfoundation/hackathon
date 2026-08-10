@@ -7,7 +7,7 @@ export default {
     judging: '评审',
     teams: '队伍',
     faq: '常见问题',
-    applyNow: '锁定席位',
+    applyNow: '查看活动回顾',
   },
   hero: {
     eyebrow: 'Upstream Labs 主办',
@@ -17,6 +17,7 @@ export default {
     hours: '时',
     mins: '分',
     secs: '秒',
+    concluded: '活动已结束',
   },
   about: {
     quote: '"世界上只有一种英雄主义，就是在认清生活的本质以后，依然热爱生活。"',
@@ -200,16 +201,16 @@ export default {
   teams: {
     title: '已注册',
     titleAccent: '队伍',
-    subtitle: '点击队伍加入，或创建你自己的队伍。',
-    registerNote: '加入或创建队伍后才算完成报名。',
-    registerWarn: '请勿重复注册，否则可能影响参赛资格。',
+    subtitle: '浏览参加 GOSIM Paris 2026 的队伍。',
+    registerNote: '本次活动已于 2026 年 5 月 6 日结束，报名现已关闭。',
+    registerWarn: '队伍记录作为活动回顾保留于此。',
     refresh: '刷新',
     teams: '队伍',
     participants: '参赛者',
-    spotsLeft: '名额剩余',
+    spotsLeft: '活动已结束',
     registerBtn: '注册你的队伍',
     closedBtn: '报名已关闭',
-    noTeams: '还没有队伍注册，成为第一个！',
+    noTeams: '活动回顾中暂无队伍记录。',
     createTitle: '注册你的队伍',
     teamName: '队伍名称',
     teamAvatar: '队伍头像',
@@ -270,6 +271,6 @@ export default {
   footer: {
     copyright: 'GOSIM Paris 2026 — Agentic Hackathon',
     mainSite: 'GOSIM 官网',
-    register: '报名',
+    register: '活动回顾',
   },
 }

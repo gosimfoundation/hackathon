@@ -29,9 +29,9 @@ function toggleLocale() {
 <template>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="/" aria-label="GOSIM Hackathons home">
+      <a class="brand" href="/" aria-label="GOSIM Create home">
         <img src="/images/gosim-logo.svg" alt="GOSIM" />
-        <span>{{ pick('Hackathons', '黑客松') }}</span>
+        <span>{{ pick('Create', '共创') }}</span>
       </a>
 
       <nav class="header-nav" :aria-label="pick('Primary navigation', '主导航')">
@@ -48,9 +48,9 @@ function toggleLocale() {
         <img class="hero-image" src="/images/hackathon-hero.jpg" :alt="pick('Builders working together at GOSIM Paris 2026', 'GOSIM Paris 2026 开发者共创现场')" />
         <div class="hero-overlay" aria-hidden="true"></div>
         <div class="hero-content">
-          <p class="eyebrow">GOSIM / {{ pick('Open-source hackathons', '开源黑客松') }}</p>
-          <h1 id="page-title">{{ pick('Build what should exist.', '创造本应存在的未来。') }}</h1>
-          <p>{{ pick('Open-source builders. Focused challenges. Working systems.', '开源开发者，专注挑战，真实成果。') }}</p>
+          <p class="eyebrow">GOSIM / {{ pick('Create', '共创') }}</p>
+          <h1 id="page-title">{{ pick('GOSIM Create, a Hackathon Series', 'GOSIM Create，黑客松系列') }}</h1>
+          <p>{{ pick("The home of GOSIM hackathons—bringing open-source builders together through focused challenges at GOSIM events around the world.", 'GOSIM 旗下黑客松的共同主页，让全球开源开发者围绕专注挑战，在世界各地的 GOSIM 活动中共同创造。') }}</p>
           <a class="hero-link" href="#current">{{ pick('View current hackathon', '查看当前黑客松') }} <span aria-hidden="true">↓</span></a>
         </div>
         <p class="hero-caption">GOSIM Paris 2026 / STATION F</p>

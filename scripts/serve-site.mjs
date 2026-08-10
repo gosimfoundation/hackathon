@@ -9,9 +9,12 @@ const host = process.env.HOST || '0.0.0.0'
 const port = Number(process.env.PORT || 5173)
 const eventSlugs = new Set([
   'factory26',
+  'agenticparis26',
+])
+const legacyEventSlugs = new Set([
+  'oaic-harness-2026',
   'agentic-hackathon-paris-2026',
 ])
-const legacyEventSlugs = new Set(['oaic-harness-2026'])
 
 const contentTypes = {
   '.css': 'text/css; charset=utf-8',

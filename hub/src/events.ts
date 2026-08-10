@@ -88,7 +88,7 @@ export const eventGroups: GosimEdition[] = [
     href: 'https://paris2026.gosim.org/',
     hackathons: [
       {
-        slug: 'agentic-hackathon-paris-2026',
+        slug: 'agenticparis26',
         code: 'GOSIM PARIS / 2026',
         organizer: 'GOSIM Foundation',
         name: 'GOSIM Agentic Hackathon 2026 — Paris',
@@ -100,7 +100,7 @@ export const eventGroups: GosimEdition[] = [
         format: 'In person · Paris',
         formatZh: '巴黎线下活动',
         status: 'concluded',
-        href: '/agentic-hackathon-paris-2026/',
+        href: '/agenticparis26/',
       },
     ],
   },

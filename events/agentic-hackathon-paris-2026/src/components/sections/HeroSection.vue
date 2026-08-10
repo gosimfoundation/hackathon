@@ -188,7 +188,7 @@ onMounted(() => {
 
       <!-- Event ended -->
       <div v-else class="mb-6">
-        <span class="text-lg text-text-primary/60 uppercase tracking-widest font-semibold">Event Concluded</span>
+        <span class="text-lg text-text-primary/60 uppercase tracking-widest font-semibold">{{ t('hero.concluded') }}</span>
       </div>
 
 

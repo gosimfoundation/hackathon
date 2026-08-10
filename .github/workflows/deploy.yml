@@ -49,7 +49,7 @@ jobs:
           VITE_SITE_URL: https://create.gosim.org/factory26
           PARIS_VITE_SUPABASE_URL: ${{ secrets.PARIS_VITE_SUPABASE_URL }}
           PARIS_VITE_SUPABASE_ANON_KEY: ${{ secrets.PARIS_VITE_SUPABASE_ANON_KEY }}
-          PARIS_VITE_SITE_URL: https://create.gosim.org/agentic-hackathon-paris-2026
+          PARIS_VITE_SITE_URL: https://create.gosim.org/agenticparis26
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

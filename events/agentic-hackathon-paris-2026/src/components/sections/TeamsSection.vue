@@ -8,6 +8,7 @@ import { teamFilter } from '../../composables/useTeamFilter'
 
 const { t } = useI18n()
 const { user, isLoggedIn, promptAuth } = useAuth()
+const eventConcluded = true
 // GitHub avatar helper
 function getGitHubAvatar(githubId?: string): string {
   if (!githubId) return assetUrl('/default-avatar.svg')
@@ -16,7 +17,7 @@ function getGitHubAvatar(githubId?: string): string {
 
 
 const {
-  teams, users, totalMembers, totalRegistered, spotsLeft, isFull, progress, cancelJoin, kickMember,
+  teams, users, totalMembers, totalRegistered, isFull, cancelJoin, kickMember,
   modelStats, loading, error, lastUpdated,
   fetchTeams, createTeam, editTeam, joinTeam, leaveTeam, likeTeam, approveJoin, rejectJoin
 } = useTeams()
@@ -25,7 +26,6 @@ const {
 const teamsCount = useCountUp(computed(() => teams.value.length))
 const membersCount = useCountUp(totalMembers)
 const registeredCount = useCountUp(totalRegistered)
-const spotsCount = useCountUp(spotsLeft)
 
 // Like tracking (localStorage)
 const likedTeams = ref<Set<string>>(new Set(JSON.parse(localStorage.getItem('likedTeams') || '[]')))
@@ -390,6 +390,7 @@ function getModelColor(model: string | undefined | null): string {
 }
 
 function canJoin(team: Team) {
+  if (eventConcluded) return false
   const members = getTeamMembers(team.id)
   return !team.locked && members.length < (team.maxSize || 3) && !isFull.value
 }
@@ -485,7 +486,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
           {{ t('teams.title') }} <span class="heading-serif accent-text">{{ t('teams.titleAccent') }}</span>
         </h2>
         <p class="text-text-secondary mt-3 text-base">{{ t('teams.subtitle') }}</p>
-        <p class="text-amber-600 mt-2 text-sm font-semibold register-note-bounce">{{ t('teams.registerNote') }}</p>
+        <p class="text-amber-600 mt-2 text-sm font-semibold">{{ t('teams.registerNote') }}</p>
         <p class="text-text-secondary mt-1 text-xs">{{ t('teams.registerWarn') }}</p>
         <div class="flex items-center justify-center gap-3 mt-3">
           <span class="text-xs text-text-secondary">Updated {{ timeAgo(lastUpdated) }}</span>
@@ -501,7 +502,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </span>
-          <span class="text-green-500 font-semibold tracking-wider uppercase text-[10px]">Live</span>
+          <span class="text-green-500 font-semibold tracking-wider uppercase text-[10px]">Archive</span>
           <Transition mode="out-in" enter-active-class="transition duration-300" enter-from-class="opacity-0 translate-y-1" leave-active-class="transition duration-200" leave-to-class="opacity-0 -translate-y-1">
             <span :key="tickerIndex" class="text-text-secondary">
               {{ recentActivity[tickerIndex]?.text }} · <span class="text-text-muted">{{ recentActivity[tickerIndex]?.time }}</span>
@@ -519,13 +520,7 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
             <span class="text-text-primary font-bold tabular-nums">{{ membersCount }}</span> in teams ·
             <span class="text-text-primary font-bold tabular-nums">{{ registeredCount }}</span> registered
           </span>
-          <span class="text-text-secondary inline-flex items-center gap-1">
-            <img :src="tw.star" class="w-4 h-4" />
-            <span class="text-amber-600 font-bold tabular-nums">{{ spotsCount }}</span> {{ t('teams.spotsLeft') }}
-          </span>
-        </div>
-        <div class="w-full h-1.5 bg-bg-elevated overflow-hidden rounded-full">
-          <div class="h-full progress-bar-glow transition-all duration-1000 rounded-full relative" :style="{ width: `${progress}%` }"></div>
+          <span class="text-amber-600 font-semibold uppercase tracking-wider text-xs">{{ t('teams.closedBtn') }}</span>
         </div>
         <div class="flex justify-center gap-6 mt-6">
           <div v-for="(count, model) in modelStats" :key="model" class="flex items-center gap-2">
@@ -540,17 +535,17 @@ onUnmounted(() => window.removeEventListener('open-my-team', handleOpenMyTeam))
           <button v-if="userHasTeam()" @click="openMyTeamFromButton" class="px-8 py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors">
             MY TEAM
           </button>
-          <button v-else @click="openCreateModal" :disabled="isFull" class="px-8 py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            <img v-if="!isFull" :src="tw.rocket" class="w-4 h-4 inline mr-1" />{{ isFull ? t('teams.closedBtn') : t('teams.registerBtn') }}
+          <button v-else @click="openCreateModal" :disabled="eventConcluded || isFull" class="px-8 py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            <img v-if="!eventConcluded && !isFull" :src="tw.rocket" class="w-4 h-4 inline mr-1" />{{ eventConcluded || isFull ? t('teams.closedBtn') : t('teams.registerBtn') }}
           </button>
           <button @click="openMyProfile" class="px-8 py-4 border border-border text-text-secondary text-sm font-semibold tracking-widest uppercase hover:text-text-primary hover:border-accent transition-colors">
             VIEW MY PROFILE
           </button>
         </template>
         <template v-else>
-          <button @click="promptAuth('register')" class="px-8 py-4 bg-btn-bg text-btn-text text-sm font-semibold tracking-widest uppercase hover:bg-btn-hover transition-colors">
-            {{ t('nav.applyNow') }}
-          </button>
+          <span class="px-8 py-4 border border-border text-text-secondary text-sm font-semibold tracking-widest uppercase">
+            {{ t('teams.closedBtn') }}
+          </span>
         </template>
       </div>
 

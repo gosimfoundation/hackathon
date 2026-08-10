@@ -8,7 +8,7 @@ Single GitHub Pages repository for `create.gosim.org`.
 hub/                              # create.gosim.org/
 events/oaic-harness-2026/         # /factory26/
 events/agentic-hackathon-paris-2026/
-                                  # /agentic-hackathon-paris-2026/
+                                  # /agenticparis26/
 scripts/build-site.mjs            # assembles the Pages artifact
 ```
 
