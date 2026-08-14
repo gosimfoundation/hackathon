@@ -28,13 +28,13 @@ export function provideI18n() {
     watch(locale, (value) => {
       document.documentElement.lang = value === 'zh' ? 'zh-CN' : 'en'
       document.title = value === 'zh'
-        ? '2026 OAIC 智能体工厂国际黑客松和大奖赛系列'
-        : '2026 OAIC International Hackathon for Agentic Factory and Grand Challenge Series'
+        ? '2026 OAIC 智能体工厂国际黑客松暨大奖赛系列'
+        : '2026 OAIC International Agentic Factory Hackathon & Grand Challenge Series'
       const description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
       if (description) {
         description.content = value === 'zh'
-          ? '2026 OAIC 智能体工厂国际黑客松和大奖赛系列——9月1日至10月17日，线上举行，并在深圳 GOSIM 大会迎来终场。'
-          : '2026 OAIC International Hackathon for Agentic Factory and Grand Challenge Series — Sep 1 to Oct 17, online with a finale at GOSIM Shenzhen.'
+          ? '2026 OAIC 智能体工厂国际黑客松暨大奖赛系列——9 月 1 日至 10 月 17 日线上举行，并在 GOSIM 深圳大会迎来收官之战。'
+          : 'The 2026 OAIC International Agentic Factory Hackathon & Grand Challenge Series runs online from Sep 1 to Oct 17, culminating at GOSIM Shenzhen.'
       }
       window.localStorage.setItem('oaic-locale', value)
     }, { immediate: true })

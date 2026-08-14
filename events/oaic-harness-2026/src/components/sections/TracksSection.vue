@@ -1,10 +1,22 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import { useLeaderboard } from '../../composables/useLeaderboard'
 
 const { t, pick } = useI18n()
 const { entries: board, loading: boardLoading, refreshing, error: boardError, updatedAt, reload, leaderboardUrl } = useLeaderboard(20)
+const PAGE_SIZE = 20
+const currentPage = ref(1)
+
+const totalPages = computed(() => Math.max(1, Math.ceil(board.value.length / PAGE_SIZE)))
+const paginatedBoard = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE
+  return board.value.slice(start, start + PAGE_SIZE)
+})
+
+watch(totalPages, pages => {
+  if (currentPage.value > pages) currentPage.value = pages
+})
 
 const updatedLabel = computed(() => {
   if (!updatedAt.value) return ''
@@ -88,7 +100,7 @@ function formatTokens(millions: number | null): string {
               </thead>
               <TransitionGroup tag="tbody" name="board">
                 <tr
-                  v-for="(row, i) in board"
+                  v-for="(row, i) in paginatedBoard"
                   :key="`${row.username}:${row.modelName}`"
                   class="board-row border-b border-border-subtle"
                   :class="{ 'board-row--moved': row.delta !== null && row.delta !== 0 }"
@@ -110,6 +122,45 @@ function formatTokens(millions: number | null): string {
               </TransitionGroup>
             </table>
           </div>
+
+          <nav
+            v-if="totalPages > 1"
+            class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4"
+            :aria-label="t('tracks.boardPagination')"
+          >
+            <button
+              type="button"
+              class="board-page-control"
+              :disabled="currentPage === 1"
+              @click="currentPage -= 1"
+            >
+              ← {{ t('tracks.boardPrevious') }}
+            </button>
+
+            <div class="flex items-center gap-1.5">
+              <button
+                v-for="page in totalPages"
+                :key="page"
+                type="button"
+                class="board-page-number"
+                :class="{ 'is-active': page === currentPage }"
+                :aria-current="page === currentPage ? 'page' : undefined"
+                :aria-label="`${t('tracks.boardPage')} ${page}`"
+                @click="currentPage = page"
+              >
+                {{ page }}
+              </button>
+            </div>
+
+            <button
+              type="button"
+              class="board-page-control"
+              :disabled="currentPage === totalPages"
+              @click="currentPage += 1"
+            >
+              {{ t('tracks.boardNext') }} →
+            </button>
+          </nav>
 
           <p class="mt-5 text-sm leading-relaxed text-text-secondary">
             {{ t('tracks.leaderboardNote') }}
@@ -204,6 +255,37 @@ function formatTokens(millions: number | null): string {
 }
 .board-refresh:disabled {
   opacity: .5;
+}
+
+.board-page-control,
+.board-page-number {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  transition: border-color .2s ease, color .2s ease, background-color .2s ease;
+}
+.board-page-control {
+  padding: .5rem .75rem;
+  text-transform: uppercase;
+}
+.board-page-number {
+  width: 2rem;
+  height: 2rem;
+}
+.board-page-control:hover:not(:disabled),
+.board-page-number:hover,
+.board-page-number.is-active {
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+.board-page-number.is-active {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+.board-page-control:disabled {
+  cursor: not-allowed;
+  opacity: .35;
 }
 @keyframes refresh-spin {
   to { transform: rotate(360deg); }

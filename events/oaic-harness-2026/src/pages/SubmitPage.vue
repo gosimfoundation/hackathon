@@ -46,7 +46,7 @@ watch(() => [myTeam.value?.id, round.value], loadSubmission, { immediate: true }
 async function submit() {
   if (!myTeam.value || !user.value) return
   if (!githubUrl.value.startsWith('https://github.com/')) { error.value = isEn.value ? 'Enter a GitHub repository URL.' : '请输入 GitHub 仓库链接。'; return }
-  if (!validUrl(traceUrl.value) || !validUrl(demoUrl.value)) { error.value = isEn.value ? 'Enter valid trace and demo URLs.' : '请输入有效的轨迹与 Demo 链接。'; return }
+  if (!validUrl(traceUrl.value) || !validUrl(demoUrl.value)) { error.value = isEn.value ? 'Enter valid trace and demo URLs.' : '请输入有效的运行轨迹和演示视频链接。'; return }
   error.value = ''
   submitting.value = true
   const { error: dbError } = await supabase.from('submissions').upsert({
@@ -71,7 +71,7 @@ async function submit() {
     <div class="w-full max-w-xl">
       <router-link to="/" class="inline-flex text-text-tertiary hover:text-text-primary mb-8">← {{ isEn ? 'Back' : '返回' }}</router-link>
       <h1 class="heading-serif text-4xl text-text-primary mb-2">{{ isEn ? 'Submit Your Work' : '提交作品' }}</h1>
-      <p class="text-sm text-text-secondary mb-8">{{ isEn ? 'Submit the runnable rebuild, complete production trace, and a 3–5 minute demo.' : '提交可运行的复刻、完整生产轨迹，以及 3–5 分钟 Demo。' }}</p>
+      <p class="text-sm text-text-secondary mb-8">{{ isEn ? 'Submit the runnable rebuild, complete production trace, and a 3–5 minute demo.' : '请提交可运行的复刻成果、完整的生产过程轨迹，以及一段 3—5 分钟的演示视频。' }}</p>
 
       <div v-if="!isLoggedIn && !teamsLoading" class="panel">{{ isEn ? 'Please log in to submit.' : '请先登录。' }}</div>
       <div v-else-if="teamsLoading" class="panel">{{ isEn ? 'Loading…' : '加载中……' }}</div>
@@ -90,8 +90,8 @@ async function submit() {
           </div>
         </div>
         <div><label class="label">{{ isEn ? 'GitHub repository' : 'GitHub 仓库' }}</label><input v-model="githubUrl" required type="url" placeholder="https://github.com/your-org/project" class="input" /><p class="hint">{{ isEn ? 'Include source code and startup instructions.' : '包含源码与启动方式。' }}</p></div>
-        <div><label class="label">{{ isEn ? 'Production trace URL' : '生产轨迹链接' }}</label><input v-model="traceUrl" required type="url" placeholder="https://…/trace.jsonl" class="input" /><p class="hint">{{ isEn ? 'Prompts, tool calls, agent iterations, and human intervention points.' : 'Prompts、工具调用、agent 迭代与人工干预点。' }}</p></div>
-        <div><label class="label">{{ isEn ? '3–5 minute demo URL' : '3–5 分钟 Demo 链接' }}</label><input v-model="demoUrl" required type="url" placeholder="https://…" class="input" /></div>
+        <div><label class="label">{{ isEn ? 'Production trace URL' : '生产过程轨迹链接' }}</label><input v-model="traceUrl" required type="url" placeholder="https://…/trace.jsonl" class="input" /><p class="hint">{{ isEn ? 'Prompts, tool calls, agent iterations, and human intervention points.' : '提示词、工具调用、智能体迭代和人工干预点。' }}</p></div>
+        <div><label class="label">{{ isEn ? '3–5 minute demo URL' : '3—5 分钟演示视频链接' }}</label><input v-model="demoUrl" required type="url" placeholder="https://…" class="input" /></div>
         <p v-if="existingSubmission && !submitted" class="text-sm text-emerald-400">{{ isEn ? 'A submission exists for this stage. Saving will update it.' : '该阶段已有提交；保存后将更新。' }}</p>
         <p v-if="submitted" class="text-sm text-emerald-400">{{ isEn ? 'Submission saved.' : '提交已保存。' }}</p>
         <p v-if="error" class="text-sm text-red-400">{{ error }}</p>

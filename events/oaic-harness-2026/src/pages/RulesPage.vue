@@ -21,12 +21,12 @@ const fairness = computed(() => t('judging.fairness') as any[])
 
       <section>
         <h2>{{ isEn ? '1. Participation' : '1. 参赛' }}</h2>
-        <p>{{ isEn ? 'The qualifier and Grand Challenge are open worldwide and run online. Prior Harness Engineering experience is not required; the bootcamp is designed to get teams ready.' : '初赛与大奖赛面向全球、全部线上进行。参赛者不必已经掌握 Harness Engineering；研习营就是为队伍就位而设。' }}</p>
+        <p>{{ isEn ? 'The qualifier and Grand Challenge are open worldwide and run online. Prior Harness Engineering experience is not required; the bootcamp is designed to get teams ready.' : '初赛和大奖赛面向全球开放，均在线上举行。参赛者无需具备 Harness Engineering 经验；研习营将帮助各队做好参赛准备。' }}</p>
         <p>{{ t('teams.registerNote') }}</p>
       </section>
 
       <section>
-        <h2>{{ isEn ? '2. Three-stage series' : '2. 三站赛程' }}</h2>
+        <h2>{{ isEn ? '2. Three-stage series' : '2. 三阶段赛程' }}</h2>
         <ol>
           <li v-for="round in rounds" :key="round.number"><strong>{{ round.name }}</strong> · {{ round.dates }} · {{ round.format }}<br />{{ round.challenge }}</li>
         </ol>
@@ -34,16 +34,16 @@ const fairness = computed(() => t('judging.fairness') as any[])
 
       <section>
         <h2>{{ isEn ? '3. Models and harnesses' : '3. 模型与 Harness' }}</h2>
-        <p>{{ isEn ? 'Organizer-issued tokens cover Kimi, GLM, MiniMax, and DeepSeek. Calls go through one gateway for quota enforcement and metering.' : '组织方发放 Kimi、GLM、MiniMax、DeepSeek 的开源模型 Token。所有调用经统一网关限额和计量。' }}</p>
-        <p>{{ isEn ? 'The competition is open to Octos, HAgency, ARC, Claude Code, custom agents, and others. Teams may change their harness, but cannot change the tests, gateway metering, or scoring.' : '大赛对 Octos、HAgency、ARC、Claude Code、自研及其它 Agents 开放。队伍能改自己的 Harness，但改不到测试、网关计量与评分。' }}</p>
+        <p>{{ isEn ? 'Organizer-issued tokens cover Kimi, GLM, MiniMax, and DeepSeek. Calls go through one gateway for quota enforcement and metering.' : '组织方将发放 Kimi、GLM、MiniMax 和 DeepSeek 等开源模型的 Token。所有调用均通过统一网关执行配额限制和计量。' }}</p>
+        <p>{{ isEn ? 'The competition is open to Octos, HAgency, ARC, Claude Code, custom agents, and others. Teams may change their harness, but cannot change the tests, gateway metering, or scoring.' : '赛事向 Octos、HAgency、ARC、Claude Code、自研智能体及其他方案开放。队伍可以修改自己的 Harness，但不能修改测试、网关计量方式或评分规则。' }}</p>
       </section>
 
       <section>
         <h2>{{ isEn ? '4. Submission package' : '4. 提交物' }}</h2>
         <ul>
-          <li>{{ isEn ? 'A runnable rebuild: source code and startup instructions.' : '可运行的复刻：源码与启动方式。' }}</li>
-          <li>{{ isEn ? 'The complete production trace: prompts, tool calls, agent iterations, and human intervention points.' : '完整生产轨迹：prompts、工具调用、agent 迭代与人工干预点。' }}</li>
-          <li>{{ isEn ? 'A 3–5 minute demo.' : '3–5 分钟 Demo。' }}</li>
+          <li>{{ isEn ? 'A runnable rebuild: source code and startup instructions.' : '可运行的复刻成果：源代码和启动说明。' }}</li>
+          <li>{{ isEn ? 'The complete production trace: prompts, tool calls, agent iterations, and human intervention points.' : '完整的生产过程轨迹：提示词、工具调用、智能体迭代和人工干预点。' }}</li>
+          <li>{{ isEn ? 'A 3–5 minute demo.' : '一段 3—5 分钟的演示视频。' }}</li>
         </ul>
       </section>
 
@@ -54,7 +54,7 @@ const fairness = computed(() => t('judging.fairness') as any[])
       </section>
 
       <section>
-        <h2>{{ isEn ? '6. Evaluation safeguards' : '6. 评审底线' }}</h2>
+        <h2>{{ isEn ? '6. Evaluation safeguards' : '6. 评测保障' }}</h2>
         <ul><li v-for="item in fairness" :key="item.title"><strong>{{ item.title }}</strong> — {{ item.desc }}</li></ul>
       </section>
 
