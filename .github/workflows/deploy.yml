@@ -5,6 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Refresh the ARC-Bench leaderboard snapshot while the upstream API is HTTP-only.
+    - cron: '*/5 * * * *'
 
 permissions:
   contents: read
