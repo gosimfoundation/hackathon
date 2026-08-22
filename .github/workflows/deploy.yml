@@ -34,6 +34,7 @@ jobs:
             hub/package-lock.json
             events/oaic-harness-2026/package-lock.json
             events/agentic-hackathon-paris-2026/package-lock.json
+            events/agentic-cosmos-2026/package-lock.json
 
       - name: Install Hub dependencies
         run: npm ci --prefix hub
@@ -44,6 +45,9 @@ jobs:
       - name: Install Paris Agentic Hackathon dependencies
         run: npm ci --prefix events/agentic-hackathon-paris-2026
 
+      - name: Install Cosmos Agentic Hackathon dependencies
+        run: npm ci --prefix events/agentic-cosmos-2026
+
       - name: Build complete site
         run: npm run build
         env:
@@ -53,6 +57,11 @@ jobs:
           PARIS_VITE_SUPABASE_URL: ${{ secrets.PARIS_VITE_SUPABASE_URL }}
           PARIS_VITE_SUPABASE_ANON_KEY: ${{ secrets.PARIS_VITE_SUPABASE_ANON_KEY }}
           PARIS_VITE_SITE_URL: https://create.gosim.org/agenticparis26
+          COSMOS_VITE_SUPABASE_URL: ${{ secrets.COSMOS_VITE_SUPABASE_URL }}
+          COSMOS_VITE_SUPABASE_ANON_KEY: ${{ secrets.COSMOS_VITE_SUPABASE_ANON_KEY }}
+          COSMOS_VITE_SITE_URL: https://create.gosim.org/survey26
+          COSMOS_VITE_COSMOSBENCH_URL: ${{ secrets.COSMOS_VITE_COSMOSBENCH_URL }}
+          COSMOS_VITE_COSMOSBENCH_LEADERBOARD_API: ${{ secrets.COSMOS_VITE_COSMOSBENCH_LEADERBOARD_API }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

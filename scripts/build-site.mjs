@@ -22,6 +22,17 @@ const events = [
       VITE_SITE_URL: process.env.PARIS_VITE_SITE_URL || '',
     },
   },
+  {
+    slug: 'survey26',
+    directory: join(root, 'events', 'agentic-cosmos-2026'),
+    environment: {
+      VITE_SUPABASE_URL: process.env.COSMOS_VITE_SUPABASE_URL || '',
+      VITE_SUPABASE_ANON_KEY: process.env.COSMOS_VITE_SUPABASE_ANON_KEY || '',
+      VITE_SITE_URL: process.env.COSMOS_VITE_SITE_URL || '',
+      VITE_COSMOSBENCH_URL: process.env.COSMOS_VITE_COSMOSBENCH_URL || '',
+      VITE_COSMOSBENCH_LEADERBOARD_API: process.env.COSMOS_VITE_COSMOSBENCH_LEADERBOARD_API || '',
+    },
+  },
 ]
 
 function runBuild(directory, env = {}) {

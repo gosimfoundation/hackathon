@@ -9,6 +9,7 @@ hub/                              # create.gosim.org/
 events/oaic-harness-2026/         # /factory26/
 events/agentic-hackathon-paris-2026/
                                   # /agenticparis26/
+events/agentic-cosmos-2026/       # /survey26/
 scripts/build-site.mjs            # assembles the Pages artifact
 ```
 
@@ -24,6 +25,7 @@ Install dependencies once per application:
 npm ci --prefix hub
 npm ci --prefix events/oaic-harness-2026
 npm ci --prefix events/agentic-hackathon-paris-2026
+npm ci --prefix events/agentic-cosmos-2026
 ```
 
 Run one application:
@@ -32,6 +34,7 @@ Run one application:
 npm run dev:hub
 npm run dev:oaic-harness-2026
 npm run dev:agentic-hackathon-paris-2026
+npm run dev:agentic-cosmos-2026
 ```
 
 Build the complete Pages artifact:
@@ -51,7 +54,8 @@ Pages site.
 4. Add the event build to `scripts/build-site.mjs` and the dependency install to
    `.github/workflows/deploy.yml`.
 5. Add the slug to `hub/public/404.html` so deep links can be restored.
-6. Add directory ownership rules once the event's GitHub team is known.
+6. Add the slug to `scripts/serve-site.mjs` so local preview deep links work.
+7. Add directory ownership rules once the event's GitHub team is known.
 
 The event slug configured by the root build is the public URL segment; it does
 not need to match the source directory. Renaming a public slug requires an

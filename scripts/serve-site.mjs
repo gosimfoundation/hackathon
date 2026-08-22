@@ -10,10 +10,14 @@ const port = Number(process.env.PORT || 5173)
 const eventSlugs = new Set([
   'factory26',
   'agenticparis26',
+  'survey26',
 ])
 const legacyEventSlugs = new Set([
   'oaic-harness-2026',
   'agentic-hackathon-paris-2026',
+  'agentic-cosmos-2026',
+  'cosmos26',
+  'open-survey-26',
 ])
 
 const contentTypes = {

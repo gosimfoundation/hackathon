@@ -6,9 +6,9 @@ type Locale = 'en' | 'zh'
 
 const locale = ref<Locale>('en')
 const currentEdition = eventGroups[0]!
-const currentHackathon = currentEdition.hackathons[0]!
+const currentHackathons = currentEdition.hackathons
 const previousEdition = eventGroups[1]!
-const previousHackathon = previousEdition.hackathons[0]!
+const previousHackathons = previousEdition.hackathons
 
 const statusLabel: Record<EventStatus, Record<Locale, string>> = {
   open: { en: 'Registration open', zh: '报名开放' },
@@ -51,28 +51,30 @@ function toggleLocale() {
           <p class="eyebrow">GOSIM / {{ pick('Create', '共创') }}</p>
           <h1 id="page-title">{{ pick('GOSIM Create, a Hackathon Series', 'GOSIM Create，黑客松系列') }}</h1>
           <p>{{ pick("The home of GOSIM hackathons—bringing open-source builders together through focused challenges at GOSIM events around the world.", 'GOSIM 旗下黑客松的共同主页，让全球开源开发者围绕专注挑战，在世界各地的 GOSIM 活动中共同创造。') }}</p>
-          <a class="hero-link" href="#current">{{ pick('View current hackathon', '查看当前黑客松') }} <span aria-hidden="true">↓</span></a>
+          <a class="hero-link" href="#current">{{ pick('View current hackathons', '查看当前黑客松') }} <span aria-hidden="true">↓</span></a>
         </div>
         <p class="hero-caption">GOSIM Paris 2026 / STATION F</p>
       </section>
 
-      <section id="current" class="event-section current-section" aria-labelledby="current-title">
+      <section id="current" class="event-section current-section" aria-labelledby="current-section-title">
         <div class="section-intro">
-          <p class="section-label">01 / {{ pick('Current hackathon', '当前黑客松') }}</p>
-          <span class="status status-open"><i aria-hidden="true"></i>{{ statusLabel[currentHackathon.status][locale] }}</span>
+          <p id="current-section-title" class="section-label">01 / {{ pick('Current hackathons', '当前黑客松') }}</p>
         </div>
 
-        <article class="event-record">
+        <article v-for="hackathon in currentHackathons" :key="hackathon.slug" class="event-record">
           <div class="event-main">
-            <p class="organizer">{{ currentHackathon.organizer }}</p>
-            <h2 id="current-title">{{ locale === 'en' ? currentHackathon.name : currentHackathon.nameZh }}</h2>
-            <p class="event-description">{{ locale === 'en' ? currentHackathon.description : currentHackathon.descriptionZh }}</p>
+            <div class="event-heading">
+              <p class="organizer">{{ hackathon.organizer }}</p>
+              <span class="status status-open"><i aria-hidden="true"></i>{{ statusLabel[hackathon.status][locale] }}</span>
+            </div>
+            <h2 :id="`current-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
+            <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
           </div>
 
           <aside class="event-details">
             <dl>
-              <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? currentHackathon.dates : currentHackathon.datesZh }}</dd></div>
-              <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? currentHackathon.format : currentHackathon.formatZh }}</dd></div>
+              <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? hackathon.dates : hackathon.datesZh }}</dd></div>
+              <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? hackathon.format : hackathon.formatZh }}</dd></div>
             </dl>
 
             <div class="host-note">
@@ -82,28 +84,30 @@ function toggleLocale() {
               <a :href="currentEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference site', '大会官网') }} ↗</a>
             </div>
 
-            <a class="button button-primary" :href="currentHackathon.href">{{ pick('Enter hackathon', '进入黑客松') }} <span aria-hidden="true">→</span></a>
+            <a class="button button-primary" :href="hackathon.href">{{ pick('Enter hackathon', '进入黑客松') }} <span aria-hidden="true">→</span></a>
           </aside>
         </article>
       </section>
 
-      <section id="previous" class="event-section previous-section" aria-labelledby="previous-title">
+      <section id="previous" class="event-section previous-section" aria-labelledby="previous-section-title">
         <div class="section-intro">
-          <p class="section-label">02 / {{ pick('Previous hackathon', '往届黑客松') }}</p>
-          <span class="status status-complete">{{ statusLabel[previousHackathon.status][locale] }}</span>
+          <p id="previous-section-title" class="section-label">02 / {{ pick('Previous hackathons', '往届黑客松') }}</p>
         </div>
 
-        <article class="event-record">
+        <article v-for="hackathon in previousHackathons" :key="hackathon.slug" class="event-record">
           <div class="event-main">
-            <p class="organizer">{{ previousHackathon.organizer }}</p>
-            <h2 id="previous-title">{{ locale === 'en' ? previousHackathon.name : previousHackathon.nameZh }}</h2>
-            <p class="event-description">{{ locale === 'en' ? previousHackathon.description : previousHackathon.descriptionZh }}</p>
+            <div class="event-heading">
+              <p class="organizer">{{ hackathon.organizer }}</p>
+              <span class="status status-complete">{{ statusLabel[hackathon.status][locale] }}</span>
+            </div>
+            <h2 :id="`previous-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
+            <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
           </div>
 
           <aside class="event-details">
             <dl>
-              <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? previousHackathon.dates : previousHackathon.datesZh }}</dd></div>
-              <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? previousHackathon.format : previousHackathon.formatZh }}</dd></div>
+              <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? hackathon.dates : hackathon.datesZh }}</dd></div>
+              <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? hackathon.format : hackathon.formatZh }}</dd></div>
             </dl>
 
             <div class="host-note">
@@ -113,7 +117,7 @@ function toggleLocale() {
               <a :href="previousEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference archive', '大会回顾') }} ↗</a>
             </div>
 
-            <a class="button button-secondary" :href="previousHackathon.href">{{ pick('View archive', '查看回顾') }} <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" :href="hackathon.href">{{ pick('View archive', '查看回顾') }} <span aria-hidden="true">→</span></a>
           </aside>
         </article>
       </section>
