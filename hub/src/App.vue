@@ -35,7 +35,7 @@ function toggleLocale() {
       </a>
 
       <nav class="header-nav" :aria-label="pick('Primary navigation', '主导航')">
-        <a href="#current">{{ pick('Current', '当前') }}</a>
+        <a href="#current">{{ pick('Upcoming', '近期') }}</a>
         <a href="#previous">{{ pick('Previous', '往届') }}</a>
         <button class="locale-toggle" type="button" @click="toggleLocale">
           {{ locale === 'en' ? '中文' : 'EN' }}
@@ -51,73 +51,84 @@ function toggleLocale() {
           <p class="eyebrow">GOSIM / {{ pick('Create', '共创') }}</p>
           <h1 id="page-title">{{ pick('GOSIM Create, a Hackathon Series', 'GOSIM Create，黑客松系列') }}</h1>
           <p>{{ pick("The home of GOSIM hackathons—bringing open-source builders together through focused challenges at GOSIM events around the world.", 'GOSIM 旗下黑客松的共同主页，让全球开源开发者围绕专注挑战，在世界各地的 GOSIM 活动中共同创造。') }}</p>
-          <a class="hero-link" href="#current">{{ pick('View current hackathons', '查看当前黑客松') }} <span aria-hidden="true">↓</span></a>
+          <a class="hero-link" href="#current">{{ pick('View upcoming hackathons', '查看近期黑客松') }} <span aria-hidden="true">↓</span></a>
         </div>
         <p class="hero-caption">GOSIM Paris 2026 / STATION F</p>
       </section>
 
       <section id="current" class="event-section current-section" aria-labelledby="current-section-title">
         <div class="section-intro">
-          <p id="current-section-title" class="section-label">01 / {{ pick('Current hackathons', '当前黑客松') }}</p>
+          <p id="current-section-title" class="section-label">
+            <span aria-hidden="true">01</span>
+            <strong>{{ pick('Upcoming hackathons', '近期黑客松') }}</strong>
+          </p>
         </div>
 
-        <article v-for="hackathon in currentHackathons" :key="hackathon.slug" class="event-record">
-          <div class="event-main">
-            <div class="event-heading">
-              <p class="organizer">{{ hackathon.organizer }}</p>
-              <span class="status status-open"><i aria-hidden="true"></i>{{ statusLabel[hackathon.status][locale] }}</span>
-            </div>
-            <h2 :id="`current-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
-            <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
-          </div>
-
-          <aside class="event-details">
-            <dl>
-              <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? hackathon.dates : hackathon.datesZh }}</dd></div>
-              <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? hackathon.format : hackathon.formatZh }}</dd></div>
-            </dl>
-
-            <div class="host-note">
-              <p>{{ pick('Live finale at', '线下终场举办于') }}</p>
-              <strong>GOSIM {{ locale === 'en' ? currentEdition.city : currentEdition.cityZh }} {{ currentEdition.year }}</strong>
-              <span>{{ locale === 'en' ? currentEdition.dates : currentEdition.datesZh }} · {{ locale === 'en' ? currentEdition.venue : currentEdition.venueZh }}</span>
-              <a :href="currentEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference site', '大会官网') }} ↗</a>
+        <div class="current-grid">
+          <article v-for="hackathon in currentHackathons" :key="hackathon.slug" class="event-record" :class="`event-${hackathon.slug}`">
+            <div class="event-main">
+              <div class="event-heading">
+                <p class="organizer">{{ hackathon.organizer }}</p>
+                <div class="event-actions">
+                  <a class="event-cta" :href="hackathon.href">{{ pick('Visit website', '访问活动网站') }} <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+              <h2 :id="`current-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
+              <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
             </div>
 
-            <a class="button button-primary" :href="hackathon.href">{{ pick('Enter hackathon', '进入黑客松') }} <span aria-hidden="true">→</span></a>
-          </aside>
-        </article>
+            <aside class="event-details">
+              <dl>
+                <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? hackathon.dates : hackathon.datesZh }}</dd></div>
+                <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? hackathon.format : hackathon.formatZh }}</dd></div>
+              </dl>
+
+              <div class="host-note">
+                <p>{{ pick('Live finale at', '线下终场举办于') }}</p>
+                <strong>GOSIM {{ locale === 'en' ? currentEdition.city : currentEdition.cityZh }} {{ currentEdition.year }}</strong>
+                <span>{{ locale === 'en' ? currentEdition.dates : currentEdition.datesZh }} · {{ locale === 'en' ? currentEdition.venue : currentEdition.venueZh }}</span>
+                <a :href="currentEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference site', '大会官网') }} ↗</a>
+              </div>
+
+            </aside>
+          </article>
+        </div>
       </section>
 
       <section id="previous" class="event-section previous-section" aria-labelledby="previous-section-title">
         <div class="section-intro">
-          <p id="previous-section-title" class="section-label">02 / {{ pick('Previous hackathons', '往届黑客松') }}</p>
+          <p id="previous-section-title" class="section-label">
+            <span aria-hidden="true">02</span>
+            <strong>{{ pick('Previous hackathons', '往届黑客松') }}</strong>
+          </p>
         </div>
 
-        <article v-for="hackathon in previousHackathons" :key="hackathon.slug" class="event-record">
-          <div class="event-main">
-            <div class="event-heading">
+        <article v-for="hackathon in previousHackathons" :key="hackathon.slug" class="archive-record">
+          <div class="archive-main">
+            <div class="archive-heading">
               <p class="organizer">{{ hackathon.organizer }}</p>
               <span class="status status-complete">{{ statusLabel[hackathon.status][locale] }}</span>
             </div>
             <h2 :id="`previous-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
-            <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
+            <p class="archive-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
           </div>
 
-          <aside class="event-details">
+          <aside class="archive-aside">
             <dl>
               <div><dt>{{ pick('Dates', '日期') }}</dt><dd>{{ locale === 'en' ? hackathon.dates : hackathon.datesZh }}</dd></div>
               <div><dt>{{ pick('Format', '形式') }}</dt><dd>{{ locale === 'en' ? hackathon.format : hackathon.formatZh }}</dd></div>
             </dl>
 
-            <div class="host-note">
-              <p>{{ pick('Held at', '举办于') }}</p>
+            <p class="archive-location">
+              <span>{{ pick('Held at', '举办于') }}</span>
               <strong>GOSIM {{ locale === 'en' ? previousEdition.city : previousEdition.cityZh }} {{ previousEdition.year }}</strong>
-              <span>{{ locale === 'en' ? previousEdition.dates : previousEdition.datesZh }} · {{ locale === 'en' ? previousEdition.venue : previousEdition.venueZh }}</span>
-              <a :href="previousEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference archive', '大会回顾') }} ↗</a>
-            </div>
+              <small>{{ locale === 'en' ? previousEdition.venue : previousEdition.venueZh }}</small>
+            </p>
 
-            <a class="button button-secondary" :href="hackathon.href">{{ pick('View archive', '查看回顾') }} <span aria-hidden="true">→</span></a>
+            <div class="archive-actions">
+              <a class="archive-conference" :href="previousEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference archive', '大会回顾') }} ↗</a>
+              <a class="archive-button" :href="hackathon.href">{{ pick('View hackathon', '查看活动') }} <span aria-hidden="true">→</span></a>
+            </div>
           </aside>
         </article>
       </section>
