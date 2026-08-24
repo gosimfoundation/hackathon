@@ -346,10 +346,12 @@ async function saveProfile() {
     :class="scrolled ? 'bg-bg-primary/95 backdrop-blur-xl border-b border-border shadow-sm' : 'bg-transparent'"
   >
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <router-link to="/" class="flex items-center gap-3 group">
+      <a href="https://create.gosim.org/" aria-label="GOSIM Create home" class="flex items-center gap-3 group">
         <img :src="isDark ? assetUrl('/gosim-logo-white.svg') : assetUrl('/gosim-logo.svg')" alt="GOSIM" class="h-7 w-auto" />
+        <span class="text-xs font-medium tracking-wide text-text-primary">Create</span>
+        <span class="h-5 w-px bg-border"></span>
         <span class="text-xs text-text-tertiary font-light tracking-widest uppercase">Hackathon</span>
-      </router-link>
+      </a>
 
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-1.5 xl:gap-3">

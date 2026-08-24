@@ -29,7 +29,7 @@ function toggleLocale() {
 <template>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="/" aria-label="GOSIM Create home">
+      <a class="brand" href="https://create.gosim.org/" aria-label="GOSIM Create home">
         <img src="/images/gosim-logo.svg" alt="GOSIM" />
         <span>{{ pick('Create', '共创') }}</span>
       </a>

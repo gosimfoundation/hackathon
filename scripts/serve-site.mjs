@@ -1,5 +1,5 @@
 import { createServer } from 'node:http'
-import { existsSync, readFileSync, statSync } from 'node:fs'
+import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, extname, join, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -28,6 +28,7 @@ const contentTypes = {
   '.jpg': 'image/jpeg',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.mp4': 'video/mp4',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
@@ -61,11 +62,49 @@ const server = createServer((request, response) => {
   try {
     const url = new URL(request.url || '/', `http://${request.headers.host || 'localhost'}`)
     const filePath = resolveRequest(url.pathname)
+    const extension = extname(filePath)
+    const fileSize = statSync(filePath).size
+    const contentType = contentTypes[extension] || 'application/octet-stream'
+
+    if (extension === '.mp4' && request.headers.range) {
+      const match = /^bytes=(\d*)-(\d*)$/.exec(request.headers.range)
+      if (!match) {
+        response.writeHead(416, { 'Content-Range': `bytes */${fileSize}` })
+        response.end()
+        return
+      }
+
+      const [, startText, endText] = match
+      const suffixLength = startText === '' ? Number(endText) : 0
+      const start = startText === '' ? Math.max(fileSize - suffixLength, 0) : Number(startText)
+      const end = endText === '' || startText === '' ? fileSize - 1 : Math.min(Number(endText), fileSize - 1)
+
+      if (!Number.isFinite(start) || !Number.isFinite(end) || start < 0 || start > end || start >= fileSize) {
+        response.writeHead(416, { 'Content-Range': `bytes */${fileSize}` })
+        response.end()
+        return
+      }
+
+      response.writeHead(206, {
+        'Accept-Ranges': 'bytes',
+        'Cache-Control': 'no-store',
+        'Content-Length': end - start + 1,
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Content-Type': contentType,
+      })
+
+      if (request.method === 'HEAD') response.end()
+      else createReadStream(filePath, { start, end }).pipe(response)
+      return
+    }
+
     const body = readFileSync(filePath)
 
     response.writeHead(200, {
+      ...(extension === '.mp4' ? { 'Accept-Ranges': 'bytes' } : {}),
       'Cache-Control': 'no-store',
-      'Content-Type': contentTypes[extname(filePath)] || 'application/octet-stream',
+      'Content-Length': body.length,
+      'Content-Type': contentType,
     })
 
     response.end(request.method === 'HEAD' ? undefined : body)

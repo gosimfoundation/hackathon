@@ -73,7 +73,7 @@ export const eventGroups: GosimEdition[] = [
         code: 'GOSIM / OPEN SURVEY',
         organizer: 'GOSIM Foundation',
         name: 'Agentic Cosmos',
-        nameZh: '智能体巡天',
+        nameZh: '智能体巡天黑客松',
         description: 'Build a digital observer that reads the night sky, weighs scientific and operational trade-offs, and chooses the next observation every 900 seconds.',
         descriptionZh: '构建一位能够读取夜空状态、权衡科学与运行取舍，并每 900 秒决定下一次观测的数字观测员。',
         dates: 'September 15–October 17, 2026',
