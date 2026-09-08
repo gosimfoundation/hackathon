@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import { authRedirect } from './authRedirect'
 
 const legacyRoutes = new Set([
   '/vision',
@@ -21,7 +22,10 @@ const legacyPathTarget = legacyRoutes.has(window.location.pathname) || isLegacyP
 const legacyHashTarget = window.location.pathname === '/' && window.location.hash === '#teams'
   ? '/factory26/#teams'
   : null
-const legacyTarget = legacyPathTarget || legacyHashTarget
+const legacyTarget = authRedirect(
+  new URL(window.location.href),
+  JSON.parse(import.meta.env.VITE_AUTH_EVENT_PROJECTS || '{}'),
+) || legacyPathTarget || legacyHashTarget
 
 if (legacyTarget) {
   window.location.replace(legacyTarget)

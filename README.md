@@ -46,6 +46,30 @@ npm run build
 The result is written to `_site/`. GitHub Actions deploys that directory as one
 Pages site.
 
+## Password reset redirects
+
+Each event's Supabase project should use its event URL as the Auth Site URL and
+allow its callback URL under **Authentication → URL Configuration → Redirect URLs**:
+
+| Project | Site URL | Allowed reset callback |
+| --- | --- | --- |
+| Factory26 | `https://create.gosim.org/factory26` | `https://create.gosim.org/factory26` and `https://create.gosim.org/factory26/` |
+| Paris | `https://create.gosim.org/agenticparis26` | `https://create.gosim.org/agenticparis26` and `https://create.gosim.org/agenticparis26/` |
+| Survey26 | `https://create.gosim.org/survey26` | `https://create.gosim.org/survey26/register` |
+
+Keep the standard reset email's `{{ .ConfirmationURL }}` link so Supabase verifies
+the recovery request before returning to the app. See the
+[Supabase redirect URL documentation](https://supabase.com/docs/guides/auth/redirect-urls).
+
+The hub also forwards legacy root auth callbacks, preserving the query and hash.
+Build-time public Supabase project URLs select the event; callbacks without a
+matching issuer use Factory26, which previously occupied the root. Tokens are
+validated by the destination app's Supabase client, not by the hub.
+
+Run redirect regression tests with `npm test --prefix hub`. To verify a real
+reset after deployment, request a fresh email, open it in a signed-out browser,
+confirm the new-password form appears, and confirm login with the new password.
+
 ## Add another event
 
 1. Create `events/<event-slug>/` with its own application and lockfile.

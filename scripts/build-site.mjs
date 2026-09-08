@@ -72,7 +72,14 @@ async function writeArcBenchLeaderboard(destination) {
 
 rmSync(output, { recursive: true, force: true })
 
-runBuild(join(root, 'hub'))
+runBuild(join(root, 'hub'), {
+  // Public project URLs only; the hub forwards callbacks without handling auth.
+  VITE_AUTH_EVENT_PROJECTS: JSON.stringify({
+    '/factory26/': process.env.VITE_SUPABASE_URL || '',
+    '/agenticparis26/': process.env.PARIS_VITE_SUPABASE_URL || '',
+    '/survey26/register': process.env.COSMOS_VITE_SUPABASE_URL || '',
+  }),
+})
 cpSync(join(root, 'hub', 'dist'), output, { recursive: true })
 
 for (const event of events) {
