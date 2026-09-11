@@ -56,7 +56,7 @@ export const eventGroups: GosimEdition[] = [
       {
         slug: 'agent2app26',
         code: 'GOSIM / AGENT2APP',
-        organizer: 'octos · octos-one · Splash',
+        organizer: 'octos · octos-one · Octoscript',
         name: 'Agent2App Hackathon — The Task Is the App',
         nameZh: 'Agent2App 黑客松 · 意图所至，应用而生',
         description: 'Turn a real intent into a working app with octos-one. One challenge, three optional depths, and equal recognition for intent design and technical breakthroughs.',
