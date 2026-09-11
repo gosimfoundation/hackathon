@@ -6,7 +6,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # Refresh the ARC-Bench leaderboard snapshot while the upstream API is HTTP-only.
+    # Refresh the ARC-Bench leaderboard snapshot for the public competition (the upstream API restricts browser CORS).
     - cron: '*/5 * * * *'
 
 permissions:

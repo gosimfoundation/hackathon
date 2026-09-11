@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path'
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const output = join(root, '_site')
 const publicOrigin = 'https://create.gosim.org'
-const arcBenchLeaderboardUrl = 'http://arc-bench.com/api/competitions/leaderboard?track=all&competition_id=hackathon'
+const arcBenchApi = 'https://arc-bench.com/api/competitions'
 
 const events = [
   {
@@ -54,7 +54,12 @@ function runBuild(directory, env = {}) {
 
 async function writeArcBenchLeaderboard(destination) {
   try {
-    const response = await fetch(arcBenchLeaderboardUrl, {
+    const competitionsResponse = await fetch(arcBenchApi, { signal: AbortSignal.timeout(10_000) })
+    if (!competitionsResponse.ok) throw new Error(`ARC-Bench returned ${competitionsResponse.status}`)
+    const competitions = await competitionsResponse.json()
+    const competition = competitions.find(item => item.is_public && item.task_count > 0)
+    if (!competition) throw new Error('No public ARC-Bench competition available')
+    const response = await fetch(`${arcBenchApi}/leaderboard?track=all&competition_id=${encodeURIComponent(competition.id)}`, {
       headers: { Accept: 'application/json' },
       signal: AbortSignal.timeout(10_000),
     })
@@ -65,13 +70,13 @@ async function writeArcBenchLeaderboard(destination) {
 
     writeFileSync(
       join(destination, 'arcbench-leaderboard.json'),
-      `${JSON.stringify(payload)}\n`,
+      `${JSON.stringify({ competition: { id: competition.id, title: competition.title }, updatedAt: new Date().toISOString(), entries: payload })}\n`,
     )
     console.log(`Captured ${payload.length} ARC-Bench leaderboard row(s)`)
   } catch (error) {
     // A temporary upstream outage should not prevent the rest of the sites from deploying.
     console.warn(`Could not capture ARC-Bench leaderboard: ${error.message}`)
-    writeFileSync(join(destination, 'arcbench-leaderboard.json'), '[]\n')
+    // Keep the bundled last successful snapshot on upstream failure.
   }
 }
 
