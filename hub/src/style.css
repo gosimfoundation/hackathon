@@ -52,9 +52,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-.brand { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
-.brand img { width: 72px; }
-.brand span { padding-left: 14px; border-left: 1px solid rgba(255,255,255,.38); font-size: 12px; font-weight: 500; letter-spacing: .08em; }
+.brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+.brand img { width: 76px; }
+.brand span { font: 500 21px/1 "Manrope", sans-serif; letter-spacing: -.035em; white-space: nowrap; }
 .header-nav { display: flex; align-items: center; gap: clamp(20px, 2.5vw, 38px); font-size: 12px; font-weight: 500; }
 .header-nav a { text-decoration: none; }
 .header-nav a:hover { color: var(--mint); }
@@ -189,6 +189,12 @@ dd { font-size: 13px; font-weight: 600; line-height: 1.55; }
   --event-accent-foreground: #ffffff;
   --event-tint: #f1f4ff;
 }
+.current-grid .event-agent2app26 {
+  --event-accent: #b76b50;
+  --event-accent-text: #934830;
+  --event-accent-foreground: #fff7ed;
+  --event-tint: #f7ece2;
+}
 .current-grid .event-main { display: block; }
 .current-grid .event-heading {
   display: grid;
@@ -306,7 +312,7 @@ dd { font-size: 13px; font-weight: 600; line-height: 1.55; }
 @media (max-width: 620px) {
   .site-header { min-height: 60px; }
   .brand img { width: 70px; }
-  .brand span, .header-nav > a { display: none; }
+  .header-nav > a { display: none; }
   .hero { min-height: 700px; height: 100svh; padding-top: 96px; padding-bottom: 40px; }
   .hero-image { object-position: 48% center; }
   .hero-overlay { background: linear-gradient(90deg, rgba(15,23,48,.9), rgba(17,42,57,.34)), linear-gradient(0deg, rgba(15,23,48,.9), transparent 72%), rgba(25,83,92,.14); }
@@ -346,3 +352,7 @@ dd { font-size: 13px; font-weight: 600; line-height: 1.55; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+/* Shared narrow navigation: 1280px container with 24px insets. */
+.site-header { padding-inline: max(24px, calc((100% - 1232px) / 2)); min-height: 64px; }
+@media (max-width: 760px) { .site-header { padding-inline: 16px; } }

@@ -35,6 +35,7 @@ jobs:
             events/oaic-harness-2026/package-lock.json
             events/agentic-hackathon-paris-2026/package-lock.json
             events/agentic-cosmos-2026/package-lock.json
+            events/agent2app-2026/package-lock.json
 
       - name: Install Hub dependencies
         run: npm ci --prefix hub
@@ -47,6 +48,9 @@ jobs:
 
       - name: Install Cosmos Agentic Hackathon dependencies
         run: npm ci --prefix events/agentic-cosmos-2026
+
+      - name: Install Agent2App dependencies
+        run: npm ci --prefix events/agent2app-2026
 
       - name: Build complete site
         run: npm run build

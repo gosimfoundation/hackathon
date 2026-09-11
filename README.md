@@ -10,6 +10,7 @@ events/oaic-harness-2026/         # /factory26/
 events/agentic-hackathon-paris-2026/
                                   # /agenticparis26/
 events/agentic-cosmos-2026/       # /survey26/
+events/agent2app-2026/            # /agent2app26/
 scripts/build-site.mjs            # assembles the Pages artifact
 ```
 
@@ -26,6 +27,7 @@ npm ci --prefix hub
 npm ci --prefix events/oaic-harness-2026
 npm ci --prefix events/agentic-hackathon-paris-2026
 npm ci --prefix events/agentic-cosmos-2026
+npm ci --prefix events/agent2app-2026
 ```
 
 Run one application:
@@ -35,6 +37,7 @@ npm run dev:hub
 npm run dev:oaic-harness-2026
 npm run dev:agentic-hackathon-paris-2026
 npm run dev:agentic-cosmos-2026
+npm run dev:agent2app-2026
 ```
 
 Build the complete Pages artifact:

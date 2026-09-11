@@ -9,6 +9,7 @@
     "dev:hub": "npm run dev --prefix hub",
     "dev:oaic-harness-2026": "npm run dev --prefix events/oaic-harness-2026",
     "dev:agentic-hackathon-paris-2026": "npm run dev --prefix events/agentic-hackathon-paris-2026",
-    "dev:agentic-cosmos-2026": "npm run dev --prefix events/agentic-cosmos-2026"
+    "dev:agentic-cosmos-2026": "npm run dev --prefix events/agentic-cosmos-2026",
+    "dev:agent2app-2026": "npm run dev --prefix events/agent2app-2026"
   }
 }

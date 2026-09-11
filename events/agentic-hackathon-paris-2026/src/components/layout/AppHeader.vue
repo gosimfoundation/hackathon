@@ -345,13 +345,15 @@ async function saveProfile() {
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="scrolled ? 'bg-bg-primary/95 backdrop-blur-xl border-b border-border shadow-sm' : 'bg-transparent'"
   >
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="gosim-nav-inner flex items-center justify-between gap-6">
+      <div class="gosim-brand-switcher">
       <a href="https://create.gosim.org/" aria-label="GOSIM Create home" class="flex items-center gap-3 group">
-        <img :src="isDark ? assetUrl('/gosim-logo-white.svg') : assetUrl('/gosim-logo.svg')" alt="GOSIM" class="h-7 w-auto" />
-        <span class="text-xs font-medium tracking-wide text-text-primary">Create</span>
-        <span class="h-5 w-px bg-border"></span>
-        <span class="text-xs text-text-tertiary font-light tracking-widest uppercase">Hackathon</span>
+        <img :src="isDark ? assetUrl('/gosim-logo-white.svg') : assetUrl('/gosim-logo.svg')" alt="GOSIM" class="w-[76px] h-auto" />
+        <span class="create-wordmark text-text-primary">Create</span>
       </a>
+        <span class="gosim-brand-divider" aria-hidden="true"></span>
+        <span class="text-xs text-text-tertiary font-light tracking-widest uppercase">Hackathon</span>
+      </div>
 
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-1.5 xl:gap-3">
@@ -1097,3 +1099,18 @@ async function saveProfile() {
     </Transition>
   </Teleport>
 </template>
+
+<style scoped>
+.create-wordmark { font: 500 21px/1 "Manrope", sans-serif; letter-spacing: -.035em; white-space: nowrap; }
+</style>
+
+<style scoped>
+.gosim-nav-inner { box-sizing: border-box; width: 100%; max-width: 1280px; height: 64px; margin-inline: auto; padding-inline: 24px; }
+@media (max-width: 760px) { .gosim-nav-inner { padding-inline: 16px; } }
+</style>
+
+<style scoped>
+.gosim-brand-switcher { display: flex; align-items: center; gap: 12px; flex-shrink: 0; color: var(--color-text-primary); }
+.gosim-brand-divider { height: 20px; width: 1px; background: currentColor; opacity: .25; }
+@media (max-width: 639px) { .gosim-brand-switcher { gap: 6px; } .gosim-nav-inner { gap: 8px; } }
+</style>

@@ -11,6 +11,7 @@ const eventSlugs = new Set([
   'factory26',
   'agenticparis26',
   'survey26',
+  'agent2app26',
 ])
 const legacyEventSlugs = new Set([
   'oaic-harness-2026',

@@ -54,6 +54,21 @@ export const eventGroups: GosimEdition[] = [
     href: 'https://shenzhen2026.gosim.org/',
     hackathons: [
       {
+        slug: 'agent2app26',
+        code: 'GOSIM / AGENT2APP',
+        organizer: 'octos · octos-one · Splash',
+        name: 'Agent2App Hackathon — The Task Is the App',
+        nameZh: 'Agent2App 黑客松 · 意图所至，应用而生',
+        description: 'Turn a real intent into a working app with octos-one. One challenge, three optional depths, and equal recognition for intent design and technical breakthroughs.',
+        descriptionZh: '围绕 octos-one，把真实意图变成能用的应用。一条主赛道、三级自选深度，意图设计与技术突破双线平等评奖。',
+        dates: '2026 · Dates to be announced',
+        datesZh: '2026 年 · 具体日期待公布',
+        format: 'Training + live showcase at GOSIM Shenzhen 2026',
+        formatZh: '赛前培训 + GOSIM Shenzhen 2026 现场展示',
+        status: 'upcoming',
+        href: '/agent2app26/',
+      },
+      {
         slug: 'factory26',
         code: 'OAIC / GOSIM SZ26',
         organizer: 'Open Agentic Intelligence Community',

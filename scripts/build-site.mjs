@@ -10,6 +10,11 @@ const arcBenchLeaderboardUrl = 'http://arc-bench.com/api/competitions/leaderboar
 
 const events = [
   {
+    slug: 'agent2app26',
+    directory: join(root, 'events', 'agent2app-2026'),
+    environment: { VITE_SITE_URL: 'https://create.gosim.org/agent2app26' },
+  },
+  {
     slug: 'factory26',
     directory: join(root, 'events', 'oaic-harness-2026'),
   },
