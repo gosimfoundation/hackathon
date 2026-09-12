@@ -132,7 +132,7 @@
   "以下为建议相对赛程，T 为比赛开始日。": "This is a proposed relative schedule; T is the first day of the hackathon.",
   "现场展示与 GOSIM Shenzhen 2026同期举办，具体赛程待公布。": "The live showcase is co-located with GOSIM Shenzhen 2026. Exact dates are to be announced.",
   "必修两讲 + 选修两讲": "Two required sessions + two electives",
-  "非技术参赛者从 L0 开始；技术参赛者可继续深入 Rust、工具链与协议。讲义也将成为项目文档。": "Non-technical participants start with L0. Technical participants can go deeper into Rust, toolchains and protocols. Training materials will also become project documentation.",
+  "非技术参赛者从使用既有 AppCard 生成应用开始；技术参赛者可继续深入 Rust、工具链与协议。讲义也将成为项目文档。": "Non-technical participants start by generating apps from existing AppCards. Technical participants can go deeper into Rust, toolchains and protocols. Training materials will also become project documentation.",
   "07 / 常见问题": "07 / FAQ",
   "参赛须知": "Before you join",
   "08 / 参赛信息": "08 / PARTICIPATION",
