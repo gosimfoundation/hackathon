@@ -4,10 +4,11 @@
   --accent: #a54e36;
   --muted: #6a6960;
   --border: #cfc6b8;
-  --serif: 'Cormorant Garamond', Georgia, 'Noto Sans SC', serif;
-  --mono: 'IBM Plex Mono', 'Noto Sans SC', monospace;
+  --serif: 'Cormorant Garamond', Georgia, 'Noto Serif SC', serif;
+  --mono: 'IBM Plex Mono', 'Noto Serif SC', monospace;
   --gutter: clamp(24px, 4.4vw, 72px);
-  font-family: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+  --sans: 'Space Grotesk', 'Noto Serif SC', system-ui, sans-serif;
+  font-family: var(--sans);
   font-synthesis: none;
   color: var(--ink);
   background: var(--paper);
@@ -41,7 +42,7 @@ p { line-height: 1.9; }
 .hero .eyebrow { color: #f5dfb6; letter-spacing: .16em; }
 .hero h1 { font: 500 clamp(4.5rem, 8.3vw, 8.5rem)/.91 var(--serif); letter-spacing: -.045em; margin: 0 0 32px; text-shadow: 0 2px 20px #12232240; }
 .hero h1 span { font-style: italic; color: #f2c89d; }
-.hero h1.zh { font-family: 'Noto Sans SC', var(--serif); font-weight: 600; line-height: 1.08; letter-spacing: .02em; }
+.hero h1.zh { font-family: 'Noto Serif SC', var(--serif); font-weight: 600; line-height: 1.08; letter-spacing: .02em; }
 .hero h1.zh span { font-style: normal; }
 .hero-details { max-width: 420px; }
 .hero h2 { font-size: 20px; letter-spacing: .06em; font-weight: 500; margin: 0 0 6px; }
@@ -80,7 +81,8 @@ p { line-height: 1.9; }
 .step-foot { border-top: 1px solid #c2b5a1; padding-top: 20px; margin-top: 28px; font-size: 14px; line-height: 1.9; }
 .step-foot span { color: var(--muted); }
 .stack { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(48px, 7vw, 100px); background: #354b55; color: #f5eedf; --muted: #d1d5ce; --border: #718088; --accent: #edb28b; }
-.stack .section-heading h2 { font: 500 clamp(2.5rem, 4vw, 4.2rem)/1.12 var(--serif); letter-spacing: -.02em; }
+.stack .section-heading h2 { font: 500 clamp(1.75rem, 3vw, 3.1rem)/1.12 var(--serif); letter-spacing: -.02em; white-space: nowrap; }
+@media(max-width:760px) { .stack .section-heading h2 { white-space: normal; } }
 .stack-lead { color: var(--muted); font-size: 17px; max-width: 720px; margin: 0 0 18px; }
 .stack-principles { list-style: none; margin: 8px 0 26px; padding: 0; display: grid; gap: 14px; max-width: 720px; }
 .stack-principles li { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 15px; line-height: 1.7; }
@@ -274,7 +276,7 @@ body, .section, .steps, .stack, .bounties, .faq, .participate, footer, .primary,
   .hero-shade, [data-theme='night'] .hero-shade { background: linear-gradient(90deg, #1c302ddb, #1c302d78 70%, #1c302d35), linear-gradient(0deg, #1b2d2bed, transparent 55%); }
 }
 
-.locale-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 7px; font: 500 12px 'Manrope', 'Noto Sans SC', sans-serif; background: transparent; color: var(--ink); border: 1px solid var(--border); }
+.locale-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 7px; font: 500 12px 'Manrope', 'Noto Serif SC', sans-serif; background: transparent; color: var(--ink); border: 1px solid var(--border); }
 .header:not(.is-scrolled):not(.menu-is-open) .locale-toggle { color: #fff7e9; border-color: #fff7e960; }
 html[lang='en'] .header nav { gap: 16px; font-size: 13px; }
 html[lang='en'] .section-heading h2 { line-height: 1.18; }
@@ -335,3 +337,8 @@ html[lang='en'] .hero-bottom { letter-spacing: 0; }
 .score-text-list .score-row-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 0 7px; font-size: 16px; }
 .score-text-list strong { color: var(--accent); font: 500 24px/1 'Manrope', sans-serif; }
 .score-text-list p { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+
+/* Chinese pages set in Noto Serif SC (思源宋体) throughout. */
+html[lang='zh-CN'] { --serif: 'Noto Serif SC', 'Cormorant Garamond', Georgia, serif; --sans: 'Noto Serif SC', 'Space Grotesk', serif; font-family: var(--sans); }
+html[lang='zh-CN'] :is(h2, h3) { font-weight: 600; letter-spacing: .01em; }
+html[lang='zh-CN'] .section-heading h2, html[lang='zh-CN'] .participate h2 { line-height: 1.3; }
