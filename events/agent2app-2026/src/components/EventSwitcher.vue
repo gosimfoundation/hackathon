@@ -6,7 +6,7 @@ const open = ref(false)
 const root = ref<HTMLElement | null>(null)
 const trigger = ref<HTMLButtonElement | null>(null)
 const events = [
-  { href: '/agent2app26/', name: 'Agent2App 黑客松', detail: 'Agent2App · The Task Is the App', current: true },
+  { href: '/agent2app26/', name: 'Agentic App 黑客松', detail: 'Agentic App · The Task Is the App', current: true },
   { href: '/factory26/', name: '智能体工厂国际黑客松与大奖赛', detail: 'OAIC · Agentic Factory', current: false },
   { href: '/survey26/', name: '智能体巡天黑客松', detail: 'Agentic Cosmos', current: false },
 ]
@@ -30,7 +30,7 @@ onUnmounted(() => document.removeEventListener('pointerdown', dismiss))
 <template>
   <div ref="root" class="event-switcher" @keydown="escape" @focusout="focusOut">
     <button ref="trigger" class="series-trigger" type="button" :aria-expanded="open" aria-controls="event-series-links" @click="open = !open">
-      <span class="series-label">Agent2App</span><svg :class="{ expanded: open }" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span class="series-label">Agentic App</span><svg :class="{ expanded: open }" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5"/></svg>
     </button>
     <div v-show="open" id="event-series-links" class="series-panel" :aria-label="t('选择黑客松')">
       <div class="panel-label"><span>{{ t('深圳黑客松系列') }}</span><span>{{ t('选择赛事 ↓') }}</span></div>

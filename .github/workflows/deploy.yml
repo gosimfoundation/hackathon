@@ -49,7 +49,7 @@ jobs:
       - name: Install Cosmos Agentic Hackathon dependencies
         run: npm ci --prefix events/agentic-cosmos-2026
 
-      - name: Install Agent2App dependencies
+      - name: Install Agentic App dependencies
         run: npm ci --prefix events/agent2app-2026
 
       - name: Build complete site

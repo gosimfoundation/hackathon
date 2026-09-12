@@ -87,6 +87,8 @@ p { line-height: 1.9; }
 .stack-list article > span { color: var(--accent); font-size: 13px; }
 .stack-list h3 { font: 500 38px/1.1 var(--serif); margin: 14px 0; }
 .stack-list p { font-size: 16px; color: var(--muted); margin: 0; }
+.stack-github { display: inline-block; margin-top: 26px; font: 13px/1.7 var(--mono); letter-spacing: .04em; color: var(--accent); border-bottom: 1px solid currentColor; }
+.stack-github:hover { color: #fff; }
 .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; margin-top: 52px; }
 .awards-grid article { border-top: 1px solid var(--border); padding: 32px 0; }
 .awards-grid article > span { color: var(--muted); font: 12px/1.7 var(--mono); letter-spacing: .07em; }
@@ -156,7 +158,7 @@ footer { padding: 32px var(--gutter); display: flex; justify-content: space-betw
   .hero-media img { object-position: 58% center; }
   .hero-shade { background: linear-gradient(90deg, #233832db, #23383278 70%, #23383235), linear-gradient(0deg, #223732ed, transparent 55%); }
   .hero-bottom { flex-wrap: wrap; padding: 20px 0; gap: 10px; }
-  .hero-bottom a { display: none; }
+  .hero-bottom a:not(.org-link) { display: none; }
   .section { padding: 72px 24px; }
   .section-heading h2, .participate h2 { font-size: 32px; }
   .challenge, .stack, .scoring, .schedule, .faq, .contribution-note { grid-template-columns: 1fr; gap: 28px; }
