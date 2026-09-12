@@ -14,7 +14,7 @@ const descriptions = {
 }
 watch(locale, value => {
   document.documentElement.lang = value === 'en' ? 'en' : 'zh-CN'
-  document.title = value === 'en' ? 'Agentic App Hackathon 2026 · The Intent Is the App' : 'Agentic App 黑客松 2026 · 意图即应用'
+  document.title = value === 'en' ? 'Agentic App Hackathon 2026 · The Intent Is the App' : 'Agentic App 黑客松 2026 · 意图，即应用'
   document.querySelector('meta[name="description"]')?.setAttribute('content', descriptions[value])
   try { localStorage.setItem('agent2app-locale', value) } catch { /* Storage is optional. */ }
 }, { immediate: true })
