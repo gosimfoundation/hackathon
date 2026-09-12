@@ -63,7 +63,7 @@ const bounties = [
 const schedule = [
   { time: 'T − 21', type: '赛前启动', title: '命题发布 · 开放报名', description: '公布阶梯、双评奖线、悬赏榜与分值，收集技能标签，启动组队撮合。' },
   { time: 'T − 14', type: '全员必修 / 90 MIN', title: '第 0 讲 · Agent 化的软件', description: '理解主题，看「一句话 → 活卡片」真机演示，了解赛制，参加组队集市。' },
-  { time: 'T − 10', type: '全员必修 / 120 MIN', title: '第 1 讲 · L0 语言速成', description: '学习声明、no-facts 与事件，使用能力菜单，写一张卡并通过 validator；提交 app.md 草稿。' },
+  { time: 'T − 10', type: '全员必修 / 120 MIN', title: '第 1 讲 · Octoscript 速成', description: '学习声明、no-facts 与事件，使用能力菜单，写一张卡并通过 validator；提交 app.md 草稿。' },
   { time: 'T − 7', type: '技术选修 / 120 MIN', title: '第 2 讲 · Rust 能力与组件', description: '从预打包环境跑到真机，添加最小数据源，学习组件注册与跨后端契约。' },
   { time: 'T − 4', type: '技术选修 / 120 MIN', title: '第 3 讲 · 悬赏题导览', description: '理解 Octoscript 工具链与 Octos 协议，逐题了解切入点、交付物和验收标准。' },
   { time: 'DAY 1–2', type: '比赛 / 48 小时以内', title: '动手构建 · 中途检查 · 最终演示', description: 'Mentor、平台技术台与环境急救台值守；中途进行 checkpoint demo，最后展示完整作品。' },
