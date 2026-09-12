@@ -79,6 +79,12 @@ p { line-height: 1.9; }
 .step-foot span { color: var(--muted); }
 .stack { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(48px, 7vw, 100px); background: #354b55; color: #f5eedf; --muted: #d1d5ce; --border: #718088; --accent: #edb28b; }
 .stack .section-heading h2 { font: 500 clamp(2.5rem, 4vw, 4.2rem)/1.12 var(--serif); letter-spacing: -.02em; }
+.stack-lead { color: var(--muted); font-size: 17px; max-width: 720px; margin: 0 0 18px; }
+.stack-principles { list-style: none; margin: 8px 0 26px; padding: 0; display: grid; gap: 14px; max-width: 720px; }
+.stack-principles li { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 15px; line-height: 1.7; }
+.stack-principles strong { font-weight: 500; color: var(--accent); }
+.stack-principles span { color: var(--muted); }
+@media(max-width:760px) { .stack-principles li { grid-template-columns: 1fr; gap: 4px; } }
 .terminal-figure { margin: 38px 0 0; }
 .terminal-figure img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
 .terminal-figure figcaption { font: 12px/1.7 var(--mono); color: #d7d9d0; padding-top: 16px; letter-spacing: .08em; }

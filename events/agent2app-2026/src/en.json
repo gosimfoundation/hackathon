@@ -171,5 +171,18 @@
   "内核层 / HARNESS": "Kernel layer / HARNESS",
   "跨平台的 Agent 交互 Shell，运行在 Windows、macOS、Linux、Android、iOS 与鸿蒙之上。既是你熟悉的应用入口与 launcher，也是意图驱动、主动感知的智能体：每个应用只是触点，背后是统一的记忆与持续进化的理解。": "A cross-platform agent shell that runs on Windows, macOS, Linux, Android, iOS and HarmonyOS. It is both the familiar launcher for your apps and a proactive, intent-driven agent: every app is a touchpoint, backed by one shared memory and an understanding that keeps evolving.",
   "由 Makepad 的 Splash 演化而来、面向 Agent 需求优化的动态 DSL。无需编译即可实时解释执行应用逻辑并生成界面，用起来像 JavaScript，底座是 Rust。App Card 与主题模板都由它构建。": "A dynamic DSL evolved from Makepad's Splash and tuned for agents. It interprets app logic and generates UI in real time with no compile step: JavaScript-like on the surface, Rust underneath. App Cards and theme kits are built with it.",
-  "可嵌入的 Rust 原生 Agent harness 内核。多轮交互、上下文与记忆、模型 provider、多 agent 并发、工具与沙箱、用户审批流程，全部抽象为 OS UI protocol 提供给上层应用。": "An embeddable, Rust-native agent harness kernel. Multi-turn interaction, context and memory, model providers, concurrent agents, tools, sandboxing and user approval are all exposed to apps through the OS UI protocol."
+  "可嵌入的 Rust 原生 Agent harness 内核。多轮交互、上下文与记忆、模型 provider、多 agent 并发、工具与沙箱、用户审批流程，全部抽象为 OS UI protocol 提供给上层应用。": "An embeddable, Rust-native agent harness kernel. Multi-turn interaction, context and memory, model providers, concurrent agents, tools, sandboxing and user approval are all exposed to apps through the OS UI protocol.",
+  "OctoSense 是运行在操作系统之上的 Agent 交互 Shell。它看起来是你熟悉的 launcher 和应用，行为上却是一个理解你的意图、感知周围变化、并在你开口之前重组这些应用的智能体。": "OctoSense is an agent shell on top of your operating system. It looks like the launcher and the apps you already know, and it behaves like an agent that understands your intent, senses what is changing around you, and reshapes those apps before you ask.",
+  "今天的 Agent 界面都是聊天框：线性、单向、只有文本。OctoSense 走另一条路，保留人们已经熟悉的应用交互，把 Agent 植入应用，而不是把人拉进聊天框。": "Today's agent interfaces are chat windows: linear, one-way, text only. OctoSense takes the other road. It keeps the app interactions people already know and puts the agent inside the apps, instead of pulling people into a chat box.",
+  "熟悉的入口": "Familiar entry points",
+  "新闻、天气、行情、出行仍是稳定的起点，入口之下的内容围绕你的意图生成。": "News, weather, markets and travel stay stable places to start. Beneath each one, the content is generated around your intent.",
+  "主动，而非被动": "Proactive, not passive",
+  "由时间和事件驱动：降温、航班延误、日程变化，都会让应用重新组织、提前准备。": "Driven by time and events: a cold front, a delayed flight or a schedule change makes the apps reorganize and prepare ahead.",
+  "删繁就简": "Less, not more",
+  "把为十亿人打造的超级应用裁剪到你需要的部分，持续生成、持续进化。": "Super apps built for a billion people are trimmed to what you need, generated and evolved continuously.",
+  "人在回路": "Human in the loop",
+  "重要决定留给你。Agent 把一天提炼成几件需要确认的事，确认后一切随之更新。": "The important decisions stay with you. The agent distills the day into a few things to confirm, and everything updates once you do.",
+  "情绪价值": "Feeling as well as function",
+  "风格、配色、字体随人和时刻变化。像章鱼一样，它在感知，也在变色。": "Style, color and typography adapt to the person and the moment. Like an octopus, it senses and changes color.",
+  "你看到的每个应用都是触点。触点背后是同一个 Agent、同一份记忆，以及对你所处环境持续进化的理解。": "Every app you see is a touchpoint. Behind them all is one agent, one memory, and an understanding of your world that keeps evolving."
 }
