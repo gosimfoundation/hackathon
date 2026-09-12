@@ -150,7 +150,7 @@ html[lang='zh-CN'] .section-label > strong { font-weight: 600; letter-spacing: .
 .current-grid .event-agenticapp26 { --event-accent: #a54e36; }
 .event-main { display: block; }
 .event-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
-.organizer { display: inline-flex; align-items: center; gap: 12px; max-width: 30ch; color: var(--event-accent, var(--accent)); line-height: 1.6; }
+.organizer { display: inline-flex; align-items: center; gap: 12px; color: var(--event-accent, var(--accent)); line-height: 1.6; }
 .organizer::before { width: 18px; height: 1px; flex: none; content: ''; background: currentColor; }
 .event-actions { display: flex; flex: none; align-items: center; }
 .event-cta {
