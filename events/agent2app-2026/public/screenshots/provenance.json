@@ -1,0 +1,67 @@
+[
+  {
+    "file": "appcard-weather.png",
+    "source": "../../review/2026-09-12/screenshots/appcard-07-weather-top.png",
+    "sha256": "013aec90657163a49d416c07e3d686fcfbafbd4c430d188f8dabc612bd451635",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "octosense-desktop-light.png",
+    "source": "../../review/2026-09-12/screenshots/octosense-07-multiapp-light.png",
+    "sha256": "37587d556c37fa0ddc1c2deac4e255fff375c56fa7360d28427d7004b1e4ad81",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "octosense-desktop-dark.png",
+    "source": "../../review/2026-09-12/screenshots/octosense-08-multiapp-dark.png",
+    "sha256": "b2fab038b19b7d25dbbdc7086fa655bf126aacc75753832782c9f8d557a549d3",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "robrix-miniapps.jpg",
+    "source": "../../review/2026-09-12/robrix-a2app/screenshots/01-miniapps.jpg",
+    "sha256": "6b593013731eeb1b04dcd3edd8a6d4ab5ea739e28c855841263648d78131ed63",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "robrix-permission.jpg",
+    "source": "../../review/2026-09-12/robrix-a2app/screenshots/05-permission-prompt.jpg",
+    "sha256": "20a8a44530ee39ce2a279731d00320411ce61a724e247352d288094fce394e12",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "robrix-versions.jpg",
+    "source": "../../review/2026-09-12/robrix-a2app/screenshots/09-version-history.jpg",
+    "sha256": "3fde6723e082f285a40056aa185a203631cfed5f78e410fb930abc1799726851",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "robrix-diff.jpg",
+    "source": "../../review/2026-09-12/robrix-a2app/screenshots/10-source-diff.jpg",
+    "sha256": "e1c528f3d98091cb4efeb562e315d8311069e853d442418336a9921f7509e4b2",
+    "edited": false,
+    "capture": "Computer Use / native macOS window",
+    "date": "2026-09-12"
+  },
+  {
+    "file": "octosense-omarchy.jpg",
+    "source": "../../review/2026-09-12/screenshots/octosense-09-omarchy.jpg",
+    "sha256": "d50dc51e956448d22ae668a8e2476fb092ff384890f794416f3fb07a72ff537a",
+    "edited": false,
+    "capture": "Computer Use / org.agenticapp.review.octosense native macOS window",
+    "date": "2026-09-12",
+    "time": "20:39:18 Asia/Shanghai"
+  }
+]
