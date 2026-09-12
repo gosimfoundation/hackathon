@@ -10,7 +10,7 @@ events/oaic-harness-2026/         # /factory26/
 events/agentic-hackathon-paris-2026/
                                   # /agenticparis26/
 events/agentic-cosmos-2026/       # /survey26/
-events/agent2app-2026/            # /agent2app26/
+events/agent2app-2026/            # /agenticapp26/
 scripts/build-site.mjs            # assembles the Pages artifact
 ```
 

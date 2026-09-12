@@ -10,9 +10,9 @@ const arcBenchApi = 'https://arc-bench.com/api/competitions'
 
 const events = [
   {
-    slug: 'agent2app26',
+    slug: 'agenticapp26',
     directory: join(root, 'events', 'agent2app-2026'),
-    environment: { VITE_SITE_URL: 'https://create.gosim.org/agent2app26' },
+    environment: { VITE_SITE_URL: 'https://create.gosim.org/agenticapp26' },
   },
   {
     slug: 'factory26',
