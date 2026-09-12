@@ -41,6 +41,8 @@ p { line-height: 1.9; }
 .hero .eyebrow { color: #f5dfb6; letter-spacing: .16em; }
 .hero h1 { font: 500 clamp(4.5rem, 8.3vw, 8.5rem)/.91 var(--serif); letter-spacing: -.045em; margin: 0 0 32px; text-shadow: 0 2px 20px #12232240; }
 .hero h1 span { font-style: italic; color: #f2c89d; }
+.hero h1.zh { font-family: 'Noto Sans SC', var(--serif); font-weight: 600; line-height: 1.08; letter-spacing: .02em; }
+.hero h1.zh span { font-style: normal; }
 .hero-details { max-width: 420px; }
 .hero h2 { font-size: 20px; letter-spacing: .06em; font-weight: 500; margin: 0 0 6px; }
 .hero-theme { font-size: 17px; color: #eee5d7; margin: 0 0 22px; }

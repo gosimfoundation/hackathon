@@ -96,7 +96,7 @@ const faqs = [
       <div class="hero-stage">
         <div class="hero-copy">
           <p class="eyebrow"><a href="https://shenzhen2026.gosim.org/" target="_blank" rel="noopener noreferrer">GOSIM Shenzhen 2026</a> / AGENTIC APP</p>
-          <h1 id="event-title">The Task<br>Is the <span>App.</span></h1>
+          <h1 id="event-title" v-if="locale === 'en'">The Intent<br>Is the <span>App.</span></h1><h1 id="event-title" v-else class="zh">意图<br>即<span>应用。</span></h1>
           <div class="hero-details">
             <h2>{{ t('Agentic App 黑客松') }}</h2>
             <p class="hero-theme">{{ t('意图所至，应用而生。') }}</p>
