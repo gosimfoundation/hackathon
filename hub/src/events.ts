@@ -56,7 +56,7 @@ export const eventGroups: GosimEdition[] = [
       {
         slug: 'agent2app26',
         code: 'GOSIM / AGENTIC APP',
-        organizer: 'octos · OctoSense · Octoscript',
+        organizer: 'Octos · OctoSense · Octoscript',
         name: 'Agentic App Hackathon — The Intent Is the App',
         nameZh: 'Agentic App 黑客松 · 意图，即应用',
         description: 'Turn a real intent into a working app with OctoSense, the agent shell on top of your OS. One challenge, three optional depths, and equal recognition for intent design and technical breakthroughs.',
