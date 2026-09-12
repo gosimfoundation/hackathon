@@ -9,8 +9,8 @@ if (requested === 'en' || requested === 'zh') initial = requested
 const locale = ref<Locale>(initial)
 const english: Record<string, string> = translations
 const descriptions = {
-  zh: 'Agentic App 黑客松：意图所至，应用而生。围绕 Octos、OctoSense 与 Octoscript，一条主赛道、三级自选阶梯，让一句话长成能用的应用。',
-  en: 'Agentic App Hackathon 2026: The Intent Is the App. Turn a real intent into a working app with Octos, OctoSense and Octoscript. Three steps, two award categories, and a live showcase at GOSIM Shenzhen 2026.',
+  zh: 'Agentic App 黑客松 2026：9 月 13 日报名组队，经初赛、复赛晋级，10 月 17 日 GOSIM 现场决赛。单人、多人均可参赛，所有成员分别报名。两大赛道：OctoSense + AppCard、robrix2 + hagency。',
+  en: 'Agentic App Hackathon 2026: registration opens September 13; advance through preliminary and semifinal rounds to the October 17 GOSIM live final. Solo and team entries welcome; every member registers. Tracks: OctoSense + AppCard and robrix2 + hagency.',
 }
 watch(locale, value => {
   document.documentElement.lang = value === 'en' ? 'en' : 'zh-CN'
