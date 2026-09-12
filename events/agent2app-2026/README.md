@@ -1,6 +1,6 @@
 # Agent2App Hackathon 2026
 
-Independent Vue + TypeScript + Vite event site, served at `/agent2app26/` alongside Factory26 and Survey26. No shared event database or authentication is configured.
+Independent Vue + TypeScript + Vite event site, served at `/agenticapp26/` alongside Factory26 and Survey26. No shared event database or authentication is configured.
 
 ## Development
 
@@ -10,7 +10,7 @@ npm run dev
 npm run build
 ```
 
-The root build assembles the output into `_site/agent2app26/`. `VITE_BASE_PATH` can override the default base path.
+The root build assembles the output into `_site/agenticapp26/`. `VITE_BASE_PATH` can override the default base path.
 
 ## Content and visual direction
 

@@ -11,9 +11,10 @@ const eventSlugs = new Set([
   'factory26',
   'agenticparis26',
   'survey26',
-  'agent2app26',
+  'agenticapp26',
 ])
 const legacyEventSlugs = new Set([
+  'agent2app26',
   'oaic-harness-2026',
   'agentic-hackathon-paris-2026',
   'agentic-cosmos-2026',

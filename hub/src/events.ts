@@ -54,7 +54,7 @@ export const eventGroups: GosimEdition[] = [
     href: 'https://shenzhen2026.gosim.org/',
     hackathons: [
       {
-        slug: 'agent2app26',
+        slug: 'agenticapp26',
         code: 'GOSIM / AGENTIC APP',
         organizer: 'Octos · OctoSense · Octoscript',
         name: 'Agentic App Hackathon — The Intent Is the App',
@@ -66,7 +66,7 @@ export const eventGroups: GosimEdition[] = [
         format: 'Training + live showcase at GOSIM Shenzhen 2026',
         formatZh: '赛前培训 + GOSIM Shenzhen 2026 现场展示',
         status: 'upcoming',
-        href: '/agent2app26/',
+        href: '/agenticapp26/',
       },
       {
         slug: 'factory26',
