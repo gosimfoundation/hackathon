@@ -16,6 +16,13 @@ const statusLabel: Record<EventStatus, Record<Locale, string>> = {
   concluded: { en: 'Completed', zh: '已结束' },
 }
 
+function splitName(name: string) {
+  const separator = [' — ', ' · '].find(mark => name.includes(mark))
+  if (!separator) return { title: name, subtitle: '' }
+  const index = name.lastIndexOf(separator)
+  return { title: name.slice(0, index), subtitle: name.slice(index + separator.length) }
+}
+
 function pick(english: string, chinese: string) {
   return locale.value === 'en' ? english : chinese
 }
@@ -73,7 +80,7 @@ function toggleLocale() {
                   <a class="event-cta" :href="hackathon.href">{{ pick('Visit website', '访问活动网站') }} <span aria-hidden="true">↗</span></a>
                 </div>
               </div>
-              <h2 :id="`current-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
+              <h2 :id="`current-${hackathon.slug}-title`">{{ splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).title }}<span v-if="splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).subtitle" class="subtitle">{{ splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).subtitle }}</span></h2>
               <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
             </div>
 
@@ -109,7 +116,7 @@ function toggleLocale() {
               <p class="organizer">{{ hackathon.organizer }}</p>
               <span class="status status-complete">{{ statusLabel[hackathon.status][locale] }}</span>
             </div>
-            <h2 :id="`previous-${hackathon.slug}-title`">{{ locale === 'en' ? hackathon.name : hackathon.nameZh }}</h2>
+            <h2 :id="`previous-${hackathon.slug}-title`">{{ splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).title }}<span v-if="splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).subtitle" class="subtitle">{{ splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).subtitle }}</span></h2>
             <p class="archive-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
           </div>
 
