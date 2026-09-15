@@ -119,7 +119,7 @@ const faqs = [
     <EventSchedule />
     <section id="faq" class="section faq"><div class="section-heading"><p class="eyebrow">{{ t('08 / 常见问题') }}</p><h2>{{ t('参赛须知') }}</h2></div><div><details v-for="item in faqs" :key="item.q"><summary>{{ t(item.q) }}<span aria-hidden="true">+</span></summary><p><ConferenceText :text="t(item.a)" /></p></details></div></section>
 
-    <section id="participate" class="section participate"><p class="eyebrow">{{ t('09 / 参赛信息') }}</p><h2>{{ t('Agentic App 黑客松 2026') }}</h2><p><ConferenceText :text="t('2026 年 9 月 13 日开放报名组队，9 月 19 日开营。初赛、复赛和决赛均在线上完成，拟定 10 月 11 日公布获奖结果，前 2–3 名优胜团队获邀于 10 月 17 日在 GOSIM Shenzhen 2026 现场展示。单人、多人均可参赛；队长和每位队员都须分别报名。')" /></p><RegistrationPanel /><p class="small">{{ t('Agentic App 是独立赛事，与智能体工厂、智能体巡天黑客松并行。') }}</p></section>
+    <section id="participate" class="section participate"><p class="eyebrow">{{ t('09 / 参赛信息') }}</p><h2>{{ t('Agentic App 黑客松 2026') }}</h2><p><ConferenceText :text="t('2026 年 9 月 13 日开放报名组队，9 月 19 日开营。初赛、复赛和决赛均在线上完成，拟定 10 月 11 日公布获奖结果，前 2–3 名优胜团队获邀于 10 月 17 日在 GOSIM Shenzhen 2026 现场展示。单人、多人均可参赛；队长和每位队员都须分别报名。')" /></p><RegistrationPanel /><p class="small">{{ t('Agentic App 是独立赛事，与智能体工厂、巡天智能体并行。') }}</p></section>
   </main>
   <footer><a href="/">GOSIM / CREATE</a><span>{{ t('Agentic App 黑客松 · 2026') }}</span><a href="/">{{ t('查看全部黑客松 ↗') }}</a></footer>
 </template>
