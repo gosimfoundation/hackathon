@@ -25,6 +25,12 @@ export default {
         ],
         highlight:
           "参赛者设计观测员的逻辑系统；主办方提供任务定义、天区表、观测约束、天气场景、模拟器与评测协议。",
+        figure: {
+          key: "redshiftMap",
+          alt: "天球坐标与红移构成的巡天地图",
+          caption: "天球位置加上红移，就成了一张地图——这正是巡天最终要交付的东西。",
+          credit: "David Kirkby / DESI collaboration · CC BY 4.0",
+        },
       },
       {
         kicker: "02 / 观测员",
@@ -96,6 +102,13 @@ export default {
         ],
         formula: `score = base_science + program_bonus + request_reward
   - penalty_total`,
+        figure: {
+          key: "reviewOverlay",
+          alt: "评审叠加图：固定目标星表与参赛者观测样本",
+          caption:
+            "评审叠加图：灰色是完整的目标星表，彩色是某个智能体真正观测到的部分。策略的差别，一眼可见。",
+          plate: true,
+        },
       },
       {
         kicker: "07 / 名词",

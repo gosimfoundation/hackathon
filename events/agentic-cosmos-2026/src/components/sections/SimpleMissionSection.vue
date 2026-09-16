@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import instrumentImage from '../../assets/images/cosmos-instrument.jpg'
+import observedUniverseImage from '../../assets/images/survey-observed-universe.jpg'
 
 const { t, pick } = useI18n()
 type Card = { title: string; desc: string }
@@ -42,6 +43,15 @@ const cards = computed(() => t('home.mission.cards') as Card[])
               <p class="mt-4 max-w-xl text-sm leading-relaxed text-text-secondary">{{ card.desc }}</p>
             </div>
           </article>
+
+          <figure class="survey-figure survey-figure--plate reveal mt-12">
+            <div class="survey-plate paper-sheet">
+              <img :src="observedUniverseImage" :alt="pick('Mock universe observed by a balanced agent observer', '均衡型观测智能体观测到的模拟宇宙')" loading="lazy">
+            </div>
+            <figcaption>
+              {{ pick('What a run actually produces: the mock galaxies and quasars your agent chose to observe. Different policies leave different cosmic structure visible.', '一次运行的真实产出：你的智能体选择观测到的模拟星系与类星体。不同的策略，会留下不同的宇宙结构。') }}
+            </figcaption>
+          </figure>
 
           <div class="reveal mt-12 paper-sheet p-7 md:p-10">
             <span class="font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">{{ pick('Entry requirement', '参赛要求') }}</span>

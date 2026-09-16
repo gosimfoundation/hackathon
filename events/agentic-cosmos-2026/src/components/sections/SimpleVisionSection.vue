@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import controlRoomImage from '../../assets/images/cosmos-control-room.jpg'
+import cosmicWebImage from '../../assets/images/survey-cosmic-web.jpg'
 
 const { t, pick } = useI18n()
 type Stat = { value: string; label: string }
@@ -15,6 +16,14 @@ const stats = computed(() => t('home.vision.stats') as Stat[])
         <div class="reveal lg:pt-4">
           <span class="poster-kicker mt-14">{{ t('home.vision.kicker') }}</span>
           <h2 class="section-title distressed-type mt-8">{{ t('home.vision.title') }}</h2>
+
+          <figure class="survey-figure survey-figure--sky mt-12 hidden lg:block">
+            <img :src="cosmicWebImage" :alt="pick('Galaxies tracing the cosmic web', '勾勒出宇宙网的星系分布')" loading="lazy">
+            <figcaption>
+              {{ pick('Wide-field surveys are ultimately sampling the cosmic web.', '广域巡天归根结底是在对宇宙网进行采样。') }}
+              <span class="figure-credit">NASA Science / Hubble · Probing the Cosmic Web</span>
+            </figcaption>
+          </figure>
         </div>
 
         <div class="reveal reveal-delay-1">

@@ -25,6 +25,12 @@ export default {
         ],
         highlight:
           'You build the observer’s logic. We provide the mission definition, tile table, observing constraints, weather scenarios, simulator, and evaluation protocol.',
+        figure: {
+          key: 'redshiftMap',
+          alt: 'A survey map built from sky coordinates and redshift',
+          caption: 'Sky position plus redshift becomes a map — which is what a survey ultimately delivers.',
+          credit: 'David Kirkby / DESI collaboration · CC BY 4.0',
+        },
       },
       {
         kicker: '02 / The Observer',
@@ -96,6 +102,13 @@ export default {
         ],
         formula: `score = base_science + program_bonus + request_reward
   - penalty_total`,
+        figure: {
+          key: 'reviewOverlay',
+          alt: 'Review overlay of the fixed target catalog and an observed sample',
+          caption:
+            'The review overlay: grey is the full target catalog, colour is what one agent actually observed. The policy difference is visible at a glance.',
+          plate: true,
+        },
       },
       {
         kicker: '07 / Glossary',
