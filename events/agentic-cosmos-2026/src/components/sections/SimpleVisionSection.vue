@@ -7,8 +7,6 @@ import cosmicWebImage from '../../assets/images/survey-cosmic-web.jpg'
 import agentStrategyImage from '../../assets/images/survey-agent-strategy.jpg'
 
 const { t, pick } = useI18n()
-type Stat = { value: string; label: string }
-const stats = computed(() => t('home.vision.stats') as Stat[])
 
 // The sky we sample, the human who decides, the agent taking over.
 const slides = computed(() => [
@@ -39,8 +37,8 @@ const slides = computed(() => [
     ),
     stamp: pick('AGENT OBSERVER / SURVEY STRATEGY', '观测智能体 / 巡天策略'),
     caption: pick(
-      'Tomorrow the agent takes over: the same sky tiles, the same weather and progress, and it proposes the next pointing — with its reasoning attached.',
-      '明天，智能体接手：同样的天区、同样的天气与进度，由它给出下一个指向，并附上理由。',
+      'We let the agent take over: the same sky tiles, the same weather and progress, and it proposes the next pointing.',
+      '我们让智能体接手：同样的天区、同样的天气与进度，由它给出下一个指向。',
     ),
   },
 ])
@@ -58,25 +56,11 @@ const slides = computed(() => [
         <div class="reveal reveal-delay-1">
           <VisionCarousel :slides="slides" />
 
-          <div class="mt-9 grid gap-8 border-t poster-rule pt-8 md:grid-cols-[.72fr_1.28fr]">
-            <p class="max-w-3xl text-xl font-medium leading-relaxed tracking-[-.02em] text-[#f0e9dd] md:text-3xl">{{ t('home.vision.lede') }}</p>
-            <div>
-              <div class="space-y-5 text-base leading-relaxed text-text-secondary md:text-lg">
-                <p v-for="(paragraph, index) in t('home.vision.paragraphs')" :key="index">{{ paragraph }}</p>
-              </div>
-              <router-link to="/brief" class="mt-8 inline-flex items-center gap-3 border-b border-[#edb28b] pb-2 font-mono text-xs uppercase tracking-[.1em] text-[#f0e9dd] transition-colors hover:text-[#edb28b]">
-                {{ t('home.vision.link') }} <span>↗</span>
-              </router-link>
+          <div class="mt-9 border-t poster-rule pt-8">
+            <div class="max-w-3xl space-y-5 text-base leading-relaxed text-text-secondary md:text-lg">
+              <p v-for="(paragraph, index) in t('home.vision.paragraphs')" :key="index">{{ paragraph }}</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="reveal mt-20 grid border-y poster-rule md:grid-cols-3">
-        <div v-for="(stat, index) in stats" :key="stat.label" class="grid grid-cols-[auto_1fr] items-end gap-5 border-b poster-rule px-2 py-8 last:border-b-0 md:border-r md:border-b-0 md:px-8 md:first:pl-0 md:last:border-r-0">
-          <span class="text-3xl font-semibold tracking-[-.04em] text-[#edb28b] md:text-4xl">{{ stat.value }}</span>
-          <span class="mb-2 font-mono text-xs uppercase tracking-[.1em] text-text-tertiary">{{ stat.label }}</span>
-          <span class="hidden text-right font-mono text-xs text-[#edb28b] md:block">0{{ index + 1 }}</span>
         </div>
       </div>
     </div>

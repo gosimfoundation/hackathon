@@ -182,14 +182,16 @@ function onTouchEnd(e: TouchEvent) {
 .carousel-arrow:focus-visible { outline: 2px solid #edb28b; outline-offset: 2px; }
 
 .carousel-caption {
-  max-width: 46ch;
+  flex: 1;
+  min-width: 0;
   color: rgba(240,233,221,.62);
   font-family: var(--font-mono);
   font-size: .75rem;
   line-height: 1.75;
   letter-spacing: .03em;
 }
-.carousel-credit { display: block; margin-top: .4rem; opacity: .62; }
+.carousel-credit { opacity: .62; }
+.carousel-credit::before { content: ' · '; }
 
 .carousel-dots { display: flex; flex-shrink: 0; gap: .5rem; padding-top: .3rem; }
 .carousel-dot {
