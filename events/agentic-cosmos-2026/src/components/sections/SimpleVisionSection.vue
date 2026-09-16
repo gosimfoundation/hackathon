@@ -1,12 +1,49 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
+import VisionCarousel from '../VisionCarousel.vue'
 import controlRoomImage from '../../assets/images/cosmos-control-room.jpg'
 import cosmicWebImage from '../../assets/images/survey-cosmic-web.jpg'
+import agentStrategyImage from '../../assets/images/survey-agent-strategy.jpg'
 
 const { t, pick } = useI18n()
 type Stat = { value: string; label: string }
 const stats = computed(() => t('home.vision.stats') as Stat[])
+
+// The sky we sample, the human who decides, the agent taking over.
+const slides = computed(() => [
+  {
+    src: cosmicWebImage,
+    alt: pick('Galaxies tracing the cosmic web', '勾勒出宇宙网的星系分布'),
+    stamp: pick('COSMIC WEB / WIDE-FIELD SAMPLING', '宇宙网 / 广域巡天采样'),
+    caption: pick(
+      'Wide-field surveys are ultimately sampling the cosmic web: galaxies trace the large-scale structure shaped by dark matter.',
+      '广域巡天归根结底是在对宇宙网采样：星系勾勒出由暗物质塑造的大尺度结构。',
+    ),
+    credit: 'NASA Science / Hubble · Probing the Cosmic Web',
+  },
+  {
+    src: controlRoomImage,
+    alt: pick('An observatory control room during a survey night', '巡天之夜的观测站控制室'),
+    stamp: pick('OBSERVATORY CONTROL / HUMAN IN THE LOOP', '观测站控制 / 人在回路'),
+    caption: pick(
+      'Today a human leading observer reads the sky state and decides what to point at next — every 900 seconds, all night long.',
+      '今天，是人类主值观测员在读取夜空状态、决定下一个指向——每 900 秒一次，整夜不停。',
+    ),
+  },
+  {
+    src: agentStrategyImage,
+    alt: pick(
+      'An agent observer weighing weather, sky tiles and survey progress into an observing plan',
+      '观测智能体把天气、天区与巡天进度权衡成一份观测计划',
+    ),
+    stamp: pick('AGENT OBSERVER / SURVEY STRATEGY', '观测智能体 / 巡天策略'),
+    caption: pick(
+      'Tomorrow the agent takes over: the same sky tiles, the same weather and progress, and it proposes the next pointing — with its reasoning attached.',
+      '明天，智能体接手：同样的天区、同样的天气与进度，由它给出下一个指向，并附上理由。',
+    ),
+  },
+])
 </script>
 
 <template>
@@ -16,22 +53,10 @@ const stats = computed(() => t('home.vision.stats') as Stat[])
         <div class="reveal lg:pt-4">
           <span class="poster-kicker mt-14">{{ t('home.vision.kicker') }}</span>
           <h2 class="section-title distressed-type mt-8">{{ t('home.vision.title') }}</h2>
-
-          <figure class="survey-figure survey-figure--sky mt-12 hidden lg:block">
-            <img :src="cosmicWebImage" :alt="pick('Galaxies tracing the cosmic web', '勾勒出宇宙网的星系分布')" loading="lazy">
-            <figcaption>
-              {{ pick('Wide-field surveys are ultimately sampling the cosmic web.', '广域巡天归根结底是在对宇宙网进行采样。') }}
-              <span class="figure-credit">NASA Science / Hubble · Probing the Cosmic Web</span>
-            </figcaption>
-          </figure>
         </div>
 
         <div class="reveal reveal-delay-1">
-          <div class="vision-photo photo-wash h-[340px] md:h-[540px]">
-            <img :src="controlRoomImage" alt="" loading="lazy">
-            <div class="vision-plasma plasma-field" aria-hidden="true"></div>
-            <div class="vision-stamp">{{ pick('OBSERVATORY CONTROL / HUMAN IN THE LOOP', '观测站控制 / 人在回路') }}</div>
-          </div>
+          <VisionCarousel :slides="slides" />
 
           <div class="mt-9 grid gap-8 border-t poster-rule pt-8 md:grid-cols-[.72fr_1.28fr]">
             <p class="max-w-3xl text-xl font-medium leading-relaxed tracking-[-.02em] text-[#f0e9dd] md:text-3xl">{{ t('home.vision.lede') }}</p>
@@ -57,21 +82,3 @@ const stats = computed(() => t('home.vision.stats') as Stat[])
     </div>
   </section>
 </template>
-
-<style scoped>
-.vision-photo { transform: rotate(-.2deg); box-shadow: 8px 8px 0 #edb28b; }
-.vision-photo img { object-position: center 45%; }
-.vision-photo::after { background: linear-gradient(90deg, rgba(24,36,47,.46), transparent 48%), linear-gradient(0deg, rgba(24,36,47,.7), transparent 45%); }
-.vision-plasma { right: -10%; bottom: -12%; width: min(45rem, 65vw); opacity: .88; transform: rotate(5deg); }
-.vision-stamp {
-  position: absolute;
-  z-index: 4;
-  right: 1.25rem;
-  bottom: 1.1rem;
-  color: rgba(240,233,221,.7);
-  font-family: var(--font-mono);
-  font-size: .875rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-}
-</style>
