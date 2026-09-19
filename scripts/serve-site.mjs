@@ -51,6 +51,10 @@ function resolveRequest(pathname) {
   }
 
   const [firstSegment] = normalized.split(/[\\/]/)
+  if ((normalized === 'survey26/platform' || normalized.startsWith('survey26/platform/'))
+    && existsSync(join(siteRoot, 'survey26/platform/index.html'))) {
+    return join(siteRoot, 'survey26/platform/index.html')
+  }
   if (legacyEventSlugs.has(firstSegment)) {
     return join(siteRoot, '404.html')
   }

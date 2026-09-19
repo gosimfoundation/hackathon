@@ -29,6 +29,15 @@
           '/projects',
         ]
         var path = window.location.pathname
+        var platformEnabled = false
+        if (platformEnabled && (path === '/survey26/platform' || path.indexOf('/survey26/platform/') === 0)) {
+          try {
+            window.sessionStorage.setItem('gosim-platform-redirect',
+              (path === '/survey26/platform' ? path + '/' : path) + window.location.search + window.location.hash)
+          } catch (_) {}
+          window.location.replace('/survey26/platform/')
+          return
+        }
         var firstSegment = path.split('/').filter(Boolean)[0]
         var target = null
 
