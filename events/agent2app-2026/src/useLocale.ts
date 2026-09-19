@@ -9,8 +9,8 @@ if (requested === 'en' || requested === 'zh') initial = requested
 const locale = ref<Locale>(initial)
 const english: Record<string, string> = translations
 const descriptions = {
-  zh: 'Agentic App 黑客松：意图所至，应用而生。围绕 Octos、OctoSense 与 Octoscript，一条主赛道、三级自选阶梯，让一句话长成能用的应用。',
-  en: 'Agentic App Hackathon 2026: The Intent Is the App. Turn a real intent into a working app with Octos, OctoSense and Octoscript. Three steps, two award categories, and a live showcase at GOSIM Shenzhen 2026.',
+  zh: 'Agentic App 黑客松：意图，即应用。在 Octos、Octoscript、Makepad 与 OctoSense 这条纯 Rust 开源 Agentic 技术栈上，把系统应用 Agent 化；鹦鹉螺、帝王蟹、大章鱼三级深度，作品以 Apache 2.0 开源提交。',
+  en: 'Agentic App Hackathon 2026: The Intent Is the App. Build agent-native apps on Octos, Octoscript, Makepad and OctoSense, an open, pure-Rust agentic stack. Three depths from Nautilus to Giant Octopus, Apache 2.0 submissions, and a live showcase at GOSIM Shenzhen 2026.',
 }
 watch(locale, value => {
   document.documentElement.lang = value === 'en' ? 'en' : 'zh-CN'
