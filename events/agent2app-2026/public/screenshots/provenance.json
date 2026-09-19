@@ -63,5 +63,69 @@
     "capture": "Computer Use / org.agenticapp.review.octosense native macOS window",
     "date": "2026-09-12",
     "time": "20:39:18 Asia/Shanghai"
+  },
+  {
+    "file": "octosense-aircon-zh.webp",
+    "source": "https://octosense.org/cn/experience/aircon/",
+    "sha256": "418007638eeab798fff4d585b1aafd1d3cd3bd63cf90af0c77ceb8d7cd6e5104",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-aircon-en.webp",
+    "source": "https://octosense.org/experience/aircon/",
+    "sha256": "8086752c85aaed850ac348fa15c76fe924f1d952b4cfd77d53f56f7d8121a8b6",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-school-zh.webp",
+    "source": "https://octosense.org/cn/experience/school/",
+    "sha256": "79ebc24bce45f25c63ea498c5aff8b455b02ef8d95e79bea63d59afa588c4711",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-school-en.webp",
+    "source": "https://octosense.org/experience/school/",
+    "sha256": "6dbdae3d523ba8a0120c23e80aafa45a44d4e88f0aff57b185ee3bba1468b54a",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-health-zh.webp",
+    "source": "https://octosense.org/cn/experience/health/",
+    "sha256": "5cb6cc96ae555d379b9ed8c6c80a7efcaaf07e10791a1e7a05308f16b0113730",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-health-en.webp",
+    "source": "https://octosense.org/experience/health/",
+    "sha256": "4fd786de00552b15758bec22b30e83e017f1f725b38a7b3da036e65e337ad8d6",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-reunion-zh.webp",
+    "source": "https://octosense.org/cn/experience/reunion/",
+    "sha256": "8fe4c2140ca6a05b9b3af83925d186ddcd71c5b0b05da43a51f02432fa880367",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
+  },
+  {
+    "file": "octosense-reunion-en.webp",
+    "source": "https://octosense.org/experience/reunion/",
+    "sha256": "595aaa3253cd6232169a08cc4c95818c895a93334ad5cbf57ea4ce842b30e208",
+    "edited": false,
+    "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
+    "date": "2026-09-19"
   }
 ]

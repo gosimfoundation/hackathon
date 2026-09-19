@@ -430,5 +430,18 @@
   "潜得越深，离内核越近。深度是加分维度，不是资格线：鹦鹉螺做到极致，同样可以夺冠。": "The deeper you dive, the closer to the kernel. Depth earns bonus points; it is not an entry requirement, and an outstanding Nautilus project can still win.",
   "用 Rust 为作品补充数据或操作能力：赛道 A 扩展数据 helper，赛道 B 接入 hagency 的任务、事件或结果数据。完善契约、错误状态与权限边界。赛道 A 在 Android 真机上演示可获真机加分。": "Use Rust to add data or actions to your project: Track A extends data helpers, Track B connects hagency tasks, events or results. Harden contracts, error states and permission boundaries. Track A demos on a real Android phone earn a device bonus.",
   "能力层 · 用 Rust 扩展": "Capability layer · Extend with Rust",
-  "鹦鹉螺的极致设计同样可以拿满创意与完成度分。技术深度加分，不设技术资格门槛。": "An outstanding Nautilus design can still earn full marks for creativity and completeness. Technical depth earns bonus points, with no technical entry bar."
+  "鹦鹉螺的极致设计同样可以拿满创意与完成度分。技术深度加分，不设技术资格门槛。": "An outstanding Nautilus design can still earn full marks for creativity and completeness. Technical depth earns bonus points, with no technical entry bar.",
+  "意图藏在邮件和消息里，应用随之而来。": "The intent is in your mail and messages. The app follows.",
+  "octosense.org 上的可交互体验 · Makepad 原生卡片编译为 WebAssembly · 示例数据": "Interactive experiences on octosense.org · Native Makepad cards compiled to WebAssembly · Sample data",
+  "从下单，到安心享受": "From a new purchase to a comfortable home",
+  "学校的新安排，已在你的日历里": "A school email, already part of your day",
+  "为自己，留一点时间": "Make room for a little care",
+  "好久不见，把相聚排进日历": "Old friends, a new date in your calendar",
+  "购物应用里下单，物流、安装、日历与付款依次变成可以确认的卡片。": "Order in a shopping app; delivery, installation, calendar and payment each become a card you can confirm.",
+  "学校来信变成日程与缴费卡片，授权过的发件人可以直接更新日历。": "A school email becomes schedule and fee cards, and an authorized sender can update the calendar directly.",
+  "年度体检邀请变成预约、准备与提醒，一步步等你确认。": "An annual checkup invitation becomes booking, preparation and reminders, each waiting for your confirmation.",
+  "群聊里的聚会约定，整理成时间、地点与回复卡片。": "A reunion agreed in a group chat becomes time, place and reply cards.",
+  "亲手体验": "Try it",
+  "亲手体验 ↗": "Try it ↗",
+  "从天气卡片、多应用桌面、可交互的服务卡片，到小程序的权限与版本管理。桌面与小程序画面来自本轮 macOS 实机测试，服务卡片截自 octosense.org，点击即可亲手体验。": "From weather cards and a multi-app desktop to interactive service cards and mini-app permissions and versions. Desktop and mini-app images come from this round of macOS testing; the service cards are captured from octosense.org, and you can click through to try them."
 }
