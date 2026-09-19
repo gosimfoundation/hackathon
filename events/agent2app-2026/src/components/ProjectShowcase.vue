@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { useLocale } from '../useLocale'
 
 const props = defineProps<{ night: boolean }>()
-const { t } = useLocale()
+const { locale, t } = useLocale()
 const desktopNight = ref(props.night)
 watch(() => props.night, night => { desktopNight.value = night })
 const asset = (file: string) => `${import.meta.env.BASE_URL}screenshots/${file}`
@@ -11,6 +11,14 @@ const desktopShots = [
   { night: false, file: 'octosense-desktop-light.png', alt: 'OctoSense 浅色桌面中并排打开 Clock 与 Weather 浮动窗口' },
   { night: true, file: 'octosense-desktop-dark.png', alt: 'OctoSense 深色桌面中运行同一组 Clock 与 Weather 应用' },
 ]
+const serviceShots = [
+  { slug: 'aircon', title: '从下单，到安心享受', caption: '购物应用里下单，物流、安装、日历与付款依次变成可以确认的卡片。' },
+  { slug: 'school', title: '学校的新安排，已在你的日历里', caption: '学校来信变成日程与缴费卡片，授权过的发件人可以直接更新日历。' },
+  { slug: 'health', title: '为自己，留一点时间', caption: '年度体检邀请变成预约、准备与提醒，一步步等你确认。' },
+  { slug: 'reunion', title: '好久不见，把相聚排进日历', caption: '群聊里的聚会约定，整理成时间、地点与回复卡片。' },
+]
+const serviceShot = (slug: string) => asset(`octosense-${slug}-${locale.value === 'en' ? 'en' : 'zh'}.webp`)
+const serviceUrl = (slug: string) => `https://octosense.org${locale.value === 'en' ? '' : '/cn'}/experience/${slug}/`
 const miniappShots = [
   { file: 'robrix-miniapps.jpg', title: '找到并打开小程序', caption: '从宿主中的小程序列表出发，进入创建、运行与管理流程。', alt: 'Robrix Agent2App 测试版的小程序列表与创建入口' },
   { file: 'robrix-permission.jpg', title: '能力请求，交给用户决定', caption: 'Account 小程序请求设备与账户相关能力，宿主提供拒绝、单次允许与允许选项。', alt: 'Account 小程序的权限弹窗，包含拒绝、单次允许和允许按钮' },
@@ -24,7 +32,7 @@ const miniappShots = [
     <div class="section-heading wide">
       <p class="eyebrow">{{ t('IN ACTION / 实机预览') }}</p>
       <h2 id="showcase-title">{{ t('先看见应用，再开始创造。') }}</h2>
-      <p>{{ t('从天气卡片、多应用桌面，到小程序的权限与版本管理。以下画面来自本轮 macOS 实机测试，点击图片可查看原图。') }}</p>
+      <p>{{ t('从天气卡片、多应用桌面、可交互的服务卡片，到小程序的权限与版本管理。桌面与小程序画面来自本轮 macOS 实机测试，服务卡片截自 octosense.org，点击即可亲手体验。') }}</p>
     </div>
 
     <div class="showcase-apps">
@@ -70,6 +78,24 @@ const miniappShots = [
         <p class="capture-note">{{ t('macOS 实机记录：同一个 OctoSense 测试实例从浮动桌面切换为 Omarchy，Clock 与 Weather 继续运行。') }}</p>
       </figcaption>
     </figure>
+
+    <div class="miniapp-preview-heading">
+      <p class="eyebrow">OCTOSENSE.ORG / APP CARD</p>
+      <h3>{{ t('意图藏在邮件和消息里，应用随之而来。') }}</h3>
+      <span class="capture-type">{{ t('octosense.org 上的可交互体验 · Makepad 原生卡片编译为 WebAssembly · 示例数据') }}</span>
+    </div>
+    <div class="service-previews">
+      <figure v-for="shot in serviceShots" :key="shot.slug">
+        <a class="screenshot-link" :href="serviceUrl(shot.slug)" target="_blank" rel="noopener noreferrer" :aria-label="t('亲手体验') + ' · ' + t(shot.title)">
+          <img :src="serviceShot(shot.slug)" width="814" height="1554" loading="lazy" decoding="async" :alt="t(shot.title)">
+        </a>
+        <figcaption>
+          <h4>{{ t(shot.title) }}</h4>
+          <p>{{ t(shot.caption) }}</p>
+          <a class="service-link" :href="serviceUrl(shot.slug)" target="_blank" rel="noopener noreferrer">{{ t('亲手体验 ↗') }}</a>
+        </figcaption>
+      </figure>
+    </div>
 
     <div class="miniapp-preview-heading">
       <p class="eyebrow">ROBRIX AGENT2APP</p>
@@ -120,10 +146,17 @@ figcaption .capture-note { font-size: 12px; line-height: 1.8; margin-top: 16px; 
 .miniapp-previews figcaption { display: grid; grid-template-columns: 26px 1fr; column-gap: 10px; row-gap: 8px; padding-top: 18px; }
 .miniapp-previews h4 { font-size: 20px; line-height: 1.5; margin: 0; }
 .miniapp-previews figcaption p { grid-column: 2; margin: 0; }
+.service-previews { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 28px; }
+.service-previews .screenshot-link { cursor: pointer; border-radius: 18px; overflow: hidden; }
+.service-previews figcaption { padding-top: 16px; }
+.service-previews h4 { font-size: 18px; line-height: 1.5; margin: 0 0 8px; }
+.service-previews figcaption p { font-size: 14px; margin: 0 0 8px; }
+.service-link { color: var(--accent); font-size: 14px; border-bottom: 1px solid currentColor; }
 .showcase-footnote { font: 12px/1.8 var(--mono); color: var(--muted); margin: 40px 0 0; }
 @media (max-width: 760px) {
   .showcase-apps, .miniapp-previews, .project-showcase .omarchy-preview { grid-template-columns: 1fr; gap: 36px; }
   .portrait-link { width: min(100%, 320px); }
   .miniapp-preview-heading { margin-top: 44px; }
+  .service-previews { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
 }
 </style>
