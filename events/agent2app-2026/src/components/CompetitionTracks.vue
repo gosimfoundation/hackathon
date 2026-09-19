@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useLocale } from '../useLocale'
-const { t } = useLocale()
+const { locale, t } = useLocale()
+const octosenseApps = computed(() => locale.value === 'en' ? 'https://octosense.org/#apps' : 'https://octosense.org/cn/#apps')
 const applications = [
   { title: '任务与阻塞看板', text: '聚合任务、依赖和等待原因，定位需要处理的事项，并回到对应讨论。' },
   { title: 'Agent 工作状态', text: '让团队看懂谁在执行、谁在等待，以及当前任务的进展；清楚区分实时与过期状态。' },
@@ -22,6 +24,7 @@ const applications = [
         <h3>OctoSense + AppCard</h3>
         <p>{{ t('从一个日常需求出发，组合数据、卡片与交互，让意图变成可使用的应用。') }}</p>
         <p class="track-examples">{{ t('天气与出行 · 信息速览 · 个人工作流') }}</p>
+        <p>{{ t('也可以挑一个 OctoSense 系统应用把它 Agent 化：邮件、即时消息、日历、新闻、音乐、视频、财经、导航、购物、写作或系统设置。') }} <a class="text-link" :href="octosenseApps" target="_blank" rel="noopener noreferrer">{{ t('查看应用手册 ↗') }}</a></p>
         <a class="text-link" href="#steps">{{ t('查看参赛阶梯 →') }}</a>
       </article>
       <article class="track-card factory-track-card">
