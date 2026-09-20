@@ -144,6 +144,24 @@ if (platformEnabled) {
   const index = join(destination, 'index.html')
   writeFileSync(index, readFileSync(index, 'utf8').replace('<head>', `<head>\n<script src="${platform.basePath}restore-route.js"></script>`))
   writeFileSync(join(destination, 'deployment.json'), JSON.stringify({ repository: platform.repository, revision: platform.revision }))
+  // With hosting enabled the event landing and the platform would read as two sites; keep one entrance.
+  const landingIndex = join(output, 'survey26', 'index.html')
+  writeFileSync(landingIndex, `<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>巡天智能体 · Agent Observer</title>
+    <meta name="description" content="面向智能巡天的 GOSIM 黑客松：构建观测智能体，读取天空状态，并在每 900 秒选择下一次观测。" />
+    <link rel="icon" type="image/svg+xml" href="${platform.basePath}favicon.svg" />
+    <script>window.location.replace('${platform.basePath}' + window.location.search + window.location.hash)</script>
+    <meta http-equiv="refresh" content="0; url=${platform.basePath}" />
+  </head>
+  <body>
+    <p><a href="${platform.basePath}">巡天智能体 · Agent Observer</a></p>
+  </body>
+</html>
+`)
 }
 
 console.log(`Built Hub and ${events.length} event site(s) in ${output}`)
