@@ -8,7 +8,7 @@ const qrEmbedUrl = 'https://qacman.com/?embed=1&autoplay=1&gh=4&q=https%3A%2F%2F
 <template>
   <div class="registration-panel">
     <p class="registration-instruction">{{ t('扫码报名，或直接打开报名表。') }}</p>
-    <p class="registration-instruction">{{ t('9/13 开始报名 · 9/19 开营 · 拟定 9/23 23:59 截止（北京时间）') }}<br>{{ t('单人可参赛；多人队伍的队长、队员均须分别填写。') }}</p>
+    <p class="registration-instruction">{{ t('9/13 开始报名 · 9/22 开营 · 9/26 开课 · 拟定 9/23 23:59 截止（北京时间）') }}<br>{{ t('单人可参赛；多人队伍的队长、队员均须分别填写。') }}</p>
     <iframe
       :src="qrEmbedUrl"
       :title="t('Agentic App 黑客松报名动态二维码')"
