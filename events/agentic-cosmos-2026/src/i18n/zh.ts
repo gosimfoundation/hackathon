@@ -147,9 +147,9 @@ export default {
     lede:
       "为巡天之夜构建未来的观测智能体：读取天空状态，像主值观测员一样推理，每 900 秒选择下一次观测。",
     pipeline: [
-      { label: "线上培训", date: "10 月 1–4 日" },
-      { label: "线上比赛", date: "10 月 5–7 日" },
-      { label: "颁奖日", date: "10 月 17 日" },
+      { label: "线上培训", date: "10 月 1–4 日", note: "邂逅天文学家与智能体专家" },
+      { label: "线上比赛", date: "10 月 5–7 日", note: "开源大模型 KIMI 提供支持" },
+      { label: "颁奖日", date: "10 月 17 日", note: "前三名受邀赴 GOSIM 深圳领奖" },
     ],
     location: ["10 月 1–4 日线上培训 · 10 月 5–7 日线上比赛", "10 月 17 日 · GOSIM 深圳大会颁奖"],
     cta: "赛题即将发布",
@@ -165,7 +165,7 @@ export default {
     },
     mission: {
       kicker: "02 / 赛题",
-      title: "望远镜下一步该看向哪里",
+      title: "下一步，我们看向那一片天空？",
       lede: "你的智能体接管人类主值观测员的核心决策。",
       cards: [
         { title: "读状态", desc: "天气、预报、巡天进度，以及此刻合法的候选天区，全部装进一个紧凑的状态字典。" },
@@ -435,7 +435,7 @@ return {"action": "observe", "tile_id": best["tile_id"], "plan": "DARK",
     team: "队伍 / 智能体", score: "总分", science: "科学产出", completion: "完成度", uniformity: "均匀性", submissions: "已评分提交",
   },
   cta: {
-    title: "把夜空的下一步，交给你写的智能体",
+    title: "下一次观测，由你的智能体决定",
     tagline: "同一巡天计划、天气回放、新增请求、模拟器与计分规则；唯一的变量是策略。",
     location: "线上开发与 CosmosBench 统一评测 · 10 月 17 日 GOSIM 深圳",
   },

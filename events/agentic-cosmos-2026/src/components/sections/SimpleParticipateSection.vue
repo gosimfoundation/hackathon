@@ -27,7 +27,6 @@ const timeline = computed(() => t('home.participate.timeline') as TimelineItem[]
 
         <div class="relative z-10 grid gap-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
           <div>
-            <div class="font-mono text-xs text-[#edb28b]" aria-hidden="true">03</div>
             <span class="mt-8 inline-block font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">{{ t('home.participate.kicker') }}</span>
             <h2 class="mt-8 max-w-[16ch] text-[clamp(2.25rem,4.6vw,4.75rem)] font-semibold leading-[1.04] tracking-[-.05em] text-[#18242f]">{{ t('home.participate.title') }}</h2>
             <p class="mt-7 max-w-md text-base leading-relaxed text-[#41515c] md:text-lg">{{ t('home.participate.lede') }}</p>

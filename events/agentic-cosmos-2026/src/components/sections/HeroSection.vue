@@ -5,7 +5,7 @@ import { useI18n } from '../../composables/useI18n'
 import { assetUrl } from '../../composables/api'
 
 const { t, pick, locale } = useI18n()
-type Step = { label: string; date: string }
+type Step = { label: string; date: string; note: string }
 const pipeline = computed(() => t('hero.pipeline') as Step[])
 const heroVideo = ref<HTMLVideoElement | null>(null)
 const slowDown = () => { if (heroVideo.value) heroVideo.value.playbackRate = 0.5 }
@@ -61,6 +61,7 @@ const heroTitleLines = computed(() => locale.value === 'zh'
           <span class="font-mono text-xs text-[#edb28b]">0{{ index + 1 }}</span>
           <p class="mt-2 text-sm font-semibold leading-snug">{{ step.label }}</p>
           <p class="mt-1 font-mono text-xs leading-snug tracking-[.04em] text-white/50">{{ step.date }}</p>
+          <p class="timeline-note mt-3 text-xs leading-relaxed" :style="{ animationDelay: `${index * -1.35}s` }">{{ step.note }}</p>
         </div>
       </div>
     </div>
@@ -155,6 +156,18 @@ const heroTitleLines = computed(() => locale.value === 'zh'
 .hero-action:hover { color: #202b36; border-color: #f0e9dd; background: #f0e9dd; }
 .hero-action-primary { color: #18242f; border-color: #edb28b; background: #edb28b; }
 .hero-timeline > div { padding-left: clamp(.65rem, 2vw, 1.5rem); }
+.timeline-note {
+  max-width: 25rem;
+  padding-right: clamp(.5rem, 2vw, 1.5rem);
+  color: #f0e9dd;
+  animation: timeline-breathe 4.8s ease-in-out infinite;
+  will-change: opacity, text-shadow;
+}
+
+@keyframes timeline-breathe {
+  0%, 100% { opacity: .56; text-shadow: 0 0 0 rgba(237,178,139,0); }
+  50% { opacity: 1; text-shadow: 0 0 18px rgba(237,178,139,.38); }
+}
 
 .hero-side-note {
   position: absolute;
@@ -189,5 +202,6 @@ const heroTitleLines = computed(() => locale.value === 'zh'
   .hero-title-zh { font-size: clamp(3.15rem, 16vw, 4.75rem); line-height: 1.04; }
   .hero-intro { margin-top: 1.5rem; padding-top: 1.25rem; }
   .hero-action { min-width: calc(50% - .4rem); }
+  .timeline-note { font-size: .7rem; line-height: 1.55; }
 }
 </style>

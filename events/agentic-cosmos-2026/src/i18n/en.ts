@@ -147,9 +147,9 @@ export default {
     lede:
       'Build a future agent observer for survey nights: read the sky state, reason like a leading observer, and choose the next observation every 900 seconds.',
     pipeline: [
-      { label: 'Online Training', date: 'Oct 1–4' },
-      { label: 'Online Competition', date: 'Oct 5–7' },
-      { label: 'Awards Day', date: 'Oct 17' },
+      { label: 'Online Training', date: 'Oct 1–4', note: 'Meet astronomers and agent experts' },
+      { label: 'Online Competition', date: 'Oct 5–7', note: 'Supported by the open-source KIMI model' },
+      { label: 'Awards Day', date: 'Oct 17', note: 'Top 3 awarded at GOSIM Shenzhen' },
     ],
     location: ['Online training Oct 1–4 · Online competition Oct 5–7', 'October 17 · Awards at GOSIM Shenzhen'],
     cta: 'Mission card coming soon',
@@ -165,7 +165,7 @@ export default {
     },
     mission: {
       kicker: '02 / Mission',
-      title: 'Where should the telescope look next',
+      title: 'Next, where in the sky do we look?',
       lede: 'Your agent takes over the core decisions of a human lead observer.',
       cards: [
         { title: 'Read the state', desc: 'Weather, forecast, survey progress, and the tiles that are legal right now, packed into one compact state dictionary.' },
@@ -435,7 +435,7 @@ return {"action": "observe", "tile_id": best["tile_id"], "plan": "DARK",
     team: 'Team / Agent', score: 'Score', science: 'Science', completion: 'Completion', uniformity: 'Uniformity', submissions: 'Scored submissions',
   },
   cta: {
-    title: 'Hand the next move of the night sky to the agent you wrote',
+    title: 'Let your agent choose the next observation',
     tagline: 'Same survey plan, weather replay, inserted requests, simulator, and scoring rule. The only variable is strategy.',
     location: 'Online development and CosmosBench evaluation · October 17 at GOSIM Shenzhen',
   },

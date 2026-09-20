@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import VisionCarousel from '../VisionCarousel.vue'
+import SectionRegisterLink from '../SectionRegisterLink.vue'
 import controlRoomImage from '../../assets/images/cosmos-control-room.jpg'
 import cosmicWebImage from '../../assets/images/survey-cosmic-web.jpg'
 import agentStrategyImage from '../../assets/images/survey-agent-strategy.jpg'
@@ -51,6 +52,7 @@ const slides = computed(() => [
         <div class="reveal lg:pt-4">
           <span class="poster-kicker mt-14">{{ t('home.vision.kicker') }}</span>
           <h2 class="section-title distressed-type mt-8">{{ t('home.vision.title') }}</h2>
+          <SectionRegisterLink />
         </div>
 
         <div class="reveal reveal-delay-1">

@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from '../../composables/useI18n'
 import VisionCarousel from '../VisionCarousel.vue'
+import SectionRegisterLink from '../SectionRegisterLink.vue'
 import observedUniverseImage from '../../assets/images/survey-observed-universe.jpg'
 import reviewOverlayImage from '../../assets/images/survey-review-overlay.jpg'
 
@@ -46,6 +47,7 @@ const vizSlides = computed(() => [
             <span class="font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">03 / 07</span>
           </div>
           <h2 class="section-title distressed-type mt-10">{{ t('scoring.title') }}</h2>
+          <SectionRegisterLink />
           <p class="mt-7 max-w-xl text-base leading-relaxed text-text-secondary md:text-lg">{{ t('scoring.intro') }}</p>
         </div>
 
