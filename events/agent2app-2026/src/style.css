@@ -107,7 +107,11 @@ p { line-height: 1.9; }
 .awards-grid .champion { grid-column: 1/-1; background: #a95740; color: #fff2df; padding: 32px 40px; margin-bottom: 32px; border: 0; }
 .awards-grid .champion > span, .awards-grid .champion p { color: #fff0de; }
 .awards-grid .champion h3 { font-size: 38px; }
-.awards-grid .adoption { grid-column: 1/-1; }
+.awards-grid .developer-support { grid-column: 1/-1; }
+.awards .section-heading .prize-note, .awards-grid .support-note { font-size: 14px; }
+.awards-grid .prize-amount { color: var(--ink); font: 500 clamp(36px, 5vw, 56px)/1.15 var(--serif); font-variant-numeric: tabular-nums; margin: 0 0 16px; }
+.awards-grid .prize-amount span { font: 14px/1.5 var(--sans); white-space: nowrap; }
+.awards-grid .support-note { margin-top: 12px; }
 .scoring { display: grid; grid-template-columns: .8fr 1.2fr; gap: 10%; margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--border); }
 .scoring h3 { font-size: 30px; font-weight: 500; margin: 0 0 20px; }
 .scoring p { color: var(--muted); }
