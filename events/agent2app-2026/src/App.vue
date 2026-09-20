@@ -69,7 +69,7 @@ const bounties = [
   { title: '「生产回路 Agent」演示', description: '读取自身运行指标，发现卡片失败，自动修复并重新发布。', repo: 'Octos' },
 ]
 const faqs = [
-  { q: '必须到 GOSIM 现场才能获奖吗？', a: '不需要。比赛在线上决赛结束时确定获奖结果；总排名前 2–3 名优胜团队受邀到现场展示，到场情况不影响名次与获奖资格。' },
+  { q: '必须到 GOSIM 现场才能获奖吗？', a: '不需要。比赛在复赛结束时确定一、二、三等奖；总排名前 2–3 名优胜团队受邀到现场展示，到场情况不影响名次与获奖资格。' },
   { q: '软件工厂小程序赛道现在可以从哪里开始？', a: '先阅读 hagency 仓库，选择一个具体工厂任务并设计应用。robrix2 小程序接入处于规划阶段，运行包、能力清单、示例及练习数据的提交接受范围将在开课前说明；不要求参赛者照搬原有示例 UI。' },
   { q: '不会 Rust，也能独立参赛吗？', a: '可以。AppCard 路径可从需求、规则和参考卡片开始；软件工厂赛道适合设计与开发协作。两条赛道共用奖项，具体开发环境以赛前发布包为准。' },
   { q: '必须组队吗？没有技术伙伴怎么办？', a: '可以单人或多人参赛。单人队伍由本人报名；多人队伍的队长和每位队员都须分别报名，队长不能代替成员报名。拟定 9/23 23:59 截止个人报名，9/28 初赛提交时锁定已报名成员名单。' },
@@ -78,7 +78,7 @@ const faqs = [
   { q: '做工具链或内核，就不用做应用了吗？', a: '仍需回到统一命题：一句话变成能用的应用。技术突破必须服务自己的作品演示；悬赏贡献另计项目反哺分，不替代演示。' },
   { q: '作品必须开源吗？用什么许可证？', a: '必须。作品代码以 Apache License 2.0 在公开仓库提交，各轮评审均以仓库为准。平台各项目同样采用 Apache 2.0。优秀创意将进入 OctoSense-org 主仓库的合并流程。' },
   { q: '只提交创意、设计稿或视频可以吗？', a: '不可以。创意必须通过可运行的开源代码实现。设计图可以交给 AI 生成，再转成原生界面与卡片；服务规则与交互逻辑需要你自己设计。' },
-  { q: '从哪里报名？奖金是多少？', a: '9 月 13 日起，通过本页动态二维码或腾讯问卷报名。初赛、复赛和决赛均在线上完成，拟定 10 月 11 日决赛并公布结果；总排名前 2–3 名优胜团队获邀于 10 月 17 日到 GOSIM 现场展示。获奖奖池 ¥50,000，含现金奖金与 MiniMax Token 额度：一等奖 1 名，每名 ¥20,000；二等奖 2 名，每名 ¥9,000；三等奖 3 名，每名 ¥4,000。' },
+  { q: '从哪里报名？奖金是多少？', a: '9 月 13 日起，通过本页动态二维码或腾讯问卷报名。初赛海选晋级 50 人，50 人参加复赛并评出一、二、三等奖，拟定 10 月 11 日公布结果；总排名前 2–3 名优胜团队获邀于 10 月 17 日到 GOSIM 现场展示。获奖奖池 ¥50,000，含现金奖金与 MiniMax Token 额度：一等奖 1 名，每名 ¥20,000；二等奖 2 名，每名 ¥9,000；三等奖 3 名，每名 ¥4,000。' },
 ]
 </script>
 
@@ -147,16 +147,16 @@ const faqs = [
         <article class="developer-support">
           <span>{{ t('赛事资源支持') }}</span>
           <h3>{{ t('为参赛开发提供 AI 资源') }}</h3>
-          <p>{{ t('除获奖奖池外，另提供 MiniMax API 额度及 50 份 Kimi 编程权益，支持参赛开发、测试与作品完善。') }}</p>
+          <p>{{ t('除获奖奖池外，另提供 MiniMax API 额度及 Kimi 编程权益，支持参赛开发、测试与作品完善。') }}</p>
           <p class="support-note">{{ t('领取方式与使用期限随资源发放说明公布。') }}</p>
         </article>
       </div>
-      <div class="scoring"><div><h3>{{ t('评分如何构成？') }}</h3><p>{{ t('鹦鹉螺的极致设计同样可以拿满创意与完成度分。技术深度加分，不设技术资格门槛。') }}</p></div><div class="score-text-list"><article><div class="score-row-heading"><span>{{ t('项目反哺') }}</span><strong>40%</strong></div><p>{{ t('可合并 PR、入库应用与能力、合格缺口 issue、采纳规范；客观清单及分值赛前公示。') }}</p></article><article><div class="score-row-heading"><span>{{ t('创意与完成度') }}</span><strong>30%</strong></div><p>{{ t('意图到应用的想象力与 Agent 化程度、实际跑通程度，以及服务作品的能力与平台突破。') }}</p></article><article><div class="score-row-heading"><span>{{ t('演示与答辩') }}</span><strong>20%</strong></div><p>{{ t('线上决赛：3 分钟应用 demo + 2 分钟项目贡献，并预留评委问答。') }}</p></article><article><div class="score-row-heading"><span>{{ t('协作与文档') }}</span><strong>10%</strong></div><p>{{ t('让下一个人接得住的 README / spec。混合组队、使用他队能力或工具，双方加分。') }}</p></article></div></div></section>
+      <div class="scoring"><div><h3>{{ t('评分如何构成？') }}</h3><p>{{ t('鹦鹉螺的极致设计同样可以拿满创意与完成度分。技术深度加分，不设技术资格门槛。') }}</p></div><div class="score-text-list"><article><div class="score-row-heading"><span>{{ t('项目反哺') }}</span><strong>40%</strong></div><p>{{ t('可合并 PR、入库应用与能力、合格缺口 issue、采纳规范；客观清单及分值赛前公示。') }}</p></article><article><div class="score-row-heading"><span>{{ t('创意与完成度') }}</span><strong>30%</strong></div><p>{{ t('意图到应用的想象力与 Agent 化程度、实际跑通程度，以及服务作品的能力与平台突破。') }}</p></article><article><div class="score-row-heading"><span>{{ t('演示与答辩') }}</span><strong>20%</strong></div><p>{{ t('复赛线上答辩：3 分钟应用 demo + 2 分钟项目贡献，并预留评委问答。') }}</p></article><article><div class="score-row-heading"><span>{{ t('协作与文档') }}</span><strong>10%</strong></div><p>{{ t('让下一个人接得住的 README / spec。混合组队、使用他队能力或工具，双方加分。') }}</p></article></div></div></section>
     <section id="bounties" class="section bounties"><div class="section-heading wide"><p class="eyebrow">{{ t('06 / 悬赏题目') }}</p><h2>{{ t('工具链与平台贡献') }}</h2><p>{{ t('悬赏是大章鱼层的选题，也可以是赛中的小贡献。以下为蓝图中的建议题目，难度、分值与认领入口将在赛前公布。') }}</p></div><div class="bounty-list compact-bounties"><details v-for="(bounty, i) in bounties" :key="bounty.title"><summary><span class="bounty-number">{{ String(i + 1).padStart(2, '0') }}</span><span>{{ t(bounty.title) }}</span><span class="repo">{{ t(bounty.repo) }}</span></summary><p>{{ t(bounty.description) }}</p></details></div><div class="contribution-note"><strong>{{ t('缺口，也是贡献。') }}</strong><p>{{ t('发现可复现的语言表达缺口、契约漂移、文档错误或误导性诊断？提交合格 issue 即可计分。每队在创意题之外至少认领 1 项悬赏或 issue，颁奖时核验。') }}</p></div></section>
     <EventSchedule />
     <section id="faq" class="section faq"><div class="section-heading"><p class="eyebrow">{{ t('08 / 常见问题') }}</p><h2>{{ t('参赛须知') }}</h2></div><div><details v-for="item in faqs" :key="item.q"><summary>{{ t(item.q) }}<span aria-hidden="true">+</span></summary><p><ConferenceText :text="t(item.a)" /></p></details></div></section>
 
-    <section id="participate" class="section participate"><p class="eyebrow">{{ t('09 / 参赛信息') }}</p><h2>{{ t('Agentic App 黑客松 2026') }}</h2><p><ConferenceText :text="t('2026 年 9 月 13 日开放报名组队，9 月 19 日开营。初赛、复赛和决赛均在线上完成，拟定 10 月 11 日公布获奖结果，前 2–3 名优胜团队获邀于 10 月 17 日在 GOSIM Shenzhen 2026 现场展示。单人、多人均可参赛；队长和每位队员都须分别报名。')" /></p><RegistrationPanel /><p class="small">{{ t('Agentic App 是独立赛事，与智能体工厂、巡天智能体并行。') }}</p></section>
+    <section id="participate" class="section participate"><p class="eyebrow">{{ t('09 / 参赛信息') }}</p><h2>{{ t('Agentic App 黑客松 2026') }}</h2><p><ConferenceText :text="t('2026 年 9 月 13 日开放报名组队，9 月 19 日开营。初赛海选晋级 50 人，50 人参加线上复赛并评出一、二、三等奖，拟定 10 月 11 日公布获奖结果。前 2–3 名优胜团队获邀于 10 月 17 日在 GOSIM Shenzhen 2026 现场展示。单人、多人均可参赛；队长和每位队员都须分别报名。')" /></p><RegistrationPanel /><p class="small">{{ t('Agentic App 是独立赛事，与智能体工厂、巡天智能体并行。') }}</p></section>
   </main>
   <footer><a href="/">GOSIM / CREATE</a><span>{{ t('Agentic App 黑客松 · 2026') }}</span><a href="/">{{ t('查看全部黑客松 ↗') }}</a></footer>
 </template>
