@@ -4,14 +4,14 @@ const { t } = useLocale()
 
 const stages = [
   { date: '09.13–09.23', title: '报名与组队', deadline: '9/13 09:00 开放 · 9/23 23:59 截止', description: '单人或多人均可参赛。队长和每位队员分别报名，可边组队边开始初赛。' },
-  { date: '09.13–09.28', title: '初赛 · 需求与最小原型', deadline: '9/28 23:59 提交截止', description: '提交明确场景、可运行原型、源码与说明、短视频和截图；随作品提交已报名成员名单。' },
-  { date: '09.29–09.30', title: '初赛评审 · 2 天', deadline: '9/30 20:00 公布复赛名单与反馈', description: '独立评阅、运行核验与交叉复核。通过初赛后，进入复赛继续完善作品。', review: true },
-  { date: '10.01–10.08', title: '复赛 · 完整应用与验证', deadline: '10/8 23:59 提交截止', description: '完善真实任务、数据与操作反馈，补齐失败状态、用户试用、测试证据及项目贡献。' },
-  { date: '10.09–10.10', title: '复赛评审 · 2 天', deadline: '10/10 20:00 公布决赛名单与反馈', description: '安装复现、任务验证与评分校准。晋级队伍在线上参加决赛，沿用 10/8 冻结的应用版本。', review: true },
-  { date: '10.11', title: '线上决赛与结果公布', deadline: '14:00–17:00 答辩 · 20:00 公布获奖结果', description: '3 分钟应用演示 + 2 分钟项目贡献，另留问答与切换时间。答辩后合议、复核并公布最终排名，邀请前 2–3 名优胜团队。', final: true },
+  { date: '09.13–09.28', title: '初赛海选 · 需求与最小原型', deadline: '9/28 23:59 提交截止', description: '提交明确场景、可运行原型、源码与说明、短视频和截图；随作品提交已报名成员名单。' },
+  { date: '09.29–09.30', title: '初赛评审 · 2 天', deadline: '9/30 20:00 公布 50 人晋级名单与反馈', description: '独立评阅、运行核验与交叉复核，海选出 50 人晋级复赛。', review: true },
+  { date: '10.01–10.08', title: '复赛 · 50 人完善作品', deadline: '10/8 23:59 提交截止', description: '晋级的 50 人完善真实任务、数据与操作反馈，补齐失败状态、用户试用、测试证据及项目贡献，参与一、二、三等奖评选。' },
+  { date: '10.09–10.10', title: '复赛材料评审 · 2 天', deadline: '10/9–10/10 安装复现、任务验证与评分', description: '评审全部复赛作品，核验 10/8 冻结的应用版本与项目贡献；结合 10/11 线上答辩确定奖项。', review: true },
+  { date: '10.11', title: '复赛答辩与评奖', deadline: '13:00–17:00 分组答辩 · 20:00 公布一、二、三等奖', description: '50 名复赛选手按项目分组答辩：3 分钟应用演示 + 2 分钟项目贡献，另留问答与切换时间。统一复核后评出一、二、三等奖，邀请前 2–3 名优胜团队。', award: true },
   { date: '10.12–10.16', title: '受邀确认与展示准备 · 5 天', deadline: '10/12 18:00 确认代表 · 10/15 18:00 展示包冻结', description: '前 2–3 名优胜团队确认到场代表并安排出行；10/12 展示辅导、10/14 线上彩排、10/16 现场设备联调。' },
-  { date: '10.17', title: 'GOSIM 优胜项目现场展示', deadline: '10 月 17 日（周六）· 具体时段另行通知', description: '总排名前 2–3 名优胜团队受邀展示成果、交流经验。获奖结果在线上决赛结束时确定，现场展示及到场情况不影响排名。' },
-  { date: '10.18–10.31', title: '赛后采纳与归档', deadline: '10/18–10/31 贡献合入窗口', description: '完善 PR、应用和规范，按实际采纳结果核算采纳奖，归档优秀作品。' },
+  { date: '10.17', title: 'GOSIM 优胜项目现场展示', deadline: '10 月 17 日（周六）· 具体时段另行通知', description: '总排名前 2–3 名优胜团队受邀展示成果、交流经验。获奖结果在复赛结束时确定，现场展示及到场情况不影响排名。' },
+  { date: '10.18–10.31', title: '赛后采纳与归档', deadline: '10/18–10/31 贡献合入窗口', description: '完善 PR、应用和规范，跟进项目采纳并归档优秀作品；不改变复赛评奖结果。' },
 ]
 
 const sessions = [
@@ -27,8 +27,8 @@ const sessions = [
   { date: '10.05', time: '19:30–20:30', audience: '假期可选', title: '开发答疑', description: '集中处理开发阻塞，整理共享 FAQ；假期不增加必修直播内容。' },
   { date: '10.08', time: '19:00–20:00', audience: '可选门诊', title: '复赛提交检查', description: '核对安装包、仓库版本、测试证据与视频，预留上传时间；当日 23:59 截止。' },
   { date: '10.09', time: '19:30–21:00', audience: '复赛队伍 · 提前准备', title: '线上演示与答辩', description: '面向全部复赛队伍提前开放，练习线上屏幕共享、3 分钟操作与 2 分钟贡献说明，准备问答和备用视频；不修改冻结作品。' },
-  { date: '10.11', time: '10:00–12:00', audience: '决赛队伍 · 分队预约', title: '线上决赛连线检查', description: '按队预约检查音视频、屏幕共享与备用视频；沿用冻结版本，不增加功能开发任务。' },
-  { date: '10.12', time: '19:30–21:00', audience: '受邀优胜团队', title: 'GOSIM 展示辅导', description: '为前 2–3 名受邀团队梳理现场讲述、观众互动与展示设备，结合线上决赛反馈完善表达。' },
+  { date: '10.11', time: '10:00–12:00', audience: '复赛队伍 · 分队预约', title: '复赛答辩连线检查', description: '按队预约检查音视频、屏幕共享与备用视频；沿用冻结版本，不增加功能开发任务。' },
+  { date: '10.12', time: '19:30–21:00', audience: '受邀优胜团队', title: 'GOSIM 展示辅导', description: '为前 2–3 名受邀团队梳理现场讲述、观众互动与展示设备，结合复赛评审反馈完善表达。' },
   { date: '10.14', time: '19:00–21:00', audience: '受邀优胜团队 · 分队预约', title: '现场展示线上彩排', description: '面向受邀的前 2–3 名优胜团队，检查启动、投屏与计时；10/15 18:00 冻结现场展示包，后续改进不改变比赛排名。' },
 ]
 </script>
@@ -38,15 +38,15 @@ const sessions = [
     <div class="section-heading wide">
       <p class="eyebrow">{{ t('07 / 赛程与培训') }}</p>
       <h2>{{ t('9.13 报名，9.19 开营。') }}</h2>
-      <p>{{ t('初赛、复赛、决赛均在线上完成。拟定 10/11 决赛并公布结果，前 2–3 名优胜团队获邀于 10/17 到 GOSIM 现场展示；10/12–16 预留行程与展示准备。') }}</p>
+      <p>{{ t('比赛分为线上初赛海选和复赛两个阶段：初赛选出 50 人晋级，50 人参加复赛并评出一、二、三等奖。拟定 10/11 公布结果，前 2–3 名优胜团队获邀于 10/17 到 GOSIM 现场展示；10/12–16 预留行程与展示准备。') }}</p>
       <p class="schedule-timezone">{{ t('2026 年 · 全部时间为北京时间 UTC+8') }}</p>
-      <p class="schedule-draft">{{ t('9/13 报名、9/19 开营、10/17 现场展示已确定；线上决赛及其他节点与具体时段为拟定安排。') }}</p>
+      <p class="schedule-draft">{{ t('9/13 报名、9/19 开营、10/17 现场展示及初赛晋级 50 人已确定；其余节点与具体时段为拟定安排。') }}</p>
     </div>
     <div class="schedule-columns">
       <div class="competition-calendar">
         <h3 class="calendar-heading">{{ t('比赛进程') }}</h3>
         <ol class="stage-list">
-          <li v-for="stage in stages" :key="stage.title" :class="{ 'review-stage': stage.review, 'final-stage': stage.final }">
+          <li v-for="stage in stages" :key="stage.title" :class="{ 'review-stage': stage.review, 'award-stage': stage.award }">
             <p class="stage-date">{{ stage.date }}</p>
             <h4>{{ t(stage.title) }}</h4>
             <p class="stage-deadline">{{ t(stage.deadline) }}</p>
@@ -73,10 +73,11 @@ const sessions = [
       </div>
     </div>
     <div class="advancement-note">
-      <h3>{{ t('每一轮，都交付能验证的进展。') }}</h3>
+      <h3>{{ t('晋级与评奖规则') }}</h3>
       <div>
-        <p>{{ t('初赛看需求与最小原型；复赛看完整任务、可用性与测试证据；线上决赛看演示、答辩和项目贡献。必须依次通过初赛、复赛，才能晋级线上决赛。') }}</p>
-        <p>{{ t('初赛与复赛各留 2 天评审。线上决赛沿用 10/8 冻结的应用版本，演示分取线上答辩表现，当晚复核并公布最终排名。现场展示不再评分，到场与否不影响获奖；晋级名额与详细规则另行公布。') }}</p>
+        <p>{{ t('1. 初赛海选：50 人晋级复赛。') }}</p>
+        <p>{{ t('2. 复赛评奖：50 人参与复赛，统一评选一等奖 1 名、二等奖 2 名、三等奖 3 名。') }}</p>
+        <p>{{ t('初赛 9/29–30 评审；复赛 10/9–10 审阅材料、10/11 线上答辩与评奖，沿用 10/8 冻结的应用版本。现场展示不再评分，到场与否不影响获奖。') }}</p>
         <a class="text-link" href="#participate">{{ t('查看报名说明 →') }}</a>
       </div>
     </div>
@@ -96,8 +97,8 @@ const sessions = [
 .stage-deadline { font-size: 14px; color: var(--ink); margin: 0 0 8px; }
 .stage-description, .training-intro, .calendar-note, .training-description { color: var(--muted); font-size: 14px; margin: 0; line-height: 1.85; }
 .stage-list .review-stage { padding-left: 18px; border-left: 2px solid var(--accent); }
-.stage-list .final-stage { border-top: 2px solid var(--accent); }
-.final-stage h4 { color: var(--accent); font-size: 24px; }
+.stage-list .award-stage { border-top: 2px solid var(--accent); }
+.award-stage h4 { color: var(--accent); font-size: 24px; }
 .training-intro { margin-bottom: 24px; }
 .training-list details { border-top: 1px solid var(--border); }
 .training-list summary { display: grid; grid-template-columns: 64px minmax(0, 1fr) 12px; gap: 14px; padding: 17px 0; cursor: pointer; list-style: none; }
