@@ -188,7 +188,7 @@ export default {
       cardNote: "权威的输入输出格式与接口约定，一律以任务卡为准。任务卡与公开开发数据——天区目录、示例天气场景、初始状态与可视化报告——将在黑客松开始前发布。",
     },
     participate: {
-      kicker: "04 / 如何参赛",
+      kicker: "05 / 如何参赛",
       title: "三步加入挑战",
       lede: "从培训到颁奖，整个赛程清晰透明。",
       steps: [
@@ -204,7 +204,7 @@ export default {
       cta: "立即报名",
     },
     prizes: {
-      kicker: "05 / 奖项",
+      kicker: "06 / 奖项",
       title: "$5,500 奖金池",
       lede: "三档奖项奖励表现出色的观测智能体。",
       tiers: [
@@ -214,7 +214,7 @@ export default {
       ],
     },
     leaderboard: {
-      kicker: "06 / 排行榜",
+      kicker: "07 / 排行榜",
       title: "实时排名",
       lede: "正式线上比赛排行榜由 Agent Observer 比赛平台提供；练习榜及各阶段状态请查看完整榜单。",
     },
@@ -365,6 +365,28 @@ return {"action": "observe", "tile_id": best["tile_id"], "plan": "DARK",
 
     vizTitle: "跑完之后，你能看见什么",
     vizNote: "这张图是基准测试的可视化层；真正被计分的，仍然是规划本身。",
+  },
+  committee: {
+    kicker: "04 / 科学委员会",
+    title: "巡天望远镜科学委员会",
+    intro: "七位来自天文与物理研究机构的科学家共同组成巡天望远镜科学委员会。",
+    members: [
+      { name: "翟忠旭", institution: "上海交通大学天文系", role: "副教授" },
+      { name: "王伟", institution: "上海交通大学物理系", role: "教授" },
+      { name: "刘德子", institution: "云南大学中国西南天文研究所", role: "副研究员" },
+      { name: "刘项琨", institution: "云南大学中国西南天文研究所", role: "教授" },
+      { name: "陕欢源", institution: "中国科学院上海天文台", role: "研究员" },
+      { name: "谭铤", institution: "巴黎萨克雷大学 · 法国原子能署", role: "博士后研究员" },
+      { name: "罗逸飞", institution: "劳伦斯伯克利国家实验室", role: "博士后研究员" },
+    ],
+    support: {
+      kicker: "智能体技术支持",
+      title: "由开源智能体 OS Octos 技术团队支持",
+      desc: "Octos 技术团队为本次活动提供智能体技术支持。",
+      cta: "访问 Octos GitHub",
+      linkLabel: "访问 Octos GitHub 组织主页",
+      logoAlt: "Octos Logo",
+    },
   },
   glossary: {
     kicker: "06 / 名词",

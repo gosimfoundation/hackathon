@@ -43,7 +43,7 @@ const vizSlides = computed(() => [
         <div class="reveal relative z-10 lg:sticky lg:top-28 lg:self-start">
           <div class="flex items-start justify-between">
             <span class="poster-kicker">{{ t('scoring.kicker') }}</span>
-            <span class="font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">03 / 06</span>
+            <span class="font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">03 / 07</span>
           </div>
           <h2 class="section-title distressed-type mt-10">{{ t('scoring.title') }}</h2>
           <p class="mt-7 max-w-xl text-base leading-relaxed text-text-secondary md:text-lg">{{ t('scoring.intro') }}</p>

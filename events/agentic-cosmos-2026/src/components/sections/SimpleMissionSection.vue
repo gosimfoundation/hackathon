@@ -17,7 +17,7 @@ const cardItems = computed(() => t('home.mission.cardItems') as { term: string; 
         <div class="reveal relative z-10 lg:sticky lg:top-28 lg:self-start">
           <div class="flex items-start justify-between">
             <span class="poster-kicker">{{ t('home.mission.kicker') }}</span>
-            <span class="font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">02 / 06</span>
+            <span class="font-mono text-xs uppercase tracking-[.1em] text-[#edb28b]">02 / 07</span>
           </div>
           <h2 class="section-title distressed-type mt-10">{{ t('home.mission.title') }}</h2>
           <p class="mt-7 max-w-xl text-base leading-relaxed text-text-secondary md:text-lg">{{ t('home.mission.lede') }}</p>

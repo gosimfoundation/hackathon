@@ -188,7 +188,7 @@ export default {
       cardNote: 'The authoritative input and output formats and the interface contract are defined by the mission card. The card and the public development data — tile catalogue, example weather scenarios, initial state and visual reports — are released before the hackathon begins.',
     },
     participate: {
-      kicker: '04 / How to participate',
+      kicker: '05 / How to participate',
       title: 'Three steps to compete',
       lede: 'From training to awards, the path is clear.',
       steps: [
@@ -204,7 +204,7 @@ export default {
       cta: 'Register now',
     },
     prizes: {
-      kicker: '05 / Awards',
+      kicker: '06 / Awards',
       title: '$5,500 in prizes',
       lede: 'Three award tiers recognize the strongest observing agents.',
       tiers: [
@@ -214,7 +214,7 @@ export default {
       ],
     },
     leaderboard: {
-      kicker: '06 / Leaderboard',
+      kicker: '07 / Leaderboard',
       title: 'Live standings',
       lede: 'The Agent Observer platform provides the online competition standings. Visit the full board for practice standings and phase status.',
     },
@@ -365,6 +365,28 @@ return {"action": "observe", "tile_id": best["tile_id"], "plan": "DARK",
 
     vizTitle: 'What a finished run looks like',
     vizNote: 'The map is the benchmark’s visualization layer. What actually gets scored is still the planning.',
+  },
+  committee: {
+    kicker: '04 / Scientific Committee',
+    title: 'Survey Telescope Scientific Committee',
+    intro: 'Seven scientists from astronomy and physics research institutions form the Survey Telescope Scientific Committee.',
+    members: [
+      { name: 'Zhongxu Zhai', institution: 'Department of Astronomy, Shanghai Jiao Tong University', role: 'Associate Professor' },
+      { name: 'Wei Wang', institution: 'Department of Physics, Shanghai Jiao Tong University', role: 'Professor' },
+      { name: 'Dezi Liu', institution: 'Southwest Institute for Astronomy Research, Yunnan University', role: 'Associate Researcher' },
+      { name: 'Xiangkun Liu', institution: 'Southwest Institute for Astronomy Research, Yunnan University', role: 'Professor' },
+      { name: 'Huanyuan Shan', institution: 'Shanghai Astronomical Observatory, Chinese Academy of Sciences', role: 'Research Professor' },
+      { name: 'Ting Tan', institution: 'Université Paris-Saclay · French Alternative Energies and Atomic Energy Commission', role: 'Postdoctoral Researcher' },
+      { name: 'Yifei Luo', institution: 'Lawrence Berkeley National Laboratory', role: 'Postdoctoral Researcher' },
+    ],
+    support: {
+      kicker: 'Agent technology support',
+      title: 'Supported by the team behind the open-source agent OS Octos',
+      desc: 'The Octos technical team provides agent technology support for this event.',
+      cta: 'Visit Octos on GitHub',
+      linkLabel: 'Visit the Octos organization on GitHub',
+      logoAlt: 'Octos logo',
+    },
   },
   glossary: {
     kicker: '06 / Glossary',
