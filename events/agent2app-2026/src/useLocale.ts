@@ -9,8 +9,8 @@ if (requested === 'en' || requested === 'zh') initial = requested
 const locale = ref<Locale>(initial)
 const english: Record<string, string> = translations
 const descriptions = {
-  zh: 'Agentic App 黑客松 2026：获奖奖池 ¥50,000（含现金奖金与 MiniMax Token 额度）。9 月 13 日报名、9 月 19 日开营，初赛海选晋级 50 人，复赛评出一、二、三等奖，拟定 10 月 11 日公布结果。前 2–3 名优胜团队获邀于 10 月 17 日在 GOSIM 现场展示。单人、多人均可参赛，每位成员分别报名。赛道：OctoSense + AppCard、robrix2 + hagency。',
-  en: 'Agentic App Hackathon 2026: RMB 50,000 in prizes, including cash and MiniMax token credits. Register September 13; kickoff September 19. Online qualifying selects 50 participants, who compete in the award round for First, Second and Third Prizes. Results are proposed for October 11. The top 2–3 teams are invited to showcase at GOSIM on October 17. Solo and team entries welcome; every member registers. Tracks: OctoSense + AppCard and robrix2 + hagency.',
+  zh: 'Agentic App 黑客松 2026：获奖奖池 ¥50,000（含现金奖金与 MiniMax Token 额度）。9 月 13 日报名、9 月 19 日开营，初赛海选晋级 50 人，复赛评出一、二、三等奖，拟定 10 月 11 日公布结果。前三名将于 10 月 17 日到 GOSIM 黑客松现场展示作品并参加颁奖。单人、多人均可参赛，每位成员分别报名。赛道：OctoSense + AppCard、robrix2 + hagency。',
+  en: 'Agentic App Hackathon 2026: RMB 50,000 in prizes, including cash and MiniMax token credits. Register September 13; kickoff September 19. Online qualifying selects 50 participants, who compete in the award round for First, Second and Third Prizes. Results are proposed for October 11. The top three teams will showcase their projects and attend the awards ceremony at the GOSIM Hackathon on October 17. Solo and team entries welcome; every member registers. Tracks: OctoSense + AppCard and robrix2 + hagency.',
 }
 watch(locale, value => {
   document.documentElement.lang = value === 'en' ? 'en' : 'zh-CN'
