@@ -34,6 +34,16 @@ test('normal hub navigation and event callbacks are left alone', () => {
   }
 })
 
+test('hosted platform distinguishes password recovery from signup callbacks', () => {
+  const project = 'https://cosmos.supabase.co'
+  const projects = { '/survey26/platform/register': project }
+  const payload = Buffer.from(JSON.stringify({ iss: `${project}/auth/v1` })).toString('base64url')
+  for (const [type, path] of [['recovery', '/survey26/platform/reset'], ['signup', '/survey26/platform/register']]) {
+    const hash = `#access_token=header.${payload}.signature&type=${type}`
+    assert.equal(authRedirect(url(`/${hash}`), projects), `${path}${hash}`)
+  }
+})
+
 test('malformed tokens cannot crash routing or redirect outside an event', () => {
   assert.equal(authRedirect(url('/#access_token=x.!!!.y&type=recovery')), '/factory26/#access_token=x.!!!.y&type=recovery')
   const payload = Buffer.from(JSON.stringify({ iss: 'https://evil.example/auth/v1' })).toString('base64url')

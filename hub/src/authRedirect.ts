@@ -17,8 +17,9 @@ export function authRedirect(url: URL, eventProjects: Record<string, string> = {
       const { iss } = JSON.parse(atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=')))
       for (const [path, projectUrl] of Object.entries(eventProjects)) {
         if (projectUrl && iss === `${projectUrl.replace(/\/+$/, '')}/auth/v1`
-          && ['/factory26/', '/agenticparis26/', '/survey26/register'].includes(path)) {
-          destination = path
+          && ['/factory26/', '/agenticparis26/', '/survey26/register', '/survey26/platform/register'].includes(path)) {
+          destination = path === '/survey26/platform/register' && hash.get('type') === 'recovery'
+            ? '/survey26/platform/reset' : path
           break
         }
       }

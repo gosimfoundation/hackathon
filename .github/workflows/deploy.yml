@@ -52,6 +52,13 @@ jobs:
       - name: Install Agentic App dependencies
         run: npm ci --prefix events/agent2app-2026
 
+      - name: Prepare pinned Agent Observer platform
+        if: vars.COSMOS_PLATFORM_ENABLED == 'true'
+        run: npm run prepare:platform
+
+      - name: Check platform routing
+        run: npm run test:platform
+
       - name: Build complete site
         run: npm run build
         env:
@@ -64,6 +71,7 @@ jobs:
           COSMOS_VITE_SUPABASE_URL: ${{ secrets.COSMOS_VITE_SUPABASE_URL }}
           COSMOS_VITE_SUPABASE_ANON_KEY: ${{ secrets.COSMOS_VITE_SUPABASE_ANON_KEY }}
           COSMOS_VITE_SITE_URL: https://create.gosim.org/survey26
+          COSMOS_PLATFORM_ENABLED: ${{ vars.COSMOS_PLATFORM_ENABLED }}
           COSMOS_VITE_AGENT_OBSERVER_URL: ${{ vars.COSMOS_VITE_AGENT_OBSERVER_URL }}
           COSMOS_VITE_AGENT_OBSERVER_LEADERBOARD_API: ${{ vars.COSMOS_VITE_AGENT_OBSERVER_LEADERBOARD_API }}
 

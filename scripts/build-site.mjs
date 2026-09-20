@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, readFileSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
@@ -7,6 +7,21 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const output = join(root, '_site')
 const publicOrigin = 'https://create.gosim.org'
 const arcBenchApi = 'https://arc-bench.com/api/competitions'
+const platform = JSON.parse(readFileSync(join(root, 'scripts/agent-observer.json'), 'utf8'))
+const platformEnabled = process.env.COSMOS_PLATFORM_ENABLED === 'true'
+const platformDirectory = join(root, '.cache/agent-observer', platform.revision, 'web')
+if (platformEnabled) {
+  if (!process.env.COSMOS_VITE_SUPABASE_URL || !process.env.COSMOS_VITE_SUPABASE_ANON_KEY) {
+    throw new Error('Platform hosting requires COSMOS_VITE_SUPABASE_URL and COSMOS_VITE_SUPABASE_ANON_KEY')
+  }
+  const key = process.env.COSMOS_VITE_SUPABASE_ANON_KEY
+  let role
+  try { role = JSON.parse(Buffer.from(key.split('.')[1], 'base64url').toString()).role } catch {}
+  if (key.startsWith('sb_secret_') || role === 'service_role') {
+    throw new Error('Never put an administrative Supabase key in the public platform build')
+  }
+  if (!existsSync(join(platformDirectory, 'node_modules'))) throw new Error('Run npm run prepare:platform first')
+}
 
 const events = [
   {
@@ -34,7 +49,7 @@ const events = [
       VITE_SUPABASE_URL: process.env.COSMOS_VITE_SUPABASE_URL || '',
       VITE_SUPABASE_ANON_KEY: process.env.COSMOS_VITE_SUPABASE_ANON_KEY || '',
       VITE_SITE_URL: process.env.COSMOS_VITE_SITE_URL || '',
-      VITE_AGENT_OBSERVER_URL: process.env.COSMOS_VITE_AGENT_OBSERVER_URL || '',
+      VITE_AGENT_OBSERVER_URL: platformEnabled ? `${publicOrigin}${platform.basePath}` : process.env.COSMOS_VITE_AGENT_OBSERVER_URL || '',
       VITE_AGENT_OBSERVER_LEADERBOARD_API: process.env.COSMOS_VITE_AGENT_OBSERVER_LEADERBOARD_API || '',
     },
   },
@@ -87,10 +102,14 @@ runBuild(join(root, 'hub'), {
   VITE_AUTH_EVENT_PROJECTS: JSON.stringify({
     '/factory26/': process.env.VITE_SUPABASE_URL || '',
     '/agenticparis26/': process.env.PARIS_VITE_SUPABASE_URL || '',
-    '/survey26/register': process.env.COSMOS_VITE_SUPABASE_URL || '',
+    [platformEnabled ? '/survey26/platform/register' : '/survey26/register']: process.env.COSMOS_VITE_SUPABASE_URL || '',
   }),
 })
 cpSync(join(root, 'hub', 'dist'), output, { recursive: true })
+if (platformEnabled) {
+  const fallback = join(output, '404.html')
+  writeFileSync(fallback, readFileSync(fallback, 'utf8').replace('var platformEnabled = false', 'var platformEnabled = true'))
+}
 
 for (const event of events) {
   const basePath = `/${event.slug}/`
@@ -110,6 +129,21 @@ for (const event of events) {
   if (event.slug === 'factory26') {
     await writeArcBenchLeaderboard(destination)
   }
+}
+
+if (platformEnabled) {
+  runBuild(platformDirectory, {
+    VITE_BASE_PATH: platform.basePath,
+    VITE_SITE_URL: `${publicOrigin}${platform.basePath.replace(/\/$/, '')}`,
+    VITE_SUPABASE_URL: process.env.COSMOS_VITE_SUPABASE_URL,
+    VITE_SUPABASE_ANON_KEY: process.env.COSMOS_VITE_SUPABASE_ANON_KEY,
+  })
+  const destination = join(output, platform.basePath.replace(/^\//, ''))
+  cpSync(join(platformDirectory, 'dist'), destination, { recursive: true })
+  cpSync(join(root, 'scripts/platform-restore.js'), join(destination, 'restore-route.js'))
+  const index = join(destination, 'index.html')
+  writeFileSync(index, readFileSync(index, 'utf8').replace('<head>', `<head>\n<script src="${platform.basePath}restore-route.js"></script>`))
+  writeFileSync(join(destination, 'deployment.json'), JSON.stringify({ repository: platform.repository, revision: platform.revision }))
 }
 
 console.log(`Built Hub and ${events.length} event site(s) in ${output}`)
