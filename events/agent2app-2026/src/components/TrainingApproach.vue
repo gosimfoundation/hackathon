@@ -5,7 +5,7 @@ const projects = [
   { name: 'octos', role: 'Agent 的执行基础：组织上下文、工具与任务，让应用具备持续行动的能力。', href: 'https://github.com/octos-org/octos' },
   { name: 'octoscode', role: '与编码 Agent 协作的入口：描述需求、查看修改、确认操作并反馈结果。', href: 'https://github.com/octos-org/octoscode' },
   { name: 'OctoLoop', role: '内环执行、外环审查：让 Agent 分工完成、检查和改进，人来确定目标与验收。', href: 'https://github.com/octos-org/octoscode/blob/main/docs/OCTOLOOP_GUIDE.md' },
-  { name: 'robrix2', role: '即时消息的应用宿主：沿用会话界面，把对话中的约定变成可操作的任务。', href: 'https://github.com/Project-Robius-China/robrix2' },
+  { name: 'robrix2', role: '本届主要宿主：理解小程序入口、会话分享、独立授权与结果回传。', href: 'https://github.com/OctoSense-org/robrix2' },
   { name: 'hagency', role: '软件工厂的协作机制：组织多个 Agent 的任务、沟通、交接和人工确认。', href: 'https://github.com/hagency-org/hagency' },
   { name: 'OctoSense', role: '参赛场景与应用入口：从邮件、消息、日历等需求出发，呈现 Agent 的行动与结果。', href: 'https://octosense.org/' },
   { name: 'Octoscript', role: '动态应用的表达方式：让 Agent 生成和调整界面与交互，用运行结果验证意图。', href: 'https://github.com/OctoSense-org/Octoscript' },
@@ -24,7 +24,7 @@ const projects = [
       </article>
     </div>
     <p class="learning-flow">{{ t('选一个场景 → 描述目标 → 让 Agent 制作与协作 → 运行并检查 → 反馈改进 → 提交作品。') }}</p>
-    <p class="availability-note">{{ t('按选题选择工具，不要求每个作品同时接入八个项目。课程使用公布的环境与示例，robrix2 小程序接入仍按发布进度说明。') }}</p>
+    <p class="availability-note">{{ t('以 robrix2 和原生文章编辑器为共同示例，按选题选择其他工具。课程讲机制与 Agent 协作，不要求每个作品同时接入八个项目。') }}</p>
   </div>
 </template>
 

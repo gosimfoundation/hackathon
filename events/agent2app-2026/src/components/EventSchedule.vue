@@ -16,11 +16,11 @@ const stages = [
 ]
 
 const sessions = [
-  { date: '09.22', time: '19:30–21:00', audience: '开营说明', title: '赛事与八个项目全景', description: '介绍 OctoSense 场景、八个项目的分工、报名与评奖规则。选手负责定义目标和判断结果，Agent 协助完成作品；机制入门从 9/26 周六开始。' },
-  { date: '09.26', time: '10:00–12:00', audience: '机制入门', title: 'OctoSense × Makepad：让意图成为应用', description: '从邮件、日历和天气看 Agentic 应用如何呈现状态、操作与结果。认识 OctoSense 的应用入口与 Makepad 的原生界面，学会向 Agent 描述场景、交互和验收目标。' },
-  { date: '09.26', time: '14:00–16:00', audience: '机制入门', title: 'octoscode × Octoscript：和 Agent 一起做应用', description: '认识 octoscode 的编码协作入口与 Octoscript 的动态应用表达。演示需求说明、Agent 生成与修改、查看运行结果、反馈改进的过程，使用准备好的环境，不展开语法与源码。' },
+  { date: '09.22', time: '19:30–21:00', audience: '开营说明', title: '赛事与八个项目全景', description: '介绍 OctoSense 场景、robrix2 参赛基线、八个项目的分工与评奖规则。选手定义目标和判断结果，Agent 协助完成小程序；机制入门从 9/26 周六开始。' },
+  { date: '09.26', time: '10:00–12:00', audience: '机制入门', title: 'OctoSense × Makepad：让意图成为应用', description: '从 OctoSense 场景选择任务，在 robrix2 中体验文章编辑器的原生界面、授权与预览。理解应用宿主和 Makepad 的分工，学会向 Agent 描述目标、操作与完成标准。' },
+  { date: '09.26', time: '14:00–16:00', audience: '机制入门', title: 'octoscode × Octoscript：和 Agent 一起做应用', description: '用文章编辑器示例理解 Octoscript 如何表达界面与状态，以及宿主如何提供能力。通过 octoscode 向 Agent 描述改动、观察结果并反馈，区分内容编辑与应用扩展，不展开语法与源码。' },
   { date: '09.27', time: '10:00–12:00', audience: '机制入门', title: 'octos × OctoLoop：执行与审查如何配合', description: '理解 octos 如何组织 Agent 的上下文、工具和任务执行，以及 OctoLoop 的内环执行、外环审查机制。通过派任务、看结果、退回改进和人工验收，学会管理 Agent 的工作。' },
-  { date: '09.27', time: '14:00–15:30', audience: '机制入门', title: 'robrix2 × hagency：从消息到软件工厂协作', description: '即时消息以 robrix2 为宿主，沿用其主要界面；认识 hagency 的 Agent 分工、任务协作和人工确认机制。用群聊安排与工厂任务卡说明选手如何让 Agent 协作交付，演示范围以公布环境为准。' },
+  { date: '09.27', time: '14:00–15:30', audience: '机制入门', title: 'robrix2 × hagency：从分享小程序到协作交付', description: '演示小程序分享、接收者独立授权、草稿隔离与确认发送，再用 hagency 任务验收说明软件工厂协作。选手规划自己的小程序与 Agent 分工，区分内置示例和需要完成的服务接入。' },
   { date: '09.27', time: '16:00–17:00', audience: '可选工作坊', title: '把课程变成自己的参赛计划', description: '为自己的场景写出目标、Agent 分工、可用项目和完成标准。9/27 完成机制入门，9/28–10/4 留出一周制作初赛作品，不增加新的必修内容。' },
   { date: '10.03', time: '14:00–16:00', audience: '国庆 · 可选答疑', title: 'Agent 作品门诊', description: '围绕选手正在制作的应用，讨论如何描述需求、组织 Agent、观察结果和调整任务；复用入门课的方法，不新增必修内容，不讲底层实现。' },
   { date: '10.04', time: '10:00–11:00', audience: '国庆 · 可选门诊', title: '初赛提交检查', description: '核对已报名成员、可运行作品、来源说明、截图和演示材料；初赛当日 23:59 截止，课后留出上传时间。' },
@@ -68,7 +68,7 @@ const sessions = [
         </div>
         <p class="calendar-note">{{ t('入门课在 9/27 结束，9/28–10/4 是完整的作品制作周。10/3 答疑与 10/4 提交检查均为可选支持，不增加新的必修内容。') }}</p>
         <p class="calendar-note">{{ t('初赛提交后即可继续完善同一作品，10/6 公布晋级名单，10/7 安排复赛工作坊。10/10–11 留给评审，10/12 举行线上决赛；决赛是比赛环节，不增加工作日晚课。') }}</p>
-        <p class="calendar-note">{{ t('robrix2 小程序接入与开发包准备中。实操环境、练习数据及提交接受范围在开课前统一说明。') }}</p>
+        <p class="calendar-note">{{ t('课程以 robrix2 的小程序机制与原生文章编辑器为基线；锁定版本、支持设备和练习数据于 9/24 发布，9/25 完成异步自检。') }}</p>
       </div>
     </div>
     <div class="advancement-note">
