@@ -12,6 +12,7 @@ import ProjectShowcase from './components/ProjectShowcase.vue'
 import EventSchedule from './components/EventSchedule.vue'
 import TierMascot from './components/TierMascot.vue'
 import AwardEvaluation from './components/AwardEvaluation.vue'
+import SponsorSupport from './components/SponsorSupport.vue'
 const menuOpen = ref(false)
 const octosenseSite = computed(() => locale.value === 'en' ? 'https://octosense.org' : 'https://octosense.org/cn')
 const base = import.meta.env.BASE_URL
@@ -146,14 +147,9 @@ const faqs = [
           <p class="prize-amount">¥4,000 <span>{{ t('/ 名') }}</span></p>
           <p>{{ t('现金奖金 + MiniMax Token 额度') }}</p>
         </article>
-        <article class="developer-support">
-          <span>{{ t('赛事资源支持') }}</span>
-          <h3>{{ t('为参赛开发提供 AI 资源') }}</h3>
-          <p>{{ t('除获奖奖池外，另提供 MiniMax API 额度及 Kimi 编程权益，支持参赛开发、测试与作品完善。') }}</p>
-          <p class="support-note">{{ t('领取方式与使用期限随资源发放说明公布。') }}</p>
-        </article>
       </div>
       <AwardEvaluation />
+      <SponsorSupport />
     </section>
     <section id="bounties" class="section bounties"><div class="section-heading wide"><p class="eyebrow">{{ t('06 / 悬赏题目') }}</p><h2>{{ t('工具链与平台贡献') }}</h2><p>{{ t('围绕自己的应用选择生态或系统贡献，争取最佳技术突破奖。下列为建议题目；普通应用不强制认领悬赏，贡献需说明对实际任务的改善。') }}</p></div><div class="bounty-list compact-bounties"><details v-for="(bounty, i) in bounties" :key="bounty.title"><summary><span class="bounty-number">{{ String(i + 1).padStart(2, '0') }}</span><span>{{ t(bounty.title) }}</span><span class="repo">{{ t(bounty.repo) }}</span></summary><p>{{ t(bounty.description) }}</p></details></div><div class="contribution-note"><strong>{{ t('缺口，也是贡献。') }}</strong><p>{{ t('发现可复现的语言、协议或文档缺口，可以提交 issue 与复现证据。技术贡献参评时核验质量和应用效果，不按认领数量或 PR 数量直接加分。') }}</p></div></section>
     <EventSchedule />
