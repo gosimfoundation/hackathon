@@ -1,35 +1,33 @@
 <script setup lang="ts">
 import { useLocale } from '../useLocale'
+import TrainingApproach from './TrainingApproach.vue'
 const { t } = useLocale()
 
 const stages = [
   { date: '09.13–09.23', title: '报名与组队', deadline: '9/13 09:00 开放 · 9/23 23:59 截止', description: '单人或多人均可参赛。队长和每位队员分别报名，可边组队边开始初赛。' },
-  { date: '09.13–09.28', title: '初赛海选 · 需求与最小原型', deadline: '9/28 23:59 提交截止', description: '提交明确场景、可运行原型、源码与说明、短视频和截图；随作品提交已报名成员名单。' },
-  { date: '09.29–09.30', title: '初赛评审 · 2 天', deadline: '9/30 20:00 公布 50 人晋级名单与反馈', description: '独立评阅、运行核验与交叉复核，海选出 50 人晋级复赛。', review: true },
-  { date: '10.01–10.08', title: '复赛 · 50 人完善作品', deadline: '10/8 23:59 提交截止', description: '晋级的 50 人完善真实任务、数据与操作反馈，补齐失败状态、用户试用、测试证据及项目贡献，参与一、二、三等奖评选。' },
-  { date: '10.09–10.10', title: '复赛材料评审 · 2 天', deadline: '10/9–10/10 安装复现、任务验证与评分', description: '评审全部复赛作品，核验 10/8 冻结的应用版本与项目贡献；结合 10/11 线上答辩确定奖项。', review: true },
-  { date: '10.11', title: '复赛答辩与评奖', deadline: '13:00–17:00 分组答辩 · 20:00 公布一、二、三等奖', description: '50 名复赛选手按项目分组答辩：3 分钟应用演示 + 2 分钟项目贡献，另留问答与切换时间。统一复核后评出一、二、三等奖，邀请前三名优胜团队。', award: true },
-  { date: '10.12–10.16', title: '受邀确认与展示准备 · 5 天', deadline: '10/12 18:00 确认代表 · 10/15 18:00 展示包冻结', description: '前三名优胜团队确认到场代表并安排出行；10/12 展示辅导、10/14 线上彩排、10/16 现场设备联调。' },
-  { date: '10.17', title: 'GOSIM 黑客松现场展示与颁奖', deadline: '10 月 17 日（周六）· 具体时段另行通知', description: '总排名前三名将到 GOSIM 黑客松现场展示作品并参加颁奖。获奖结果在复赛结束时确定，现场展示及到场情况不影响排名。' },
-  { date: '10.18–10.31', title: '赛后采纳与归档', deadline: '10/18–10/31 贡献合入窗口', description: '完善 PR、应用和规范，跟进项目采纳并归档优秀作品；不改变复赛评奖结果。' },
+  { date: '09.13–10.04', title: '初赛海选 · 场景与可运行作品', deadline: '10/4 23:59 提交截止', description: '9/26–27 完成机制入门，9/28–10/4 留出一周用 Agent 制作作品。提交场景、可运行原型、源码、截图与演示，以及已报名成员名单。' },
+  { date: '10.05–10.06', title: '初赛评审 · 2 天', deadline: '10/6 20:00 公布 50 人晋级名单与反馈', description: '独立评阅、运行核验与交叉复核，海选出 50 人晋级。评审使用 10/4 冻结版本；所有队伍可继续完善同一作品，为复赛做准备。', review: true },
+  { date: '10.05–10.09', title: '持续完善作品 · 复赛准备与开发', deadline: '10/9 23:59 复赛提交截止', description: '初赛提交后即可继续迭代，10/6 公布名单后由晋级的 50 人提交复赛作品。沿用同一选题，重点改善任务完成、可用性与验证证据，无需从头开发。' },
+  { date: '10.10–10.11', title: '复赛材料评审 · 2 天', deadline: '10/10–10/11 安装复现、任务验证与评分', description: '核验 10/9 冻结的应用版本与任务证据；技术进阶作品另核验贡献。评委专注材料审阅，10/11 连线检查由赛务组织。', review: true },
+  { date: '10.12', title: '线上决赛答辩与评奖', deadline: '13:00–17:00 分组答辩 · 20:00 公布获奖结果', description: '50 名复赛选手按项目分组答辩：3 分钟应用演示 + 2 分钟 Agent 自动化与可选技术贡献说明，另留问答与切换时间。本场完成复赛评奖，不另设晋级筛选；总排名前三名获邀现场展示。', award: true },
+  { date: '10.13–10.16', title: '受邀确认与展示准备 · 4 天', deadline: '10/13 18:00 确认代表 · 10/15 18:00 展示包冻结', description: '前三名优胜团队异步确认到场代表、安排出行并准备展示；提供展示指南与反馈，10/17 正式展示前联调与彩排。' },
+  { date: '10.17', title: 'GOSIM 黑客松现场展示与颁奖', deadline: '10 月 17 日（周六）· 具体时段另行通知', description: '总排名前三名将到 GOSIM 黑客松现场展示作品并参加颁奖。获奖结果在 10/12 线上决赛确定，现场展示及到场情况不影响排名。' },
+  { date: '10.18–10.31', title: '赛后采纳与归档', deadline: '10/18–10/31 贡献合入窗口', description: '完善 PR、应用和规范，跟进项目采纳并归档优秀作品；不改变线上评奖结果。' },
 ]
 
 const sessions = [
-  { date: '09.19', time: '19:30–21:00', audience: '共同基础', title: '开营、赛制与选题', description: '了解两条赛道与晋级规则，梳理用户、场景、数据、操作和结果，参加组队交流。' },
-  { date: '09.21', time: '19:30–21:30', audience: '赛道 A 实践', title: 'AppCard + OctoSense 入门', description: '从意图到脚本、校验、渲染与事件；完成一张有数据来源、正常与失败状态的卡片。' },
-  { date: '09.22', time: '19:30–21:30', audience: '赛道 B 实践', title: 'robrix2 + hagency 小程序机制', description: '学习脚本容器、能力、权限与版本，按 robrix2 UI 设计任务状态原型；实操以公布的环境为准。' },
-  { date: '09.23', time: '19:30–21:30', audience: '技术选修', title: 'Rust 能力、组件与悬赏', description: '认领贡献题，定义输入、权限、错误与版本；将最小能力或工具改进接回自己的应用。' },
-  { date: '09.24', time: '19:30–21:00', audience: '共同实践', title: '可用性与初赛提交', description: '让队外用户完成一次任务，修正信息缺失和无反馈操作，整理原型、短视频与复现说明。' },
-  { date: '09.28', time: '19:00–20:00', audience: '可选门诊', title: '初赛提交检查', description: '核对报名名单、运行环境和材料，排查提交阻塞；初赛当日 23:59 截止。' },
-  { date: '09.29', time: '19:30–21:00', audience: '赛道 A 进阶', title: '生成 pipeline 与事实验证', description: '分离生成、校验、渲染和评审，保留失败与重试；核对天气、空气质量等事实字段。' },
-  { date: '09.29', time: '19:30–21:00', audience: '赛道 B 进阶', title: '软件工厂应用的任务验收', description: '验证任务变化、权限拒绝、过期与结果来源；区分练习数据和真实 hagency 接入，留下可复现证据。' },
-  { date: '09.30', time: '20:30–21:30', audience: '复赛启动课', title: '复赛反馈与开发计划', description: '消化初赛反馈，收敛复赛目标，补全数据与操作链路，列出正常、空值、拒绝和超时场景。' },
-  { date: '10.05', time: '19:30–20:30', audience: '假期可选', title: '开发答疑', description: '集中处理开发阻塞，整理共享 FAQ；假期不增加必修直播内容。' },
-  { date: '10.08', time: '19:00–20:00', audience: '可选门诊', title: '复赛提交检查', description: '核对安装包、仓库版本、测试证据与视频，预留上传时间；当日 23:59 截止。' },
-  { date: '10.09', time: '19:30–21:00', audience: '复赛队伍 · 提前准备', title: '线上演示与答辩', description: '面向全部复赛队伍提前开放，练习线上屏幕共享、3 分钟操作与 2 分钟贡献说明，准备问答和备用视频；不修改冻结作品。' },
-  { date: '10.11', time: '10:00–12:00', audience: '复赛队伍 · 分队预约', title: '复赛答辩连线检查', description: '按队预约检查音视频、屏幕共享与备用视频；沿用冻结版本，不增加功能开发任务。' },
-  { date: '10.12', time: '19:30–21:00', audience: '受邀优胜团队', title: 'GOSIM 展示辅导', description: '为前三名受邀团队梳理现场讲述、观众互动与展示设备，结合复赛评审反馈完善表达。' },
-  { date: '10.14', time: '19:00–21:00', audience: '受邀优胜团队 · 分队预约', title: '现场展示线上彩排', description: '面向受邀的前三名优胜团队，检查启动、投屏与计时；10/15 18:00 冻结现场展示包，后续改进不改变比赛排名。' },
+  { date: '09.22', time: '19:30–21:00', audience: '开营说明', title: '赛事与八个项目全景', description: '介绍 OctoSense 场景、robrix2 参赛基线、八个项目的分工与评奖规则。选手定义目标和判断结果，Agent 协助完成小程序；机制入门从 9/26 周六开始。' },
+  { date: '09.26', time: '10:00–12:00', audience: '机制入门', title: 'OctoSense × Makepad：让意图成为应用', description: '从 OctoSense 场景选择任务，在 robrix2 中体验文章编辑器的原生界面、授权与预览。理解应用宿主和 Makepad 的分工，学会向 Agent 描述目标、操作与完成标准。' },
+  { date: '09.26', time: '14:00–16:00', audience: '机制入门', title: 'octoscode × Octoscript：和 Agent 一起做应用', description: '用文章编辑器示例理解 Octoscript 如何表达界面与状态，以及宿主如何提供能力。通过 octoscode 向 Agent 描述改动、观察结果并反馈，区分内容编辑与应用扩展，不展开语法与源码。' },
+  { date: '09.27', time: '10:00–12:00', audience: '机制入门', title: 'octos × OctoLoop：执行与审查如何配合', description: '理解 octos 如何组织 Agent 的上下文、工具和任务执行，以及 OctoLoop 的内环执行、外环审查机制。通过派任务、看结果、退回改进和人工验收，学会管理 Agent 的工作。' },
+  { date: '09.27', time: '14:00–15:30', audience: '机制入门', title: 'robrix2 × hagency：从分享小程序到协作交付', description: '演示小程序分享、接收者独立授权、草稿隔离与确认发送，再用 hagency 任务验收说明软件工厂协作。选手规划自己的小程序与 Agent 分工，区分内置示例和需要完成的服务接入。' },
+  { date: '09.27', time: '16:00–17:00', audience: '可选工作坊', title: '把课程变成自己的参赛计划', description: '为自己的场景写出目标、Agent 分工、可用项目和完成标准。9/27 完成机制入门，9/28–10/4 留出一周制作初赛作品，不增加新的必修内容。' },
+  { date: '10.03', time: '14:00–16:00', audience: '国庆 · 可选答疑', title: 'Agent 作品门诊', description: '围绕选手正在制作的应用，讨论如何描述需求、组织 Agent、观察结果和调整任务；复用入门课的方法，不新增必修内容，不讲底层实现。' },
+  { date: '10.04', time: '10:00–11:00', audience: '国庆 · 可选门诊', title: '初赛提交检查', description: '核对已报名成员、可运行作品、来源说明、截图和演示材料；初赛当日 23:59 截止，课后留出上传时间。' },
+  { date: '10.07', time: '10:00–11:30', audience: '国庆 · 复赛工作坊', title: '从 Agentic 应用到技术突破', description: '根据 10/6 的晋级反馈，用 Agent 完善同一作品，比较改进前后的任务效果；理解生态反哺和 OctoSense ROM 突破如何服务应用，选择复赛目标，不讲实现细节。' },
+  { date: '10.07', time: '14:00–15:30', audience: '国庆 · 复赛队伍', title: '讲清你的 Agentic 作品', description: '练习场景、Agent 分工、任务结果与技术价值的演示，准备问答和备用视频。作品 10/9 冻结，10/12 线上决赛；正式演示与备用视频使用冻结版本。' },
+  { date: '10.11', time: '10:00–12:00', audience: '决赛准备 · 分队预约', title: '线上决赛连线检查', description: '按队检查音视频、屏幕共享与备用视频，使用 10/9 冻结版本；10/12 正式答辩。该环节为赛务检查，由非评分人员组织。' },
+  { date: '10.17', time: '展示前 · 按队预约', audience: '现场准备', title: '现场设备联调与彩排', description: '前三名在当天正式展示前检查启动、投屏、网络、计时与备用视频；具体时段随 GOSIM 会务公布，不再评分。' },
 ]
 </script>
 
@@ -37,11 +35,12 @@ const sessions = [
   <section id="schedule" class="section event-schedule">
     <div class="section-heading wide">
       <p class="eyebrow">{{ t('07 / 赛程与培训') }}</p>
-      <h2>{{ t('9.13 报名，9.19 开营。') }}</h2>
-      <p>{{ t('比赛分为线上初赛海选和复赛两个阶段：初赛选出 50 人晋级，50 人参加复赛并评出一、二、三等奖。拟定 10/11 公布结果，前三名将于 10/17 到 GOSIM 黑客松现场展示作品并参加颁奖；10/12–16 预留行程与展示准备。') }}</p>
+      <h2>{{ t('9.22 开营，9.26 周六开课。') }}</h2>
+      <p>{{ t('9/27 完成机制入门，9/28–10/4 留出一周制作初赛作品。初赛海选晋级 50 人，10/12 线上决赛完成复赛评奖；前三名于 10/17 到 GOSIM 现场展示作品并参加颁奖，10/13–16 预留行程与展示准备。') }}</p>
       <p class="schedule-timezone">{{ t('2026 年 · 全部时间为北京时间 UTC+8') }}</p>
-      <p class="schedule-draft">{{ t('9/13 报名、9/19 开营、10/17 现场展示与颁奖及初赛晋级 50 人已确定；其余节点与具体时段为拟定安排。') }}</p>
+      <p class="schedule-draft">{{ t('9/13 报名、9/22 开营、9/26 开课、10/12 线上决赛、10/17 现场展示与颁奖及初赛晋级 50 人已确定；中间节点与具体时段为配套排期。') }}</p>
     </div>
+    <TrainingApproach />
     <div class="schedule-columns">
       <div class="competition-calendar">
         <h3 class="calendar-heading">{{ t('比赛进程') }}</h3>
@@ -56,20 +55,20 @@ const sessions = [
       </div>
       <div class="training-calendar">
         <h3 class="calendar-heading">{{ t('跟着作品进度学') }}</h3>
-        <p class="training-intro">{{ t('9/19 开营后开始入门实践，9/29 分赛道进阶为复赛做准备。所有课程提供回放；选修与门诊按需参加。') }}</p>
+        <p class="training-intro">{{ t('9/22 开营说明，9/26–27 集中讲八个项目的机制与 Agent 参赛方法。国庆保留作品答疑和复赛工作坊；后续课程均在周末或假期，所有课程提供回放。') }}</p>
         <div class="training-list">
           <details v-for="session in sessions" :key="session.title">
             <summary>
               <span class="training-date">{{ session.date }}</span>
-              <span class="training-info"><span class="training-audience">{{ t(session.audience) }}</span><strong>{{ t(session.title) }}</strong><span class="training-time">{{ session.time }}</span></span>
+              <span class="training-info"><span class="training-audience">{{ t(session.audience) }}</span><strong>{{ t(session.title) }}</strong><span class="training-time">{{ t(session.time) }}</span></span>
               <span class="training-expand" aria-hidden="true"></span>
             </summary>
             <p class="training-description">{{ t(session.description) }}</p>
           </details>
         </div>
-        <p class="calendar-note">{{ t('9/29 的 A、B 进阶课使用两个教室同时开课，选择本赛道参加；面向所有初赛队伍，回放可补学。') }}</p>
-        <p class="calendar-note">{{ t('中秋与国庆假期以自主开发、课程回放为主，10/5 仅设可选答疑。10/16 现场设备联调按队预约，时段另行通知。') }}</p>
-        <p class="calendar-note">{{ t('赛道 B 开发包与接口准备中。实操环境、练习数据及提交接受范围在开课前统一说明。') }}</p>
+        <p class="calendar-note">{{ t('入门课在 9/27 结束，9/28–10/4 是完整的作品制作周。10/3 答疑与 10/4 提交检查均为可选支持，不增加新的必修内容。') }}</p>
+        <p class="calendar-note">{{ t('初赛提交后即可继续完善同一作品，10/6 公布晋级名单，10/7 安排复赛工作坊。10/10–11 留给评审，10/12 举行线上决赛；决赛是比赛环节，不增加工作日晚课。') }}</p>
+        <p class="calendar-note">{{ t('课程以 robrix2 的小程序机制与原生文章编辑器为基线；锁定版本、支持设备和练习数据于 9/24 发布，9/25 完成异步自检。') }}</p>
       </div>
     </div>
     <div class="advancement-note">
@@ -77,7 +76,7 @@ const sessions = [
       <div>
         <p>{{ t('1. 初赛海选：50 人晋级复赛。') }}</p>
         <p>{{ t('2. 复赛评奖：50 人参与复赛，统一评选一等奖 1 名、二等奖 2 名、三等奖 3 名。') }}</p>
-        <p>{{ t('初赛 9/29–30 评审；复赛 10/9–10 审阅材料、10/11 线上答辩与评奖，沿用 10/8 冻结的应用版本。获奖结果在复赛确定；前三名到 GOSIM 黑客松现场展示作品并参加颁奖，现场不再评分。') }}</p>
+        <p>{{ t('初赛 10/4 截止、10/5–6 评审；复赛 10/9 截止、10/10–11 审阅材料，10/12 线上决赛与评奖使用 10/9 冻结版本。决赛是复赛的最终答辩，不增加第三轮晋级；前三名 10/17 到 GOSIM 现场展示与颁奖，现场不再评分。') }}</p>
         <a class="text-link" href="#participate">{{ t('查看报名说明 →') }}</a>
       </div>
     </div>

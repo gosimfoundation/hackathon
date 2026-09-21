@@ -20,10 +20,10 @@ const serviceShots = [
 const serviceShot = (slug: string) => asset(`octosense-${slug}-${locale.value === 'en' ? 'en' : 'zh'}.webp`)
 const serviceUrl = (slug: string) => `https://octosense.org${locale.value === 'en' ? '' : '/cn'}/experience/${slug}/`
 const miniappShots = [
-  { file: 'robrix-miniapps.jpg', title: '找到并打开小程序', caption: '从宿主中的小程序列表出发，进入创建、运行与管理流程。', alt: 'Robrix Agent2App 测试版的小程序列表与创建入口' },
-  { file: 'robrix-permission.jpg', title: '能力请求，交给用户决定', caption: 'Account 小程序请求设备与账户相关能力，宿主提供拒绝、单次允许与允许选项。', alt: 'Account 小程序的权限弹窗，包含拒绝、单次允许和允许按钮' },
-  { file: 'robrix-versions.jpg', title: '修改留下版本记录', caption: '离线 ACP 测试代理完成修改后，应用保留历史版本，提供查看与回退入口。', alt: 'Pomodoro 测试小程序的版本历史，显示两次版本记录' },
-  { file: 'robrix-diff.jpg', title: '看清每一次源码变化', caption: '通过源码差异检查修改内容；这里展示的是确定性测试输出。', alt: 'Pomodoro 测试小程序的源码差异，标记新增和移除内容' },
+  { file: 'robrix-miniapp-app-details.png', title: '打开原生小程序', caption: '从“发现”或聊天入口打开文章编辑器，了解用途后继续。', alt: 'robrix2 原生文章编辑器的应用详情页' },
+  { file: 'robrix-miniapp-account-consent.png', title: '每位使用者独立授权', caption: '用自己的账号确认本地草稿与发送权限，分享应用不传递授权。', alt: '文章编辑器展示当前测试账号和本次使用的权限' },
+  { file: 'robrix-miniapp-native-preview.png', title: '先预览，再确认发送', caption: 'Markdown 内容由原生界面呈现，选择聊天并确认后发送。', alt: '文章编辑器原生预览中的标题、段落和列表' },
+  { file: 'robrix-miniapp-received-card.png', title: '让应用进入会话', caption: '聊天中可以收到文章与小程序卡片，接收者可继续打开应用。', alt: 'robrix2 测试会话中收到的文章和文章编辑器小程序卡片' },
 ]
 </script>
 
@@ -32,22 +32,28 @@ const miniappShots = [
     <div class="section-heading wide">
       <p class="eyebrow">{{ t('IN ACTION / 实机预览') }}</p>
       <h2 id="showcase-title">{{ t('先看见应用，再开始创造。') }}</h2>
-      <p>{{ t('从天气卡片、多应用桌面、可交互的服务卡片，到小程序的权限与版本管理。桌面与小程序画面来自本轮 macOS 实机测试，服务卡片截自 octosense.org，点击即可亲手体验。') }}</p>
+      <p>{{ t('先看 robrix2 中的原生小程序流程，再探索 OctoSense 桌面、Omarchy 与应用场景。小程序画面来自仓库内的原生测试记录，服务卡片使用示例数据。') }}</p>
+    </div>
+
+    <div id="miniapp-showcase" class="miniapp-preview-heading">
+      <p class="eyebrow">OCTOSENSE / MINI APPS</p>
+      <h3>{{ t('OctoSense 小程序 · 原生运行与会话分享') }}</h3>
+      <span class="capture-type">{{ t('原生 Octoscript 文章编辑器 · macOS 测试环境 · 2026.09.21') }}</span>
+    </div>
+    <div class="miniapp-previews service-previews">
+      <figure v-for="(shot, index) in miniappShots" :key="shot.file">
+        <a class="screenshot-link" :href="asset(shot.file)" target="_blank" rel="noopener noreferrer" :aria-label="t('查看原图') + ' · ' + t(shot.title)">
+          <img :src="asset(shot.file)" width="812" height="1552" loading="lazy" decoding="async" :alt="t(shot.alt)">
+        </a>
+        <figcaption>
+          <span class="preview-label">0{{ index + 1 }}</span>
+          <h4>{{ t(shot.title) }}</h4>
+          <p>{{ t(shot.caption) }}</p>
+        </figcaption>
+      </figure>
     </div>
 
     <div class="showcase-apps">
-      <figure class="appcard-preview">
-        <div class="preview-heading"><span class="preview-label">APPCARD</span><span class="capture-type">{{ t('参考卡片 · 实机运行') }}</span></div>
-        <a class="screenshot-link portrait-link" :href="asset('appcard-weather.png')" target="_blank" rel="noopener noreferrer" :aria-label="t('查看原图') + ' · AppCard'">
-          <img :src="asset('appcard-weather.png')" width="430" height="860" loading="lazy" decoding="async" :alt="t('AppCard 的 Kyoto 天气参考卡片，展示天气、预报和卫星图区域')">
-        </a>
-        <figcaption>
-          <h3>{{ t('把天气组织成一张卡片。') }}</h3>
-          <p>{{ t('AppCard 运行时渲染的 Kyoto 天气参考卡片，展示天气、预报和卫星图区域。') }}</p>
-          <p class="capture-note">{{ t('从预置参考卡片启动，部分数据随后在线刷新；城市背景为生成配图。本图展示渲染效果，不代表现场生成或空气质量已通过验证。') }}</p>
-        </figcaption>
-      </figure>
-
       <figure class="desktop-preview">
         <div class="preview-heading">
           <span class="preview-label">OCTOSENSE</span>
@@ -63,6 +69,18 @@ const miniappShots = [
           <h3>{{ t('一个桌面，承载多个应用。') }}</h3>
           <p>{{ t('Clock 与 Weather 在 OctoSense 中以浮动窗口运行，共用桌面的明暗主题。') }}</p>
           <p class="capture-note">{{ t('通过应用目录启动的预编译样例，记录于 macOS；展示宿主与窗口能力，尚非 AppCard 与 OctoSense 已接通的完整演示。') }}</p>
+        </figcaption>
+      </figure>
+
+      <figure class="appcard-preview">
+        <div class="preview-heading"><span class="preview-label">APPCARD</span><span class="capture-type">{{ t('参考卡片 · 实机运行') }}</span></div>
+        <a class="screenshot-link portrait-link" :href="asset('appcard-weather.png')" target="_blank" rel="noopener noreferrer" :aria-label="t('查看原图') + ' · AppCard'">
+          <img :src="asset('appcard-weather.png')" width="430" height="860" loading="lazy" decoding="async" :alt="t('AppCard 的 Kyoto 天气参考卡片，展示天气、预报和卫星图区域')">
+        </a>
+        <figcaption>
+          <h3>{{ t('把天气组织成一张卡片。') }}</h3>
+          <p>{{ t('AppCard 运行时渲染的 Kyoto 天气参考卡片，展示天气、预报和卫星图区域。') }}</p>
+          <p class="capture-note">{{ t('从预置参考卡片启动，部分数据随后在线刷新；城市背景为生成配图。本图展示渲染效果，不代表现场生成或空气质量已通过验证。') }}</p>
         </figcaption>
       </figure>
     </div>
@@ -97,30 +115,13 @@ const miniappShots = [
       </figure>
     </div>
 
-    <div class="miniapp-preview-heading">
-      <p class="eyebrow">ROBRIX AGENT2APP</p>
-      <h3>{{ t('从运行小程序，到管理它的变化。') }}</h3>
-      <span class="capture-type">{{ t('源项目测试版 · 生成与修改使用离线 ACP 测试代理') }}</span>
-    </div>
-    <div class="miniapp-previews">
-      <figure v-for="(shot, index) in miniappShots" :key="shot.file">
-        <a class="screenshot-link" :href="asset(shot.file)" target="_blank" rel="noopener noreferrer" :aria-label="t('查看原图') + ' · ' + t(shot.title)">
-          <img :src="asset(shot.file)" width="1229" height="768" loading="lazy" decoding="async" :alt="t(shot.alt)">
-        </a>
-        <figcaption>
-          <span class="preview-label">0{{ index + 1 }}</span>
-          <h4>{{ t(shot.title) }}</h4>
-          <p>{{ t(shot.caption) }}</p>
-        </figcaption>
-      </figure>
-    </div>
-    <p class="showcase-footnote">{{ t('实机记录 · 2026.09.12 · 原始截图未修饰') }}</p>
+    <p class="showcase-footnote">{{ t('原生截图：robrix2 2026.09.21；桌面与参考卡片 2026.09.12。保留原始测试画面。') }}</p>
   </section>
 </template>
 
 <style scoped>
 .project-showcase figure { margin: 0; min-width: 0; }
-.showcase-apps { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.7fr); gap: clamp(28px, 4vw, 64px); margin-top: 48px; align-items: start; }
+.showcase-apps { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, .8fr); gap: clamp(28px, 4vw, 64px); margin-top: 48px; align-items: start; }
 .project-showcase .omarchy-preview { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, .8fr); gap: clamp(28px, 4vw, 64px); align-items: center; margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--border); }
 .omarchy-preview figcaption { padding-top: 0; }
 .omarchy-preview .preview-label { color: var(--accent); font-size: 12px; }

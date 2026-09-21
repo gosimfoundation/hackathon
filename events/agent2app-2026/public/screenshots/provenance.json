@@ -127,5 +127,45 @@
     "edited": false,
     "capture": "Playwright Chromium / .wizard-phone element, first scene, converted to WebP",
     "date": "2026-09-19"
+  },
+  {
+    "file": "robrix-miniapp-app-details.png",
+    "source": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native/app-details.png",
+    "sha256": "0d1840f482fe124acb4e3364c36ac5d57e72d1d9ed76e23e93e4263b8bf4ad9c",
+    "edited": false,
+    "capture": "Makepad native hidden-window harness / macOS arm64 / isolated Palpo fixture",
+    "date": "2026-09-21",
+    "source_commit": "05daf9bdb05fafc6d8f04dcb312a35f1d46a661e",
+    "receipt": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native-validation.json"
+  },
+  {
+    "file": "robrix-miniapp-account-consent.png",
+    "source": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native/account-consent.png",
+    "sha256": "a1b501f94649b269a15e26714e67888ef4ea109255f879649ad94fe31cfbb9ae",
+    "edited": false,
+    "capture": "Makepad native hidden-window harness / macOS arm64 / isolated Palpo fixture",
+    "date": "2026-09-21",
+    "source_commit": "05daf9bdb05fafc6d8f04dcb312a35f1d46a661e",
+    "receipt": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native-validation.json"
+  },
+  {
+    "file": "robrix-miniapp-native-preview.png",
+    "source": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native/native-preview.png",
+    "sha256": "b2f6ed9d6dabb4992425e0cdbf95e2a7369f7c0e7ec54a140bdfd7ebbeaee75c",
+    "edited": false,
+    "capture": "Makepad native hidden-window harness / macOS arm64 / isolated Palpo fixture",
+    "date": "2026-09-21",
+    "source_commit": "05daf9bdb05fafc6d8f04dcb312a35f1d46a661e",
+    "receipt": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native-validation.json"
+  },
+  {
+    "file": "robrix-miniapp-received-card.png",
+    "source": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native/received-card.png",
+    "sha256": "ef175642183b36f720461bc81e57f1e53e43116933e6cd98238206a3e4051c25",
+    "edited": false,
+    "capture": "Makepad native hidden-window harness / macOS arm64 / isolated Palpo fixture",
+    "date": "2026-09-21",
+    "source_commit": "05daf9bdb05fafc6d8f04dcb312a35f1d46a661e",
+    "receipt": "https://github.com/OctoSense-org/robrix2/blob/05daf9bdb05fafc6d8f04dcb312a35f1d46a661e/lab/article-editor/validation/native-validation.json"
   }
 ]
