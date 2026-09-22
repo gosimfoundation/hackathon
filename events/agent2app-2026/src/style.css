@@ -47,6 +47,13 @@ p { line-height: 1.9; }
 .hero-details { max-width: 420px; }
 .hero h2 { font-size: 20px; letter-spacing: .06em; font-weight: 500; margin: 0 0 6px; }
 .hero-theme { font-size: 17px; color: #eee5d7; margin: 0 0 22px; }
+.hero-sponsors { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 26px; color: #f2e8d9b8; font: 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.hero-sponsor-logos { display: flex; align-items: center; gap: 18px; }
+.hero-sponsor-logos a { display: flex; align-items: center; opacity: .88; transition: opacity .2s ease, transform .2s ease; }
+.hero-sponsor-logos a:hover, .hero-sponsor-logos a:focus-visible { opacity: 1; outline: none; transform: translateY(-1px); }
+.hero-sponsor-logos img { display: block; width: auto; height: 2.25rem; object-fit: contain; }
+.hero-sponsor-logos .minimax-logo { filter: brightness(0) invert(1); }
+.hero-sponsor-logos .kimi-logo { height: 2.4rem; filter: none; }
 .location { display: inline-block; font-size: 14px; color: #fff3df; border-bottom: 1px solid #eddbc184; padding-bottom: 8px; }
 .location:hover, .hero .text-link:hover { color: #f5c5a0; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 28px; margin-top: 28px; }

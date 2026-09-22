@@ -111,6 +111,13 @@ const faqs = [
             <a class="location" href="https://shenzhen2026.gosim.org/" target="_blank" rel="noreferrer">{{ t('10.17 前三名现场展示与颁奖 · GOSIM Shenzhen 2026 ↗') }}</a>
             
             <div class="actions"><a class="button primary" href="#participate">{{ t('参赛信息') }}<span>↗</span></a><a class="text-link" href="#showcase">{{ t('查看实机 ↓') }}</a></div>
+            <div class="hero-sponsors" :aria-label="t('赞助商')">
+              <span>{{ t('赞助商') }}</span>
+              <div class="hero-sponsor-logos">
+                <a href="https://www.minimaxi.com/" target="_blank" rel="noopener noreferrer" aria-label="MiniMax"><img class="minimax-logo" :src="`${base}sponsors/minimax.png`" alt="MiniMax"></a>
+                <a href="https://www.kimi.com/" target="_blank" rel="noopener noreferrer" aria-label="Kimi"><img class="kimi-logo" :src="`${base}sponsors/kimi.png`" alt="Kimi"></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
