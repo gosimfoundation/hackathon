@@ -1,15 +1,18 @@
 [
   {
     "slug": "factory26",
-    "repository": "gosimfoundation/factory26",
+    "repository": "gosimfoundation/hackathon-factory26",
     "release": "latest",
     "requiredFiles": [
       "index.html"
+    ],
+    "previousRepositories": [
+      "gosimfoundation/factory26"
     ]
   },
   {
     "slug": "survey26",
-    "repository": "gosimfoundation/survey26",
+    "repository": "gosimfoundation/hackathon-survey26",
     "release": "latest",
     "requiredFiles": [
       "index.html",
@@ -18,15 +21,19 @@
       "platform/deployment.json"
     ],
     "previousRepositories": [
-      "gosimfoundation/agent-observer"
+      "gosimfoundation/agent-observer",
+      "gosimfoundation/survey26"
     ]
   },
   {
     "slug": "agenticapp26",
-    "repository": "gosimfoundation/agenticapp26",
+    "repository": "gosimfoundation/hackathon-agenticapp26",
     "release": "latest",
     "requiredFiles": [
       "index.html"
+    ],
+    "previousRepositories": [
+      "gosimfoundation/agenticapp26"
     ]
   }
 ]
