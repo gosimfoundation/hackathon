@@ -27,7 +27,7 @@ class ReleaseValidationTests(unittest.TestCase):
                     module.unpack(archive, path / 'output')
 
     def test_rejects_wrong_event_and_incomplete_platform(self):
-        event = {'slug': 'survey26', 'repository': 'gosimfoundation/survey26',
+        event = {'slug': 'survey26', 'repository': 'gosimfoundation/hackathon-survey26',
                  'requiredFiles': ['index.html', 'platform/index.html']}
         manifest = {'schemaVersion': 1, 'slug': 'survey26',
                     'repository': event['repository'], 'basePath': '/survey26/', 'revision': 'a' * 40}
@@ -44,7 +44,7 @@ class ReleaseValidationTests(unittest.TestCase):
             manifest['repository'] = 'gosimfoundation/agent-observer'
             (path / 'site-manifest.json').write_text(json.dumps(manifest))
             renamed = module.validate(path, event)
-            self.assertEqual(renamed['repository'], 'gosimfoundation/survey26')
+            self.assertEqual(renamed['repository'], 'gosimfoundation/hackathon-survey26')
             self.assertEqual(renamed['artifactRepository'], 'gosimfoundation/agent-observer')
             manifest['repository'] = 'another-owner/survey26'
             (path / 'site-manifest.json').write_text(json.dumps(manifest))
@@ -59,7 +59,7 @@ class ReleaseValidationTests(unittest.TestCase):
 class CollectionTests(unittest.TestCase):
     def test_failed_download_preserves_previous_local_cache(self):
         from unittest.mock import patch
-        event = {'slug': 'factory26', 'repository': 'gosimfoundation/factory26',
+        event = {'slug': 'factory26', 'repository': 'gosimfoundation/hackathon-factory26',
                  'release': 'latest', 'requiredFiles': ['index.html']}
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -79,7 +79,7 @@ class CollectionTests(unittest.TestCase):
         from unittest.mock import patch
         revision = 'a' * 40
         tag = 'site-' + revision + '-123-1'
-        event = {'slug': 'factory26', 'repository': 'gosimfoundation/factory26',
+        event = {'slug': 'factory26', 'repository': 'gosimfoundation/hackathon-factory26',
                  'release': tag, 'requiredFiles': ['index.html']}
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

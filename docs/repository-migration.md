@@ -2,9 +2,9 @@
 
 | Event | Former directory | Authoritative source |
 | --- | --- | --- |
-| Factory26 | `events/oaic-harness-2026/` | https://github.com/gosimfoundation/factory26 |
-| Survey26 | `events/agentic-cosmos-2026/` plus external platform pin | https://github.com/gosimfoundation/survey26 |
-| Agentic App | `events/agent2app-2026/` | https://github.com/gosimfoundation/agenticapp26 |
+| Factory26 | `events/oaic-harness-2026/` | https://github.com/gosimfoundation/hackathon-factory26 |
+| Survey26 | `events/agentic-cosmos-2026/` plus external platform pin | https://github.com/gosimfoundation/hackathon-survey26 |
+| Agentic App | `events/agent2app-2026/` | https://github.com/gosimfoundation/hackathon-agenticapp26 |
 | Paris (archived event) | `events/agentic-hackathon-paris-2026/` | remains here |
 
 The active event directories have been removed from this repository. Their
@@ -30,7 +30,7 @@ three destinations. Organization-inherited access also remains in effect.
 
 The old Agentic App PR #66 is preserved as a separate, unmerged PR in the new
 Agentic App repository, retaining its author's commit. It is not bundled into
-the production migration. Successor: https://github.com/gosimfoundation/agenticapp26/pull/1.
+the production migration. Successor: https://github.com/gosimfoundation/hackathon-agenticapp26/pull/1.
 
 The `Retired event directories` CI check detects accidental reintroduction of
 old event folders. Keep branches up to date with this repository's `main`.
@@ -66,9 +66,9 @@ and redeploy; the existing secrets and original source history are retained.
 Do not resume editing both copies of an event after a rollback.
 
 Survey upstream contributions to `BH3GEI/agent-observer` must be reviewed and
-merged into `gosimfoundation/survey26` to reach this domain. The old
+merged into `gosimfoundation/hackathon-survey26` to reach this domain. The old
 `scripts/agent-observer.json` pin-update workflow is retired.
 
-The Survey repository is named `survey26` to match `/survey26/`. The collector
-accepts its former `gosimfoundation/agent-observer` identity only for existing
-release archives, so releases built before the rename remain usable for rollback.
+The event repositories use `hackathon-<slug>` names. Website paths keep their
+existing `/<slug>/` form. The collector explicitly accepts the former repository
+identities for existing release archives, preserving rollback across renames.

@@ -6,9 +6,9 @@ maintained and built independently:
 
 | Website | Source repository | Local development |
 | --- | --- | --- |
-| `/factory26/` | [gosimfoundation/factory26](https://github.com/gosimfoundation/factory26) | `npm ci && npm run dev` |
-| `/survey26/` → `/survey26/platform/` | [gosimfoundation/survey26](https://github.com/gosimfoundation/survey26) | `npm ci --prefix web && npm run dev --prefix web` |
-| `/agenticapp26/` | [gosimfoundation/agenticapp26](https://github.com/gosimfoundation/agenticapp26) | `npm ci && npm run dev` |
+| `/factory26/` | [gosimfoundation/hackathon-factory26](https://github.com/gosimfoundation/hackathon-factory26) | `npm ci && npm run dev` |
+| `/survey26/` → `/survey26/platform/` | [gosimfoundation/hackathon-survey26](https://github.com/gosimfoundation/hackathon-survey26) | `npm ci --prefix web && npm run dev --prefix web` |
+| `/agenticapp26/` | [gosimfoundation/hackathon-agenticapp26](https://github.com/gosimfoundation/hackathon-agenticapp26) | `npm ci && npm run dev` |
 | `/agenticparis26/` | `events/agentic-hackathon-paris-2026/` in this repository | `npm run dev:agentic-hackathon-paris-2026` |
 
 **请在对应的新仓库修改活动网站。旧的本地项目不会自动切换，请重新克隆并在编辑器中打开新仓库。**
