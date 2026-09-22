@@ -35,14 +35,14 @@ def unpack(archive, destination):
 def validate(directory, event):
     manifest = json.loads((directory / 'site-manifest.json').read_text())
     if (manifest.get('schemaVersion') != 1 or manifest.get('slug') != event['slug']
-            or manifest.get('repository') != event['repository']
+            or manifest.get('repository') not in [event['repository'], *event.get('previousRepositories', [])]
             or manifest.get('basePath') != '/' + event['slug'] + '/'
             or not re.fullmatch(r'[a-f0-9]{40}', manifest.get('revision', ''))):
         raise ValueError(f"Unexpected release identity for {event['slug']}")
     for file in event['requiredFiles']:
         if not (directory / file).is_file():
             raise ValueError(f"Incomplete release: {event['slug']}/{file}")
-    return manifest
+    return {**manifest, 'artifactRepository': manifest['repository'], 'repository': event['repository']}
 
 
 def prepare(root=ROOT):

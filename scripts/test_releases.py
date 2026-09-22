@@ -27,7 +27,7 @@ class ReleaseValidationTests(unittest.TestCase):
                     module.unpack(archive, path / 'output')
 
     def test_rejects_wrong_event_and_incomplete_platform(self):
-        event = {'slug': 'survey26', 'repository': 'gosimfoundation/agent-observer',
+        event = {'slug': 'survey26', 'repository': 'gosimfoundation/survey26',
                  'requiredFiles': ['index.html', 'platform/index.html']}
         manifest = {'schemaVersion': 1, 'slug': 'survey26',
                     'repository': event['repository'], 'basePath': '/survey26/', 'revision': 'a' * 40}
@@ -40,6 +40,17 @@ class ReleaseValidationTests(unittest.TestCase):
             (path / 'platform').mkdir()
             (path / 'platform/index.html').write_text('platform')
             self.assertEqual(module.validate(path, event)['revision'], 'a' * 40)
+            event['previousRepositories'] = ['gosimfoundation/agent-observer']
+            manifest['repository'] = 'gosimfoundation/agent-observer'
+            (path / 'site-manifest.json').write_text(json.dumps(manifest))
+            renamed = module.validate(path, event)
+            self.assertEqual(renamed['repository'], 'gosimfoundation/survey26')
+            self.assertEqual(renamed['artifactRepository'], 'gosimfoundation/agent-observer')
+            manifest['repository'] = 'another-owner/survey26'
+            (path / 'site-manifest.json').write_text(json.dumps(manifest))
+            with self.assertRaises(ValueError):
+                module.validate(path, event)
+            manifest['repository'] = event['repository']
             manifest['basePath'] = '/factory26/'
             (path / 'site-manifest.json').write_text(json.dumps(manifest))
             with self.assertRaises(ValueError):
