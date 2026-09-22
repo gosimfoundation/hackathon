@@ -1,5 +1,32 @@
 [
-  { "slug": "factory26", "repository": "gosimfoundation/factory26", "release": "latest", "requiredFiles": ["index.html"] },
-  { "slug": "survey26", "repository": "gosimfoundation/agent-observer", "release": "latest", "requiredFiles": ["index.html", "platform/index.html", "platform/restore-route.js", "platform/deployment.json"] },
-  { "slug": "agenticapp26", "repository": "gosimfoundation/agenticapp26", "release": "latest", "requiredFiles": ["index.html"] }
+  {
+    "slug": "factory26",
+    "repository": "gosimfoundation/factory26",
+    "release": "latest",
+    "requiredFiles": [
+      "index.html"
+    ]
+  },
+  {
+    "slug": "survey26",
+    "repository": "gosimfoundation/survey26",
+    "release": "latest",
+    "requiredFiles": [
+      "index.html",
+      "platform/index.html",
+      "platform/restore-route.js",
+      "platform/deployment.json"
+    ],
+    "previousRepositories": [
+      "gosimfoundation/agent-observer"
+    ]
+  },
+  {
+    "slug": "agenticapp26",
+    "repository": "gosimfoundation/agenticapp26",
+    "release": "latest",
+    "requiredFiles": [
+      "index.html"
+    ]
+  }
 ]

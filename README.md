@@ -7,7 +7,7 @@ maintained and built independently:
 | Website | Source repository | Local development |
 | --- | --- | --- |
 | `/factory26/` | [gosimfoundation/factory26](https://github.com/gosimfoundation/factory26) | `npm ci && npm run dev` |
-| `/survey26/` → `/survey26/platform/` | [gosimfoundation/agent-observer](https://github.com/gosimfoundation/agent-observer) | `npm ci --prefix web && npm run dev --prefix web` |
+| `/survey26/` → `/survey26/platform/` | [gosimfoundation/survey26](https://github.com/gosimfoundation/survey26) | `npm ci --prefix web && npm run dev --prefix web` |
 | `/agenticapp26/` | [gosimfoundation/agenticapp26](https://github.com/gosimfoundation/agenticapp26) | `npm ci && npm run dev` |
 | `/agenticparis26/` | `events/agentic-hackathon-paris-2026/` in this repository | `npm run dev:agentic-hackathon-paris-2026` |
 

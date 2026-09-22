@@ -3,7 +3,7 @@
 | Event | Former directory | Authoritative source |
 | --- | --- | --- |
 | Factory26 | `events/oaic-harness-2026/` | https://github.com/gosimfoundation/factory26 |
-| Survey26 | `events/agentic-cosmos-2026/` plus external platform pin | https://github.com/gosimfoundation/agent-observer |
+| Survey26 | `events/agentic-cosmos-2026/` plus external platform pin | https://github.com/gosimfoundation/survey26 |
 | Agentic App | `events/agent2app-2026/` | https://github.com/gosimfoundation/agenticapp26 |
 | Paris (archived event) | `events/agentic-hackathon-paris-2026/` | remains here |
 
@@ -66,5 +66,9 @@ and redeploy; the existing secrets and original source history are retained.
 Do not resume editing both copies of an event after a rollback.
 
 Survey upstream contributions to `BH3GEI/agent-observer` must be reviewed and
-merged into `gosimfoundation/agent-observer` to reach this domain. The old
+merged into `gosimfoundation/survey26` to reach this domain. The old
 `scripts/agent-observer.json` pin-update workflow is retired.
+
+The Survey repository is named `survey26` to match `/survey26/`. The collector
+accepts its former `gosimfoundation/agent-observer` identity only for existing
+release archives, so releases built before the rename remain usable for rollback.
