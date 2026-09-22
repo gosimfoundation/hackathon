@@ -2,94 +2,68 @@ name: Deploy hackathon sites to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
   workflow_dispatch:
   schedule:
-    # Refresh the ARC-Bench leaderboard snapshot for the public competition (the upstream API restricts browser CORS).
+    # Collect independently published events and refresh the ARC-Bench snapshot.
     - cron: '*/5 * * * *'
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: |
             hub/package-lock.json
-            events/oaic-harness-2026/package-lock.json
             events/agentic-hackathon-paris-2026/package-lock.json
-            events/agentic-cosmos-2026/package-lock.json
-            events/agent2app-2026/package-lock.json
-
-      - name: Install Hub dependencies
-        run: npm ci --prefix hub
-
-      - name: Install OAIC Harness dependencies
-        run: npm ci --prefix events/oaic-harness-2026
-
-      - name: Install Paris Agentic Hackathon dependencies
-        run: npm ci --prefix events/agentic-hackathon-paris-2026
-
-      - name: Install Cosmos Agentic Hackathon dependencies
-        run: npm ci --prefix events/agentic-cosmos-2026
-
-      - name: Install Agentic App dependencies
-        run: npm ci --prefix events/agent2app-2026
-
-      - name: Prepare pinned Agent Observer platform
-        if: vars.COSMOS_PLATFORM_ENABLED == 'true'
-        run: npm run prepare:platform
-
-      - name: Check platform routing
-        run: npm run test:platform
-
-      - name: Build complete site
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Hub and Paris dependencies
+        run: |
+          npm ci --prefix hub
+          npm ci --prefix events/agentic-hackathon-paris-2026
+      - name: Check routing and release validation
+        run: |
+          npm run test:platform
+          npm run test:releases
+          npm test --prefix hub
+      - name: Build complete site from successful event releases
         run: npm run build
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          VITE_SITE_URL: https://create.gosim.org/factory26
+          GH_TOKEN: ${{ github.token }}
           PARIS_VITE_SUPABASE_URL: ${{ secrets.PARIS_VITE_SUPABASE_URL }}
           PARIS_VITE_SUPABASE_ANON_KEY: ${{ secrets.PARIS_VITE_SUPABASE_ANON_KEY }}
-          PARIS_VITE_SITE_URL: https://create.gosim.org/agenticparis26
-          COSMOS_VITE_SUPABASE_URL: ${{ secrets.COSMOS_VITE_SUPABASE_URL }}
-          COSMOS_VITE_SUPABASE_ANON_KEY: ${{ secrets.COSMOS_VITE_SUPABASE_ANON_KEY }}
-          COSMOS_VITE_SITE_URL: https://create.gosim.org/survey26
-          COSMOS_PLATFORM_ENABLED: ${{ vars.COSMOS_PLATFORM_ENABLED }}
-          COSMOS_VITE_AGENT_OBSERVER_URL: ${{ vars.COSMOS_VITE_AGENT_OBSERVER_URL }}
-          COSMOS_VITE_AGENT_OBSERVER_LEADERBOARD_API: ${{ vars.COSMOS_VITE_AGENT_OBSERVER_LEADERBOARD_API }}
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Verify assembled site
+        run: node scripts/verify-site.mjs
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-
   deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - uses: actions/configure-pages@v5
+      - id: deployment
         uses: actions/deploy-pages@v4

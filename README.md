@@ -1,89 +1,84 @@
-# GOSIM Hackathons
+# GOSIM Hackathons — shared domain publisher
 
-Single GitHub Pages repository for `create.gosim.org`.
+This repository owns the hub at **https://create.gosim.org/**, the archived
+Paris event, and the final GitHub Pages deployment. The active events are now
+maintained and built independently:
 
-## Repository layout
+| Website | Source repository | Local development |
+| --- | --- | --- |
+| `/factory26/` | [gosimfoundation/factory26](https://github.com/gosimfoundation/factory26) | `npm ci && npm run dev` |
+| `/survey26/` → `/survey26/platform/` | [gosimfoundation/agent-observer](https://github.com/gosimfoundation/agent-observer) | `npm ci --prefix web && npm run dev --prefix web` |
+| `/agenticapp26/` | [gosimfoundation/agenticapp26](https://github.com/gosimfoundation/agenticapp26) | `npm ci && npm run dev` |
+| `/agenticparis26/` | `events/agentic-hackathon-paris-2026/` in this repository | `npm run dev:agentic-hackathon-paris-2026` |
 
-```text
-hub/                              # create.gosim.org/
-events/oaic-harness-2026/         # /factory26/
-events/agentic-hackathon-paris-2026/
-                                  # /agenticparis26/
-events/agentic-cosmos-2026/       # /survey26/
-events/agent2app-2026/            # /agenticapp26/
-scripts/build-site.mjs            # assembles the Pages artifact
-```
+**请在对应的新仓库修改活动网站。旧的本地项目不会自动切换，请重新克隆并在编辑器中打开新仓库。**
+See [migration and team handoff](docs/repository-migration.md).
 
-Each event is an independent application with its own `package.json`, lockfile,
-source code, and maintainers. Event teams should limit pull requests to their
-event directory unless a shared deployment change is required.
+## Publishing
 
-## Local development
+Each active event publishes a versioned GitHub Release only after its build
+succeeds. This repository downloads and verifies those artifacts, builds the
+hub and Paris, then assembles one GitHub Pages site. Public URLs, DNS, databases,
+and authentication callback URLs are unchanged.
 
-Install dependencies once per application:
+`config/event-sites.json` selects each source repository and release (`latest`
+by default). A failed event build leaves its previous successful release in use.
+Download, checksum, or assembly failures abort the deployment and leave the live
+site intact. `deployment.json` at the site root records exactly what is deployed.
+
+The existing five-minute schedule collects new releases and refreshes Factory's
+ARC-Bench leaderboard snapshot. GitHub schedules can be delayed. Run **Deploy
+hackathon sites to GitHub Pages** manually for an immediate collection after an
+event release succeeds. No cross-repository personal access token is needed.
+
+Rollback: change an event's `release` to a known-good `site-...` tag and redeploy.
+Set it back to `latest` to resume automatic collection.
+
+## Local development and verification
+
+Use Node.js 22, Python 3.12+, and GitHub CLI (`gh auth login`).
 
 ```bash
 npm ci --prefix hub
-npm ci --prefix events/oaic-harness-2026
 npm ci --prefix events/agentic-hackathon-paris-2026
-npm ci --prefix events/agentic-cosmos-2026
-npm ci --prefix events/agent2app-2026
-```
-
-Run one application:
-
-```bash
 npm run dev:hub
-npm run dev:oaic-harness-2026
-npm run dev:agentic-hackathon-paris-2026
-npm run dev:agentic-cosmos-2026
-npm run dev:agent2app-2026
 ```
 
-Build the complete Pages artifact:
+Build and preview the complete site (requires network access to GitHub releases):
 
 ```bash
 npm run build
+npm run preview
 ```
 
-The result is written to `_site/`. GitHub Actions deploys that directory as one
-Pages site.
+For local Paris authentication, set `PARIS_VITE_SUPABASE_URL` and
+`PARIS_VITE_SUPABASE_ANON_KEY`. CI retains the existing Paris repository secrets.
+The hub obtains Factory and Survey's public project URLs from release manifests.
 
-## Password reset redirects
+```bash
+npm run test:platform
+npm run test:releases
+npm test --prefix hub
+node scripts/verify-site.mjs  # after building
+```
 
-Each event's Supabase project should use its event URL as the Auth Site URL and
-allow its callback URL under **Authentication → URL Configuration → Redirect URLs**:
+## Authentication and routes
 
-| Project | Site URL | Allowed reset callback |
-| --- | --- | --- |
-| Factory26 | `https://create.gosim.org/factory26` | `https://create.gosim.org/factory26` and `https://create.gosim.org/factory26/` |
-| Paris | `https://create.gosim.org/agenticparis26` | `https://create.gosim.org/agenticparis26` and `https://create.gosim.org/agenticparis26/` |
-| Survey26 | `https://create.gosim.org/survey26` | `https://create.gosim.org/survey26/register` |
+Keep existing Supabase Site URLs and allowed callbacks:
 
-Keep the standard reset email's `{{ .ConfirmationURL }}` link so Supabase verifies
-the recovery request before returning to the app. See the
-[Supabase redirect URL documentation](https://supabase.com/docs/guides/auth/redirect-urls).
+| Event | Site URL / allowed reset callback |
+| --- | --- |
+| Factory | `https://create.gosim.org/factory26` and trailing-slash variant |
+| Paris | `https://create.gosim.org/agenticparis26` and trailing-slash variant |
+| Survey platform | `https://create.gosim.org/survey26/platform` / `/survey26/platform/register` |
 
-The hub also forwards legacy root auth callbacks, preserving the query and hash.
-Build-time public Supabase project URLs select the event; callbacks without a
-matching issuer use Factory26, which previously occupied the root. Tokens are
-validated by the destination app's Supabase client, not by the hub.
+The root 404 handler restores event deep links and recovery fragments. The hub
+also forwards legacy root authentication callbacks. Its unmatched-issuer fallback
+continues to be Factory, which previously occupied the root.
 
-Run redirect regression tests with `npm test --prefix hub`. To verify a real
-reset after deployment, request a fresh email, open it in a signed-out browser,
-confirm the new-password form appears, and confirm login with the new password.
+## Add an event
 
-## Add another event
-
-1. Create `events/<event-slug>/` with its own application and lockfile.
-2. Configure the application to build with `/<event-slug>/` as its base path.
-3. Add the event to `hub/src/events.ts`.
-4. Add the event build to `scripts/build-site.mjs` and the dependency install to
-   `.github/workflows/deploy.yml`.
-5. Add the slug to `hub/public/404.html` so deep links can be restored.
-6. Add the slug to `scripts/serve-site.mjs` so local preview deep links work.
-7. Add directory ownership rules once the event's GitHub team is known.
-
-The event slug configured by the root build is the public URL segment; it does
-not need to match the source directory. Renaming a public slug requires an
-explicit redirect from the former URL.
+Create an independent event repository with a versioned site release workflow,
+add its identity and required entry points to `config/event-sites.json`, and
+update `hub/src/events.ts`, the root 404 routing, local preview routing, and
+verification coverage. Preserve established public URL segments.

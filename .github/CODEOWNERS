@@ -1,3 +1,4 @@
-# The participant platform pin decides which build /survey26/platform/ serves.
-# Changes here are routed to the platform maintainer for a look.
-/scripts/agent-observer.json @BH3GEI
+# Event ownership moved to the independent repositories listed in config/event-sites.json.
+/config/ @hzeng8
+/scripts/ @hzeng8
+/.github/workflows/ @hzeng8

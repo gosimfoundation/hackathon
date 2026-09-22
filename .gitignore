@@ -16,3 +16,4 @@ src/**/*.js
 supabase/.temp/
 supabase/.branches/
 .gstack/
+__pycache__/

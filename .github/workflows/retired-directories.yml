@@ -1,0 +1,21 @@
+name: Retired event directories
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Active event source must stay in its own repository
+        run: |
+          set -euo pipefail
+          for directory in events/oaic-harness-2026 events/agentic-cosmos-2026 events/agent2app-2026; do
+            if test -d "$directory"; then
+              echo "::error::${directory} has moved. See README.md for its new repository."
+              exit 1
+            fi
+          done
