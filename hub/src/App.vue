@@ -74,12 +74,6 @@ function toggleLocale() {
         <div class="current-grid">
           <article v-for="hackathon in currentHackathons" :key="hackathon.slug" class="event-record" :class="`event-${hackathon.slug}`">
             <div class="event-main">
-              <div class="event-heading">
-                <p class="organizer">{{ hackathon.organizer }}</p>
-                <div class="event-actions">
-                  <a class="event-cta" :href="hackathon.href">{{ pick('Visit website', '访问活动网站') }} <span aria-hidden="true">↗</span></a>
-                </div>
-              </div>
               <h2 :id="`current-${hackathon.slug}-title`">{{ splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).title }}<span v-if="splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).subtitle" class="subtitle">{{ splitName(locale === 'en' ? hackathon.name : hackathon.nameZh).subtitle }}</span></h2>
               <p class="event-description">{{ locale === 'en' ? hackathon.description : hackathon.descriptionZh }}</p>
             </div>
@@ -92,12 +86,13 @@ function toggleLocale() {
 
               <div class="host-note">
                 <p>{{ pick('Live finale at', '线下终场举办于') }}</p>
-                <strong>GOSIM {{ locale === 'en' ? currentEdition.city : currentEdition.cityZh }} {{ currentEdition.year }}</strong>
+                <strong>GOSIM {{ currentEdition.city }} {{ currentEdition.year }}</strong>
                 <span>{{ locale === 'en' ? currentEdition.dates : currentEdition.datesZh }} · {{ locale === 'en' ? currentEdition.venue : currentEdition.venueZh }}</span>
                 <a :href="currentEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference site', '大会官网') }} ↗</a>
               </div>
 
             </aside>
+            <a class="event-cta" :href="hackathon.href">{{ pick('Visit website', '访问活动网站') }} <span aria-hidden="true">↗</span></a>
           </article>
         </div>
       </section>
