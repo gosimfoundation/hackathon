@@ -23,7 +23,11 @@
     "previousRepositories": [
       "gosimfoundation/agent-observer",
       "gosimfoundation/survey26"
-    ]
+    ],
+    "retainPreviousAssets": {
+      "count": 10,
+      "dirs": ["assets", "platform/assets"]
+    }
   },
   {
     "slug": "agenticapp26",
