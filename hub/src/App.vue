@@ -36,7 +36,7 @@ function toggleLocale() {
 <template>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="https://create.gosim.org/" aria-label="GOSIM Create home">
+      <a class="brand" href="https://create.gosim.org/" :aria-label="pick('GOSIM Create home', 'GOSIM Create 首页')">
         <img src="/images/gosim-logo.svg" alt="GOSIM" />
         <span>Create</span>
       </a>
@@ -52,7 +52,7 @@ function toggleLocale() {
 
     <main>
       <section class="hero" aria-labelledby="page-title">
-        <img class="hero-image" src="/images/hackathon-hero.jpg" :alt="pick('Builders working together at GOSIM Paris 2026', 'GOSIM Paris 2026 开发者共创现场')" />
+        <img class="hero-image" src="/images/hackathon-hero.jpg" :alt="pick('Builders working together at GOSIM Paris 2026', 'GOSIM 巴黎 2026 开发者共创现场')" />
         <div class="hero-overlay" aria-hidden="true"></div>
         <div class="hero-content">
           <p class="eyebrow">GOSIM / Create</p>
@@ -60,7 +60,7 @@ function toggleLocale() {
           <p>{{ pick("The home of GOSIM hackathons—bringing open-source builders together through focused challenges at GOSIM events around the world.", 'GOSIM 旗下黑客松的共同主页，让全球开源开发者围绕专注挑战，在世界各地的 GOSIM 活动中共同创造。') }}</p>
           <a class="hero-link" href="#current">{{ pick('View upcoming hackathons', '查看近期黑客松') }} <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="hero-caption">GOSIM Paris 2026 / STATION F</p>
+        <p class="hero-caption">{{ pick('GOSIM Paris 2026 / STATION F', 'GOSIM 巴黎 2026 / STATION F') }}</p>
       </section>
 
       <section id="current" class="event-section current-section" aria-labelledby="current-section-title">
@@ -85,8 +85,8 @@ function toggleLocale() {
               </dl>
 
               <div class="host-note">
-                <p>{{ pick('Live finale at', '线下终场举办于') }}</p>
-                <strong>GOSIM {{ currentEdition.city }} {{ currentEdition.year }}</strong>
+                <p>{{ pick('Live event at', '线下活动举办于') }}</p>
+                <strong>GOSIM {{ locale === 'en' ? currentEdition.city : currentEdition.cityZh }} {{ currentEdition.year }}</strong>
                 <span>{{ locale === 'en' ? currentEdition.dates : currentEdition.datesZh }} · {{ locale === 'en' ? currentEdition.venue : currentEdition.venueZh }}</span>
                 <a :href="currentEdition.href" target="_blank" rel="noreferrer">{{ pick('Conference site', '大会官网') }} ↗</a>
               </div>
