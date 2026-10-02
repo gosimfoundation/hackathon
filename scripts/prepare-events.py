@@ -32,6 +32,65 @@ def unpack(archive, destination):
                     shutil.copyfileobj(source, output)
 
 
+def download_checked(repo, tag, directory):
+    """Download and checksum a release's site.tar.gz; returns the archive path, or None if the
+    release has no site assets left (e.g. pruned) or fails its checksum."""
+    try:
+        gh('release', 'download', tag, '--repo', repo, '--dir', str(directory),
+           '--pattern', 'site.tar.gz', '--pattern', 'site.tar.gz.sha256')
+    except subprocess.CalledProcessError:
+        return None
+    archive = directory / 'site.tar.gz'
+    checksum_file = directory / 'site.tar.gz.sha256'
+    if not archive.is_file() or not checksum_file.is_file():
+        return None
+    expected = checksum_file.read_text().split()[0]
+    digest = hashlib.sha256()
+    with archive.open('rb') as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(chunk)
+    if digest.hexdigest() != expected:
+        return None
+    return archive
+
+
+def merge_previous_assets(destination, event, repo, latest_tag, cache):
+    """A long-open tab can still be running a previous build; its lazy-loaded chunks must keep
+    resolving after this deploy. Pull the hashed asset files (never colliding by name) out of the
+    last few published releases and add any this build doesn't already have, additively."""
+    retain = event.get('retainPreviousAssets')
+    if not retain:
+        return 0
+    keep, dirs = retain.get('count', 10), retain['dirs']
+    listing = json.loads(gh('release', 'list', '--repo', repo, '--limit', str(keep * 3),
+                             '--json', 'tagName,isDraft,isPrerelease,createdAt'))
+    previous_tags = [item['tagName'] for item in sorted(listing, key=lambda item: item['createdAt'], reverse=True)
+                      if not item['isDraft'] and not item['isPrerelease']
+                      and item['tagName'].startswith('site-') and item['tagName'] != latest_tag][:keep - 1]
+    added = 0
+    for tag in previous_tags:
+        with tempfile.TemporaryDirectory(prefix='prev-release-', dir=cache) as temp:
+            temp = Path(temp)
+            archive = download_checked(repo, tag, temp)
+            if archive is None:
+                print(f'Skipping {repo} {tag}: release assets unavailable or checksum mismatch')
+                continue
+            extracted = temp / 'extracted'
+            extracted.mkdir()
+            unpack(archive, extracted)
+            for rel_dir in dirs:
+                source_dir = extracted / rel_dir
+                if not source_dir.is_dir():
+                    continue
+                target_dir = destination / rel_dir
+                target_dir.mkdir(parents=True, exist_ok=True)
+                for file in source_dir.iterdir():
+                    if file.is_file() and not (target_dir / file.name).exists():
+                        shutil.copy2(file, target_dir / file.name)
+                        added += 1
+    return added
+
+
 def validate(directory, event):
     manifest = json.loads((directory / 'site-manifest.json').read_text())
     if (manifest.get('schemaVersion') != 1 or manifest.get('slug') != event['slug']
@@ -83,7 +142,8 @@ def prepare(root=ROOT):
                 raise ValueError(f'{repo}: release tag and source revision disagree')
             versions[slug] = {**manifest, 'release': tag, 'sha256': actual}
             shutil.rmtree(downloads)
-            print(f"Prepared {repo} {tag}", flush=True)
+            added = merge_previous_assets(destination, event, repo, tag, cache)
+            print(f"Prepared {repo} {tag}" + (f" (+{added} asset(s) kept from earlier builds)" if added else ""), flush=True)
         (staging / 'versions.json').write_text(json.dumps(versions, indent=2) + '\n')
         target = cache / 'event-sites'
         if target.exists():
