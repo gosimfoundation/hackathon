@@ -1,0 +1,61 @@
+# Temporary: same as deploy.yml but on a self-hosted runner, for use while GitHub-hosted runners are unavailable.
+name: Deploy hackathon sites (self-hosted hotfix)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-hotfix-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: [self-hosted, survey26-hotfix]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            hub/package-lock.json
+            events/agentic-hackathon-paris-2026/package-lock.json
+      - name: Install Hub and Paris dependencies
+        run: |
+          npm ci --prefix hub
+          npm ci --prefix events/agentic-hackathon-paris-2026
+      - name: Check routing and release validation
+        run: |
+          npm run test:platform
+          npm run test:releases
+          npm test --prefix hub
+      - name: Build complete site from successful event releases
+        run: npm run build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PARIS_VITE_SUPABASE_URL: ${{ secrets.PARIS_VITE_SUPABASE_URL }}
+          PARIS_VITE_SUPABASE_ANON_KEY: ${{ secrets.PARIS_VITE_SUPABASE_ANON_KEY }}
+      - name: Verify assembled site
+        run: node scripts/verify-site.mjs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: [self-hosted, survey26-hotfix]
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - id: deployment
+        uses: actions/deploy-pages@v4
